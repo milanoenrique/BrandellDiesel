@@ -1,0 +1,198 @@
+alter table public.parts   add status_order character varying;
+alter table public.parts   add id serial;
+
+
+INSERT INTO public.config (
+	keyname, keyvalue, description, appuser) VALUES ('COLORFLAG','Orange', 'Ordered','carlosperdigon@gmail.com');
+
+INSERT INTO public.config (
+	keyname, keyvalue, description, appuser) VALUES ('REQSTATUS','OR', 'ordered','carlosperdigon@gmail.com');
+ 
+--Funciones 
+
+-- FUNCTION: public.dashboard_lookup2(character varying)
+
+-- DROP FUNCTION public.dashboard_lookup2(character varying);
+
+CREATE OR REPLACE FUNCTION public.dashboard_lookup2(
+	iniduser character varying)
+    RETURNS TABLE(jobnumber character varying, techname text, status character varying, deadline timestamp without time zone, assignedto text, colorflag character varying, visualeffect character, idrequest integer, idrequesttype character varying, reqcomment character varying, idpriority character varying, requestdate timestamp without time zone) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$BEGIN
+RETURN query
+SELECT dashboard.ro jobnumber, dashboard.techname, dashboard.status, dashboard.deadline, dashboard.assignedto, dashboard.colorflag, dashboard.visualeffect, dashboard.idrequest, dashboard.idrequesttype, dashboard.reqcomment,dashboard.idpriority, dashboard.requestdate::TIMESTAMP
+FROM
+(
+SELECT r.idrequest, r.idrequesttype,r.idpriority, t.tstart, t.tend,  EXTRACT(EPOCH FROM  current_timestamp - r.requestdate)/ 60 as reqminutes,
+       r.ro, r.appuser, u.surname ||' '||u.lastname as techname, c.description as status,
+       r.requestdate, deadline_lookup(r.idrequest) as deadline, 
+       r.assignedto, t.colorflag, t.visualeffect, r.reqcomment, 1 dashboardorder
+FROM (SELECT r1.*, ue.surname ||' '||ue.lastname as assignedto FROM requests r1 LEFT JOIN users ue ON r1.idspecialist = ue.iduser) r, 
+     thresholds t, users u, config c
+WHERE r.idrequesttype = t.idrequesttype AND r.idpriority= t.idpriority
+AND t.tstart <= EXTRACT(EPOCH FROM  current_timestamp - r.requestdate)/ 60 
+AND (t.tend >= (EXTRACT(EPOCH FROM  current_timestamp - r.requestdate)/ 60) OR t.tend IS NULL)
+AND reqstatus IN ('NA','O','OR') -- All pending or in progress requests
+AND r.appuser = u.iduser
+AND c.keyname = 'REQSTATUS' AND r.reqstatus = c.keyvalue
+AND ((inIdUser = '' AND r.appuser = r.appuser) OR (r.appuser = inIdUser))
+UNION
+SELECT r.idrequest, r.idrequesttype, r.idpriority, 0, 0,  EXTRACT(EPOCH FROM  current_timestamp - r.requestdate)/ 60 as reqminutes,
+       r.ro, r.appuser, u.surname ||' '||u.lastname as techname, c.description as status,
+       r.requestdate, null as deadline, 
+       r.assignedto, 'B', 'N', r.reqcomment, 9 dashboardorder
+FROM (SELECT r1.*, ue.surname ||' '||ue.lastname as assignedto FROM requests r1 LEFT JOIN users ue ON r1.idspecialist = ue.iduser) r, 
+     users u, config c
+WHERE (laststatusdate_lookup(r.idrequest) > (NOW() - '1 day'::INTERVAL) AND reqstatus = ('C')) -- Closed requests current day
+AND r.appuser = u.iduser
+AND c.keyname = 'REQSTATUS' AND r.reqstatus = c.keyvalue
+AND ((inIdUser = '' AND r.appuser = r.appuser) OR (r.appuser = inIdUser))
+ORDER BY dashboardorder, idpriority, deadline
+) dashboard;
+END;
+$BODY$;
+
+ALTER FUNCTION public.dashboard_lookup2(character varying)
+    OWNER TO postgres;
+
+-- FUNCTION: public.status_order()
+
+-- DROP FUNCTION public.status_order();
+
+CREATE OR REPLACE FUNCTION public.status_order(
+	)
+    RETURNS TABLE(jobnumber_part character varying, seg_part integer, description_part character varying, quantity_part numeric, status_order_part character varying, creation_date_part timestamp with time zone, last_update_part timestamp with time zone) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$
+BEGIN
+RETURN query
+			SELECT requests.jobnumber, parts.seg, parts.description, parts.quantity, initcap(parts.status_order)::character varying, parts.creation_date, parts.last_update_part from parts, requests 
+			where (((((parts.last_update_part::date + interval '24 hour' ) > current_date) and parts.status_order = 'received') or
+			((parts.last_update_part::date + interval '24 hour') > current_date and parts.status_order = 'canceled') or
+			parts.status_order = 'ordered')) and parts.idrequest=requests.idrequest order by parts.id desc;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public.status_order()
+    OWNER TO postgres;
+
+    -- FUNCTION: public.status_verify(integer, character varying)
+
+-- DROP FUNCTION public.status_verify(integer, character varying);
+
+CREATE OR REPLACE FUNCTION public.status_verify(
+	inrequest integer,
+	instatus character varying)
+    RETURNS TABLE(num_parts bigint) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$
+BEGIN
+RETURN query
+		select count(*) from parts where status_order=instatus and idrequest=inrequest;
+END;
+$BODY$;
+
+ALTER FUNCTION public.status_verify(integer, character varying)
+    OWNER TO postgres;
+
+
+-- FUNCTION: public.status_verify_total(integer)
+
+-- DROP FUNCTION public.status_verify_total(integer);
+
+CREATE OR REPLACE FUNCTION public.status_verify_total(
+	inrequest integer)
+    RETURNS TABLE(num_parts bigint) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $BODY$
+BEGIN
+RETURN query
+		select count(*) from parts where idrequest=inrequest;
+END;
+$BODY$;
+
+ALTER FUNCTION public.status_verify_total(integer)
+    OWNER TO postgres;
+
+
+-- FUNCTION: public.update_request_ordered(bigint)
+
+-- DROP FUNCTION public.update_request_ordered(bigint);
+
+CREATE OR REPLACE FUNCTION public.update_request_ordered(
+	inidrequest bigint)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$BEGIN
+UPDATE requests
+set reqstatus = 'OR', idpriority = 'M'
+where idrequest = inidrequest;
+RETURN inidrequest;
+END;$BODY$;
+
+ALTER FUNCTION public.update_request_ordered(bigint)
+    OWNER TO postgres;
+
+
+    -- FUNCTION: public.update_request_received(bigint)
+
+-- DROP FUNCTION public.update_request_received(bigint);
+
+CREATE OR REPLACE FUNCTION public.update_request_received(
+	inidrequest bigint)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$BEGIN
+UPDATE requests
+set reqstatus = 'C', idpriority = 'N'
+where idrequest = inidrequest;
+RETURN inidrequest;
+END;$BODY$;
+
+ALTER FUNCTION public.update_request_received(bigint)
+    OWNER TO postgres;
+
+-- FUNCTION: public.update_status_part(text, text)
+
+-- DROP FUNCTION public.update_status_part(text, text);
+
+CREATE OR REPLACE FUNCTION public.update_status_part(
+	inpart text,
+	instatus text)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+AS $BODY$BEGIN
+UPDATE parts
+set status_order = instatus, last_update_part = current_timestamp 
+where part = inpart;
+RETURN inpart;
+END;$BODY$;
+
+ALTER FUNCTION public.update_status_part(text, text)
+    OWNER TO postgres;

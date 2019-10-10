@@ -1,0 +1,117 @@
+/*
+///////////////////////////////////////////////////////
+// ----------------------------------------------------
+//  ____    ______  __  __                 ___     
+// /\  _`\ /\  _  \/\ \/\ \              /'___`\   
+// \ \,\L\_\ \ \L\ \ \ \ \ \      __  __/\_\ /\ \  
+//  \/_\__ \\ \  __ \ \ \ \ \    /\ \/\ \/_/// /__ 
+//    /\ \L\ \ \ \/\ \ \ \_\ \   \ \ \_/ | // /_\ \
+//    \ `\____\ \_\ \_\ \_____\   \ \___/ /\______/
+//     \/_____/\/_/\/_/\/_____/    \/__/  \/_____/ 
+// -----------------------------------------------------      
+//  SAU v2 Beta 1 Hecho por Jose de Jesus Herrera Mata
+//  http://www.jhcodes.com/ - jesuxherrerajhcodes.com                                  
+// -----------------------------------------------------       
+////////////////////////////////////////////////////////
+*/
+
+
+body{
+  font-family: 'Questrial', sans-serif;
+  background-color: #3aa0cc;
+}
+
+.login-welcome{
+    background: #3AA0CC;
+    color: #fff;
+}
+
+.engrame{
+   color: #3AA0CC; 
+}
+
+.btn-default{
+    color: #FFF;
+    background-color: #3aa0cc;
+    border-color: #3aa0cc;
+}
+
+.btn-default:hover{
+    color: #FFF;
+    background-color: #3AA0CC;
+    border-color: #3AA0CC;
+}
+
+.btn-default.focus, .btn-default:focus {
+    color: #fff;
+    background-color: #3aa0cc;
+    border-color: #3aa0cc;
+}
+
+
+.navbar-inverse {
+    background-color: #3c454f;
+    border-color: #3c454f;
+}
+
+.sidebar {
+    /*background-color: #3aa0cc;*/
+	background-color: #00a94f;
+	/*background-color: #18BC9C;*/
+    border-right: 1px solid #3aa0cc;
+}
+
+.dashboard-panel{
+	background-color: #E8E8E8;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #FFF;
+}
+
+.nav-sidebar > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+    color: #3c444f;
+    background-color: #ffffff;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #3c444f;
+}
+
+.message-item:before {
+    background: #3AA0CC;
+}
+
+.message-item:after {
+    background: #3AA0CC;
+    border: 1px solid #3AA0CC;
+}
+
+
+.message-item .message-head .message-icon {
+    background-color: #3AA0CC;
+}
+
+.user-cube {
+    color: #FFF;
+    background-color: #3aa0cc;
+}
+
+.user-cube > .btn-default {
+    color: #FFF;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.user-cube > .btn-default:hover {
+    color: #3c444f;
+    background-color: #055A84;
+    border-color: #055A84;
+}
+
+.configuracion-cube h4 {
+    background: #3AA0CC;
+}
+

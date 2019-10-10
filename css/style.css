@@ -1,0 +1,299 @@
+/*
+////////////////////////////////////////////////////////
+//  ____    ____  ______   ______      ____
+// /\   \   \   \/\   ___\/\____  \  _/    \
+// \ \    \_\    \ \  \____/ ____\ \/\___   \
+//  \ \   _   _   \ \___   \/\  ____\/___/\  \ 
+//   \ \  \ \_\ \  \  ___\  \ \ \_____  _\/   \_
+//    \ \__\/_/\ \__\/\______\ \______\/\_______\ 
+//     \/__/    \/__/\/______/\/______/\/_______/
+// ----------------------------------------------------
+// 	Sistema Medico  (RYZ-Camaleon)
+//	Empresa Dasarolladora: MS21Consulting C.A.
+//	Clase que gestiona la conexion a base de datos
+//	@category   Configuracion
+//	@package    base de datos
+//	@copyright  Copyright (c) 2016 ms21consulting.com.ve
+//	@manager    CP
+//	@version    $Id:$
+// ----------------------------------------------------     
+////////////////////////////////////////////////////////
+*/
+
+@import url("font-awesome.min.css");
+@import url("bootstrap.min.css");
+@import url("ionicons.min.css");
+@import url("responsive.css");
+@import url("dashboard.css");
+@import url("animate.css");
+
+label{
+    font-weight: 300;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    float: left;
+}
+
+a,button{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+
+code {
+    padding: 7px 10px;
+    font-size: 100%;
+    color: #FFF;
+    background-color: transparent;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    font-family: 'Questrial', sans-serif;
+}
+
+#login{
+	width: 400px;
+	margin: 150px auto;
+}
+
+#login .form-control {
+    border-radius: 0px;
+    height: 30px;
+ }
+
+#login img{
+    width: 180px;
+    border-radius: 0%;
+    display: inline-block;    
+}
+
+#publish{
+    background-color: #f7f9fa;
+    border: 1px solid #eff2f3;    
+}
+
+.well {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    float: left;
+    width: 100%;
+}
+
+.alert-danger {
+    color: #ffffff;
+    background-color: #C53330;
+    border-color: #C53330;
+    float: left;
+    width: 100%;
+}
+
+.alert-success {
+    color: #ffffff;
+    background-color: #379C38;
+    border-color: #379C38;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #FFFFFF;
+}
+
+.navbar-inverse .navbar-nav>li>a.logout-btn:focus, .navbar-inverse .navbar-nav>li>a.logout-btn:hover {
+    color: #fff;
+    background-color: #00a94f;
+	/*background-color: #18BC9C;*/
+	/* background-color: #D81919; */
+}
+
+.nav-sidebar > li > a {
+    color: #fff;
+}
+
+
+/* Share Post */
+.qa-message-list{
+    float: left;
+    width: 100%;    
+}
+
+.message-item {
+margin-top: 25px;
+margin-bottom: 25px;
+margin-left: 25px;
+position: relative;
+}
+.message-item .message-inner {
+background: #f7f9fa;
+border: 1px solid #eff2f3;
+border-radius: 3px;
+padding: 10px;
+position: relative;
+}
+.message-item .message-inner:before {
+border-right: 5px solid #eff2f3;
+border-style: solid;
+border-width: 5px;
+color: rgba(0,0,0,0);
+content: "";
+display: block;
+height: 0;
+position: absolute;
+left: -10px;
+top: 10px;
+width: 0;
+}
+.message-item .message-inner:after {
+border-right: 5px solid #f7f9fa;
+border-style: solid;
+border-width: 5px;
+color: rgba(0,0,0,0);
+content: "";
+display: block;
+height: 0;
+position: absolute;
+left: -9px;
+top: 10px;
+width: 0;
+}
+.message-item:before {
+background: #eff2f3;
+border-radius: 2px;
+bottom: -28px;
+content: "";
+height: 100%;
+left: -14px;
+position: absolute;
+width: 1px;
+}
+.message-item:after {
+background: #fff;
+border: 1px solid #2e9df7;
+border-radius: 50%;
+content: "";
+height: 11px;
+left: -19px;
+position: absolute;
+top: 10px;
+width: 11px;
+}
+.clearfix:before, .clearfix:after {
+content: " ";
+display: table;
+}
+.message-item .message-head {
+border-bottom: 1px solid #eee;
+margin-bottom: 8px;
+padding-bottom: 8px;
+}
+.message-item .message-head .message-icon {
+background-color: #8560a8;
+padding: 10px 12px;
+margin-right: 10px;
+border-radius: 50%;
+-o-border-radius: 50%;
+-ms-border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+}
+.message-item .message-head .message-icon a i{
+color: #fff;
+font-size: 1.3em;
+}
+.message-item .message-head .user-detail {
+overflow: hidden;
+}
+.message-item .message-head .user-detail h5 {
+font-size: 1.2em;
+color: #585b5e;
+margin: 0;
+margin-bottom: 2px;
+text-align: left;
+}
+.message-item .message-head .post-type >p {
+color: #8560a8;
+font-weight: bold;
+text-transform: uppercase;
+font-size: .7em;
+margin: 0;
+line-height: 17px;
+}
+.message-item .message-head .post-time {
+float: left;
+}
+.message-item .message-head .post-time >p {
+color: #858b8f;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-size: .8em;
+line-height: 15px;
+margin: 0;
+}
+.message-item .qa-message-content p {
+text-align: left;
+color: #585b5e;
+font-size: 16px;
+margin: 0;
+}
+
+.publicaciones {
+padding: 10px;
+background: #F7F9FA;
+border-radius: 4px;
+margin-top: 10px;
+}
+
+.comentario{
+font-size: 13px;
+}
+
+.comentario > .message-inner > .qa-message-content p{
+text-align: left;
+color: #585b5e;
+font-size: 13px;
+margin: 0;
+}
+
+.user-cube {
+    border-radius: 4px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.user-cube h5{
+    margin-top: 10px;
+    margin-bottom: 10px;   
+}
+
+
+.configuracion-cube h4 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: block;
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 4px;
+}
+
+.error{
+    display: block;
+    width: 100%;
+    color: #E40202;
+    font-weight: bold;
+    text-align: left;   
+}
+
+.buttons-content{
+    position: absolute;
+    right: 10px;
+    top: 19px;
+}
+
+.login-welcome{
+    display: inline-block;
+    color: #fff;
+    padding: 7px 15px;
+    border-radius: 4px;    
+}

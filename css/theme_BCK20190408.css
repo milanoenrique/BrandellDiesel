@@ -1,0 +1,196 @@
+﻿.cell-corner{
+    position: relative;
+}
+.cell-corner:after {
+    content:'';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 8px 8px 0;
+    border-color: transparent red transparent transparent;
+}
+.fixed-table-body 
+{
+    overflow-x: hidden !important;
+}
+.type-options
+{
+    font-weight: bold !important;
+}
+.dropdown-menu{
+    min-width: 180px;
+}
+ body {
+    font-family: sans-serif!important;
+ }
+ #myModalWriteUp .modal-dialog, .modalWriteupShows .modal-dialog{
+    width: 70%!important;
+ }
+.modal-body.table-responsive{
+    overflow:unset;
+}
+
+#myModalPartsRequesition .modal-dialog{
+    width: 70%!important;
+}
+#modal-edit .modal-dialog{
+    width: 70%!important;
+}
+#modal-view .modal-dialog{
+    width: 70%!important;
+}
+#modal-details .modal-dialog{
+    width: 60%!important;
+}
+
+.table-responsive{
+    overflow-y: visible;  
+    overflow-x: scroll; 
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    .fixed-table-body {
+        overflow-x: visible !important;
+        overflow-y: none !important;
+    }
+
+    
+.fixed-calendar .fixed-table-body{
+    overflow-y:visible!important;
+    }
+
+    .fixmodalbugscss > div.modal-dialog{
+        width: 60%!important;
+        }
+        
+        .fixmodalbugscss .form-horizontal{
+        margin-right: -9%;
+        }
+        
+        .fixmodalbugscss .modal-footer{
+        padding-right: 2%;
+        }
+
+
+        .red-tooltip + .tooltip > .tooltip-inner {
+            background-color: #FEEFB3 !important;
+            white-space: pre-wrap;
+            color: black;
+            text-align: left;
+        }
+        .tooltip.top{
+                font-size: 8pt;
+                font-weight: 600;
+                width: max-content;
+
+        }
+        .tooltip-arrow{
+                border-top-color: #FEEFB3 !important;
+        }
+        .tooltip.in{
+            opacity: 1;
+        }
+
+        .textarea-bug{
+            
+            float: left;
+            width: 100%;
+            padding-right: 20px;
+
+        }
+
+        .textarea-bug textarea{
+            margin: auto;
+            width: 90%;
+        }
+
+        #table-parts tbody tr td{
+            position: relative;
+        }
+        .father{
+            position: absolute;
+            right: 7px;
+            top: 0;
+            height: 100%;
+            width: auto;
+        }
+        .father > div{
+            height: 100%;
+            display: table;
+        }
+
+        .father >div > div{
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .tooltip > .tooltip-inner>i {
+            font-weight: 600!important;
+            font-style: normal;
+        }
+        .tooltip-inner{
+            font-weight: 100;
+        }
+
+        @media (max-width: 1200px) {
+           
+            #view-techname{
+                width: auto !important;
+            }
+            .fix-modal-view{
+                padding-left: 4.5% !important;
+            }
+            .control-label{
+                padding-left: 2% !important;
+            }
+            #div-rd{
+                left: 1% !important;
+            }
+
+            .fix-align-letf{
+                padding-left: 5%;
+            }
+            .fixed-table-body 
+            {
+                overflow-x: auto !important;
+            }
+            .fixed-table-body {
+                    overflow-x: auto !important;
+                    overflow-y: none !important;
+                }
+
+          }
+
+          @media(max-width: 991px){
+             .modal-content  .form-control{
+                width: 93% !important;
+
+            }
+            #newpart-container{
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+            }
+
+            .panel-heading{
+                padding-bottom: 15% !important;
+            }
+
+		{
+.fixmodalbugscss .form-horizontal{
+margin:0px;
+}
+
+.fixmodalbugscss .form-group>div, #partsRequesition .form-group>div{
+padding: 0px 15px!important;
+}
+
+.fixed-table-body{
+overflow: scroll!important;
+}
+
+#pruebaImpresion > div.col-md-3{
+left: 0!important;
+}
+          }
