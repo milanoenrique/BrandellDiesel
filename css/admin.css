@@ -1,0 +1,28 @@
+/*
+///////////////////////////////////////////////////////
+// ----------------------------------------------------
+//  ____    ______  __  __                 ___     
+// /\  _`\ /\  _  \/\ \/\ \              /'___`\   
+// \ \,\L\_\ \ \L\ \ \ \ \ \      __  __/\_\ /\ \  
+//  \/_\__ \\ \  __ \ \ \ \ \    /\ \/\ \/_/// /__ 
+//    /\ \L\ \ \ \/\ \ \ \_\ \   \ \ \_/ | // /_\ \
+//    \ `\____\ \_\ \_\ \_____\   \ \___/ /\______/
+//     \/_____/\/_/\/_/\/_____/    \/__/  \/_____/ 
+// -----------------------------------------------------      
+//  SAU v2 Beta 1 Hecho por Jose de Jesus Herrera Mata
+//  http://www.jhcodes.com/ - jesuxherrerajhcodes.com                                  
+// -----------------------------------------------------       
+////////////////////////////////////////////////////////
+*/
+
+.paddingone{padding:1px;}
+.data-cubes{text-align:center; color:#FFF; padding:15px 1%; float:left; width:100%;}
+.data-cubes h1{margin:0px;}
+.data-cubes-1{background-color:#E80A0A;}
+.data-cubes-2{background-color:#FF9A04;}
+.data-cubes-3{background-color:#009CD8;}
+.data-cubes-4{background-color:#15B75D;}
+.graficas{margin-top:20px;}
+.table{margin-bottom: 0px;}
+.nopadding{padding:0px;}
+.modal-header {min-height: 16.43px;padding: 15px;border-bottom: 1px solid #e5e5e5;background: #3AA0CC;color: #fff;}
