@@ -450,7 +450,7 @@
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="1" checked> 1st </label>                                                     
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="2"> 2nd </label>
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="3"> 3rd </label>
-                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="4"> 4th </label>
+                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="4"> Termination </label>
                                                             </div>
                                                         </div>                                                      
                                                         <div class="form-group">
