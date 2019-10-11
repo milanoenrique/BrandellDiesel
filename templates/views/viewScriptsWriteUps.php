@@ -135,7 +135,7 @@
 										vWarning  = '<div style="color:orange;">! '+ value + '</div>'; 											
 									}
 									if (vWarning == "4") { 
-										vWarning  = '<div style="color:red;">! '+ value + '</div>'; 											
+										vWarning  = '<div style="color:red;">T</div>'; 											
 									}  
                                     return vWarning; 											
                                 } 
