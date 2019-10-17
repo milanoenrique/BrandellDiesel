@@ -612,7 +612,18 @@
                                 if(DATA.REQUESTS[0].idpriority === "H"){
     								vOType='9';
     							}
-
+                                let verify_status=false;
+                                let status_temp=null;
+                                parts.forEach(function(element){
+                                    status_temp = (status_temp==null)?element.status:status_temp;
+                                    verify_status = (status_temp==element.status)?true:false;
+                                    console.log(verify_status);
+                                });
+                                if(verify_status){
+                                   $("#modal-edit #reqstatus").prop("disabled", false);
+                                }else{
+                                    $("#modal-edit #reqstatus").prop("disabled", true);
+                                }
     							var $radios = $('#modal-edit input:radio[name=requestType]');
     							$radios.filter('[value='+vOType+']').prop('checked', true);
 
@@ -623,13 +634,21 @@
                                     $("#modal-edit #requestType").prop('checked', true);}
                                 else {
                                     $("#modal-edit #requestType").prop('checked', false);}*/
-
+                                    let status;
+                                    status = (DATA.REQUESTS[0].reqstatus=='O')?'Open':'Closed';
+                                    let status2 
+                                    status2=(status=='Open')?'Closed':'Open';
+                                    let value2 
+                                    value2= (status2=='Open')? 'O':'C';
+                                    console.log(status2);
+                                
     							$("#modal-edit #edit-techName").val(DATA.REQUESTS[0].techname);
                                 $("#modal-edit #edit-ro").val(DATA.REQUESTS[0].ro);
                                 $("#modal-edit #edit-vin").val(DATA.REQUESTS[0].vin);
                                 $("#modal-edit #edit-trans").val(DATA.REQUESTS[0].trans);
                                 $("#modal-edit #edit-engine").val(DATA.REQUESTS[0].engine);
                                 $("#modal-edit #edit-comments").val(DATA.REQUESTS[0].reqcomment);
+                                $("#modal-edit #reqstatus").append('<option value='+DATA.REQUESTS[0].reqstatus+'>'+status+'</option><option value='+value2+'>'+status2+'</option>');
 
                                  compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
 
@@ -1000,19 +1019,29 @@
 
                                                 }
 
-
-
                                                 if (add_class){
                                                     y= require_date.indexOf($(this).attr('id'));
                                                     if (y==-1){
                                                         require_date.push($(this).attr('id'));
-                                                    }
+                                                    } 
+                                                }
+                                                    let status=null;
+                                                    let flag=false;
+                                                $('.status_part').each(function(){
+                                                   status = (status==null)?$(this).val():status;
+                                                   flag=(status == $(this).val())?true:false;
+                                                   console.log(flag);
+                                                });
+                                                if(flag==true){
                                                     
+                                                    $("#modal-edit #reqstatus").prop("disabled", false);
+                                                }else{
+                                                    $("#modal-edit #reqstatus").prop("disabled", true);  
                                                 }
 
                                           
                                              
-                                              });
+                                            });
                                         }
                                         if(field==='date_of_delivery'){
                                             $("#modal-edit #table-parts").on('click','.fixdate', function (e){
@@ -2722,7 +2751,7 @@
                        
                     });
                 }
-                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|"  + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
+                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|" + $('#modal-edit #reqstatus').val() + "|" + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
                 real_date=[];
                 newPart_edit=[];
 
@@ -2960,10 +2989,9 @@
 
             // Advanced search
             $("#modal-filter #buttonApplyFilter").click(function(){
-
+              
             	var tabletarget=$(this).attr('data-tabletarget');
             	var filename=$(this).attr('data-filename');
-
                 iduser          = $("#modal-filter #techId").val();
                 startdate       = $("#modal-filter #startdate").val();
                 enddate         = $("#modal-filter #enddate").val();

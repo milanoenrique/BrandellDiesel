@@ -133,7 +133,7 @@
                                     <?php if($profile!='TV'): ?>
 
                                         <div id="custom-toolbarwriteups">
-                                            <button class="btn btn-default filter" data-tabletarget="#table-statuspart" data-title="Search Parts" data-descriptios="(Jobnumber, Description)" data-filename="partssearch" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                            <button class="btn btn-default filter" data-tabletarget="#table-writeups" data-title="Search Writeups" data-descriptios="(Employee, Department)" data-filename="writeupsearch" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
                                             <button id="buttonApplyFilterwriteups" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
                                             <button id="exportcsvwriteups" class="btn btn-default" style="margin-left:4px;" onclick="writeUpsCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                             <?php if($profile=='PARTSP'): ?>
@@ -1114,10 +1114,16 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-md-3 control-label" for="requestType"><font color='#009207'>*</font> TYPE </label>
-                                                                <div class="col-md-9  inputGroupContainer">
+                                                                <div class="col-md-6  inputGroupContainer">
                                                                     <label class="btn type-options" ><input type="radio"  class="secure" name="requestType" value="O" id='order'> Order </label>														
                                                                     <label class="btn type-options" ><input type="radio" class="secure"  name="requestType" value="Q" id='quote'> Quote </label>
                                                                     <label class="btn type-options" ><input type="radio" class="secure"  name="requestType" value="9" id='911'> 911 </label>
+                                                                </div>
+                                                                <div class="col-md-3  inputGroupContainer">
+                                                                   <label for="status_order">Status Order</label>
+                                                                   <select name="status_order" id="reqstatus">
+                                                                       
+                                                                   </select>
                                                                 </div>
                                                             </div>
                                                         
@@ -1299,7 +1305,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label" for="enddate">End Date</label>
                                                         <div class="col-md-9">
-                                                            <div class='input-group date' id='datetimepickerEndDate'>
+                                                            <div class='input-group date' id='datetimepickerEndDate1'>
                                                                 <input type='text' id="enddate" class="form-control" />
                                                                 <span class="input-group-addon">
                                                                     <span class="glyphicon glyphicon-calendar"></span>

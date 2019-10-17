@@ -319,7 +319,48 @@
 			}
 		});
 		
-            
+		$("#modal-filter #buttonApplyFilterwriteups").click(function(){
+				alert("ok")
+				var tabletarget=$(this).attr('data-tabletarget');
+				var filename=$(this).attr('data-filename');
+				iduser          = $("#modal-filter #techId").val();
+				startdate       = $("#modal-filter #startdate").val();
+				enddate         = $("#modal-filter #enddate").val();
+				jobnumber       = $("#modal-filter #jobnumber").val();
+				keyword       	= $("#modal-filter #keyword").val();
+
+				if (startdate!='' && enddate== '' )
+				{
+					alert('Please, complete the end date.');
+				}else{
+					if (startdate=='' && enddate!= '' )
+					{
+						alert('Please, complete the start date.');
+					}else{
+						if ((startdate!='' && enddate!= '') || keyword!='' ) {
+							if (checkDate(startdate) && checkDate (enddate) && difDates(startdate,enddate,90)){
+								URL             = "common/"+filename+".php";
+								DATA            = null;
+								VALOR           = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
+
+								call_Ajax_Jsonp(URL, METODO, VALOR, LOADER, ERROR, function(data){
+									filter = 1;
+									dashboard_data = data;
+									$(tabletarget).bootstrapTable('load', dashboard_data);
+									
+									$(document).find('#modal-filter').each(function(){
+									$(this).modal('toggle')
+								});
+									$('.blink').blink();
+								});
+							}
+						}else{
+							alert ('You need to specify at least one parameter.');
+						}
+					}
+
+				}
+				});
 			
 			$(function (){
 
@@ -327,9 +368,8 @@
                 {
                     format: 'YYYY-MM-DD'
                 });
-                $('#datetimepickerEndDate').datetimepicker(
+                $('#datetimepickerEndDate1').datetimepicker(
                 {
-                    useCurrent: false,
                     format: 'YYYY-MM-DD'
                 });
                 $('#datetimepickerWriteUpDate').datetimepicker(
@@ -350,9 +390,9 @@
                 }); 					
                 $("#datetimepickerStartDate").on("dp.change", function (e) 
                 {
-                    $('#datetimepickerEndDate').data("DateTimePicker").minDate(e.date);
+                    $('#datetimepickerEndDate1').data("DateTimePicker").minDate(e.date);
                 });
-                $("#datetimepickerEndDate").on("dp.change", function (e) 
+                $("#datetimepickerEndDate1").on("dp.change", function (e) 
                 {
                     $('#datetimepickerStartDate').data("DateTimePicker").maxDate(e.date);
                 });

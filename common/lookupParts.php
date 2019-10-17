@@ -75,7 +75,8 @@
             'engine'        => $row['engine'], 
             'reqcomment'    => $row['reqcomment'],
             'idrequesttype' => $row['idrequesttype'],
-            'idpriority'    => $row['idpriority']
+            'idpriority'    => $row['idpriority'],
+            'reqstatus'     => $row['reqstatus']
         );
     }
     
