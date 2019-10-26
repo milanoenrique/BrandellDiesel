@@ -4,7 +4,7 @@
 	$sth=$dbh->prepare("select * from status_order();");
 	$sth->execute();
 	$retorno = $sth->fetchAll();
-
+    $parts = [];
 	foreach ($retorno  as $row) {
 		$parts[] = array
         (

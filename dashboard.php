@@ -100,6 +100,7 @@
                             <?php  if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST'): ?>
                                 <li role="presentation"><a href="#tabwriteups" aria-controls="tabwriteups" role="tab" data-toggle="tab">Write Ups</a></li>
                                 <li role="presentation" id= "tab-parts"><a href="#tabstatusparts" aria-controls="tabstatusparts" role="tab" data-toggle="tab">Status Parts</a></li>
+                                <li role="presentation" id="tab-expenditure"><a href="#tabexpenditure" aria-controls="tabexpenditure" role="tab" data-toggle="tab">Expenditure</a></li>
                             <?php endif; ?>
                         </ul>
 
@@ -163,6 +164,25 @@
                                     <?php endif; ?>
 
                                     <table id="table-statuspart" data-sort-name="statudordparts" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarwriteups" data-toolbar-align="right"></table>
+
+
+                                </div>
+                                <div role="tab" class="tab-pane" id="tabexpenditure">
+
+                                <?php if($profile!='TV'): ?>
+
+                                    <div id="custom-toolbarexpenditure">
+                                        <button class="btn btn-default filter" data-tabletarget="#table-expenditure" data-title="Search Expenditure" data-descriptios="(project name, afe number)" data-filename="expenditure-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                        <button id="buttonApplyFilterexpenditure" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
+                                        <button id="#" class="btn btn-default" style="margin-left:4px;" onclick="expenditureCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                        <?php if($profile=='PARTSP'): ?>
+                                        <button id="audio1" class="btn btn-default" style="margin-left:4px;"><span class="fa fa-volume-up" aria-hidden="true"></span></button>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                <?php endif; ?>
+
+                                <table id="table-expenditure" data-sort-name="expenditure" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarwriteups" data-toolbar-align="right"></table>
 
 
                                 </div>
@@ -508,7 +528,7 @@
                                         <div class="modal-body datagrid table-responsive" >
                                             <center>
                                                 <div class="panel-body">
-                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> subject?</h4>
+                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> project?</h4>
                                                 </div>
                                             </center>          
                                         </div>
@@ -523,8 +543,39 @@
                     </div>
                 </div>
             </div>
-            <!-- Fin Modal -->
 
+            <div class="modal" id="expendituremodal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background:#009207;">
+                            <font color='#fff'>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" ><i class="glyphicon glyphicon-user"></i> Delete Expenditure</h4>
+                            </font>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-sm-16">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="modal-body datagrid table-responsive" >
+                                            <center>
+                                                <div class="panel-body">
+                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> subject?</h4>
+                                                </div>
+                                            </center>          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
+                            <button id="delete-expenditure-button" type="button" class="btn btn-primary" data-record="#" data-user="#" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Modal -->
 
         <?php endif; ?>
 
@@ -670,6 +721,436 @@
                 </div>
             </div>
         </div>
+
+        <!-- Inicio Modal Expentiture -->
+        <div class="modal" id="myModalAuthorizationExpenditure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                    All fields marked with<span class="required"> * </span>are required.
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="project_name" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="afe_number" placeholder="">
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <textarea class="form-control rounded-0" id="project_description"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date <span class="required"> * </span></label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="start_date" class="form-control require" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="anticipated_date" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="amount_request" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="requested_by" placeholder="">
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <input type="text" class="form-control" id="request_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" id="date_signature">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="quote">
+                                Quote
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="estimate">
+                                Estimate
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="business_plan">
+                                Business Plan
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation"  value="budgeted" value="">
+                                Budgeted
+                            </label>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="president_print_name" placeholder="">
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="president_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_president" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="cfo_name" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="cfo_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_cfo" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure">Cancel</button>
+                <button type="button" class="btn btn-success fix-width" id="save-expenditure">Save</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Inicio Modal Expentiture Edit -->
+        <div class="modal" id="myModalAuthorizationExpenditure-Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                    All fields marked with<span class="required"> * </span>are required.
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="project_name_edit" placeholder="">
+                        <input type="hidden" class="form-control require" id="id_expenditure" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="afe_number_edit" placeholder="">
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <textarea class="form-control rounded-0" id="project_description_edit"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date <span class="required"> * </span></label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="start_date_edit" class="form-control require fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="anticipated_date_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="amount_request_edit" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="requested_by_edit" placeholder="">
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <input type="text" class="form-control" id="request_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control fix-date" id="date_signature_edit">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios_edit" id='quote' class="documentation" value="quote">
+                                Quote
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios_edit" id='estimate' class="documentation" value="estimate">
+                                Estimate
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios_edit" id='business_plan' class="documentation" value="business_plan">
+                                Business Plan
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios_edit" id='budgeted' class="documentation"  value="budgeted" value="">
+                                Budgeted
+                            </label>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="president_print_name_edit" placeholder="">
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="president_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_president_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="cfo_name_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="cfo_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_cfo_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure_edit">Cancel</button>
+                <button type="button" class="btn btn-success fix-width" id="save-expenditure_edit">Save</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- Fin Modal -->
+        <div class="modal" id="myModalAuthorizationExpenditure-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name </label>
+                        <div type="text" class="form-control require" id="project_name_view"></div>
+                        <input type="hidden" class="form-control require" id="id_expenditure" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number </label>
+                        <div type="text" class="form-control require" id="afe_number_view" placeholder=""></div>
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <div class="form-control rounded-0" id="project_description_view"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date </label>
+                        <div>
+                            <div class=''>
+                            <div type='text' id="start_date_view" class="form-control require fix-date" ></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class=''>
+                                <div id="anticipated_date_view" class="form-control fix-date" ></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested </label>
+                        <div class="form-control require" id="amount_request_view"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by </label>
+                        <div class="form-control require" id="requested_by_view"></div>
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <div class="form-control" id="request_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="">
+                            <div type="text" class="form-control fix-date" id="date_signature_view"></div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <div class="form-control" id='documentation'></div>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <div class="form-control" id="president_print_name_view" placeholder=""></div>
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <div type="text" class="form-control" id="president_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div>
+                                <div type='text' id="date_approved_president_view" class="form-control fix-date"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <div type="text" class="form-control" id="cfo_name_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <div class="form-control" id="cfo_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div>
+                                <div id="date_approved_cfo_view" class="form-control fix-date"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure_view">Close</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+          <!-- Inicio Modal Expentiture View -->
+          
+        <!-- Fin Modal -->
         <!-- Fin Modal -->
         <!-- Fin Button trigger modal -->
 
@@ -1577,6 +2058,7 @@
         <?php
 			/* SCRIPTS */
             require_once('templates/views/viewScriptsDashboard.php');
+            require_once('templates/views/viewScrptAuthorizationforExpenditure.php');
             if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
                 require_once('templates/views/viewScriptsWriteUps.php');
             }

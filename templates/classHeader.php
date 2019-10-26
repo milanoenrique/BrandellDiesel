@@ -122,6 +122,17 @@
 		        );
 
 		        $argsHeader=$auxarray+$argsHeader;
+			}
+			
+			if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
+		        $auxarray=array(   
+		            'New Expenditure'  =>array(
+		                'icon'  =>'fa fa-dollar',
+		                'id'    =>'linkToAuthorizationExpenditure'
+		            ) 
+		        );
+
+		        $argsHeader=$auxarray+$argsHeader;
 		    }
 
 		    if ($profile=='ADMIN') {

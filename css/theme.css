@@ -224,3 +224,87 @@ left: 0!important;
 #editwriteupwpstatement{
               display: block !important;
           }
+          
+          .container-fluid {
+
+            padding-right: 0px;
+            padding-left: 0px;
+            margin-right: auto;
+            margin-left: auto;
+        
+        }
+        .top {
+        
+            vertical-align: top;
+        
+        }
+        .margin-ra{
+        
+            margin-left: 15px;
+        
+        }
+        .btn-l{
+        
+            text-align: center;
+        
+        }
+        .header-bdi{
+        
+            background-color: #0FB300;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            color: #fff;
+            font-size: 25px;
+        
+        }
+        .text-required {
+        
+            text-align: center;
+            margin: 10px;
+        
+        }
+        .required{
+        
+            color: #0FB300;
+        }
+        .btn-authorization {
+        
+            padding: 6px 50px;
+        
+        }
+        .btn-action {
+        
+            text-align: center;
+            margin: 35px;
+        
+        }
+        .title-1 {
+        
+            color: #808495;
+            font-size: 18px;
+        
+        }
+        .title-2 {
+        
+            font-size: 16px;
+        
+        }
+        #myModalAuthorizationExpenditure .modal-dialog
+        {
+            width: 75%;
+        }
+
+        #myModalAuthorizationExpenditure-Edit .modal-dialog
+        {
+            width: 75%;
+        }
+
+        #myModalAuthorizationExpenditure-view .modal-dialog
+        {
+            width: 75%;
+        }
+
+        .fix-width{
+            padding: 6px 50px;
+        }
