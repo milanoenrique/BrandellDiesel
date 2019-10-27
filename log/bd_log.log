@@ -70,3 +70,39 @@ PL/pgSQL function update_expenditure(json) line 2 at SQL statement
 [2019-10-26 12:04:23.36793600] transaction successfully update expenditure complete
 [2019-10-26 12:06:05.93617300] transaction successfully update expenditure complete
 [2019-10-26 12:10:45.48768900] transaction successfully
+[2019-10-26 18:18:00.50358300] "Insert_Request: transaction successfully
+[2019-10-26 18:18:00.57932400] "Insert_Parts: transaction successfully
+[2019-10-26 19:51:11.01178800] transaction successfully
+[2019-10-26 20:17:43.72573600] "Insert_Request: transaction successfully
+[2019-10-26 20:17:43.79600200] "Insert_Parts: transaction successfully
+[2019-10-26 20:31:26.77227700] transaction successfully update expenditure complete
+[2019-10-26 20:32:20.94323100] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
+[2019-10-26 20:32:21.02079800] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
+[2019-10-26 20:33:59.16897300] transaction successfully registration expenditur complete
+[2019-10-26 20:34:32.84090500] transaction successfully registration expenditur complete
+[2019-10-26 20:38:18.53650300] 7ERROR:  invalid input syntax for type double precision: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
+[2019-10-26 20:38:35.24259900] transaction successfully update expenditure complete

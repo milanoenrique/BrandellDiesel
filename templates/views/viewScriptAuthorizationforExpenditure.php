@@ -2,7 +2,7 @@
 	//Mostrar Modal
 	var result=[];
 	$('#tab-expenditure').click(function(){
-		
+		console.log('holq');
 		$.ajax({
 			type: "get",
 			url: "common/list_expenditure.php",
@@ -331,7 +331,12 @@
 					}
 				});
                
-            });
+    });
+
+	$('#cancel-expenditure_view').click(function(){
+		$('#myModalAuthorizationExpenditure-view').modal('hide');
+
+	});
 
     $(function () {
    var bindDatePicker = function() {

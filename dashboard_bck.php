@@ -1,7 +1,7 @@
 ﻿<?php
 	include_once("config.php");
 	include_once("includes/functions.php");
-    include_once("templates/classHeader.php");
+    	include_once("templates/classHeader.php");
 
 	//session_start();
 	if(isset($_SESSION['google_data'])) {
@@ -34,6 +34,7 @@
 	header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
  
 	header("Expires: Sat, 1 Jul 2000 05:00:00 GMT");
+
 ?>
         <iframe hidden="true" id="PDFtoPrint" width="100%" height="100%"></iframe>
 
@@ -99,6 +100,7 @@
                             <?php  if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST'): ?>
                                 <li role="presentation"><a href="#tabwriteups" aria-controls="tabwriteups" role="tab" data-toggle="tab">Write Ups</a></li>
                                 <li role="presentation" id= "tab-parts"><a href="#tabstatusparts" aria-controls="tabstatusparts" role="tab" data-toggle="tab">Status Parts</a></li>
+                                <li role="presentation" id="tab-expenditure"><a href="#tabexpenditure" aria-controls="tabexpenditure" role="tab" data-toggle="tab">Expenditure</a></li>
                             <?php endif; ?>
                         </ul>
 
@@ -132,7 +134,7 @@
                                     <?php if($profile!='TV'): ?>
 
                                         <div id="custom-toolbarwriteups">
-                                            <button class="btn btn-default filter" data-tabletarget="#table-statuspart" data-title="Search Parts" data-descriptios="(Jobnumber, Description)" data-filename="partssearch" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                            <button class="btn btn-default filter" data-tabletarget="#table-writeups" data-title="Search Writeups" data-descriptios="(Employee, Department)" data-filename="writeupsearch" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
                                             <button id="buttonApplyFilterwriteups" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
                                             <button id="exportcsvwriteups" class="btn btn-default" style="margin-left:4px;" onclick="writeUpsCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                             <?php if($profile=='PARTSP'): ?>
@@ -164,6 +166,24 @@
                                     <table id="table-statuspart" data-sort-name="statudordparts" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarwriteups" data-toolbar-align="right"></table>
 
 
+                                </div>
+
+                                <div role="tab" class="tab-pane" id="tabexpenditure">
+
+                                    <?php if($profile!='TV'): ?>
+
+                                        <div id="custom-toolbarexpenditure">
+                                            <button class="btn btn-default filter" data-tabletarget="#table-expenditure" data-title="Search Expenditure" data-descriptios="(project name, afe number)" data-filename="expenditure-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                            <button id="buttonApplyFilterexpenditure" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
+                                            <button id="#" class="btn btn-default" style="margin-left:4px;" onclick="expenditureCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                            
+                                        </div>
+                                        
+                                    <?php endif; ?>
+
+                                        <table id="table-expenditure" data-sort-name="expenditure" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="custom-toolbarexpenditure" data-toolbar-align="right"></table>
+
+                            
                                 </div>
 
                             <?php endif; ?>
@@ -294,7 +314,8 @@
                                                             <div class="col-md-9  inputGroupContainer">
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="1" checked> 1st </label>                                                     
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="2"> 2nd </label>
-                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="2"> 3rd </label>
+                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="3"> 3rd </label>
+                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="4"> Termination </label>
                                                             </div>
                                                         </div>                                                      
                                                         <div class="form-group">
@@ -320,7 +341,6 @@
                             </div>
                             <div class="row">       
                                 <div class="col-xs-12 col-centered" id="cargar_data_writeup" style="display:none;">
-                                    <img src="loader.gif"/>Please wait, sending mail...
                                 </div> 
                             </div>
                             <font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
@@ -448,7 +468,8 @@
                                                             <div class="col-md-9  inputGroupContainer">
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="1" checked> 1st </label>                                                     
                                                                 <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="2"> 2nd </label>
-                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="2"> 3rd </label>
+                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="3"> 3rd </label>
+                                                                <label class="btn type-options" ><input type="radio" name="writeupwarnings" value="4"> Termination </label>
                                                             </div>
                                                         </div>                                                      
                                                         <div class="form-group">
@@ -474,7 +495,6 @@
                             </div>
                             <div class="row">       
                                 <div class="col-xs-12 col-centered" id="cargar_data_edit" style="display:none;">
-                                    <img src="loader.gif"/>Please wait, sending mail...
                                 </div>
                             </div>
                             <font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
@@ -507,7 +527,7 @@
                                         <div class="modal-body datagrid table-responsive" >
                                             <center>
                                                 <div class="panel-body">
-                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> subject?</h4>
+                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> project?</h4>
                                                 </div>
                                             </center>          
                                         </div>
@@ -522,8 +542,39 @@
                     </div>
                 </div>
             </div>
-            <!-- Fin Modal -->
 
+            <div class="modal" id="expendituremodal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background:#009207;">
+                            <font color='#fff'>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" ><i class="glyphicon glyphicon-user"></i> Delete Expenditure</h4>
+                            </font>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-sm-16">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="modal-body datagrid table-responsive" >
+                                            <center>
+                                                <div class="panel-body">
+                                                    <h4 class="comfirmtext">Are you sure you want to delete the record of the <span></span> subject?</h4>
+                                                </div>
+                                            </center>          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
+                            <button id="delete-expenditure-button" type="button" class="btn btn-primary" data-record="#" data-user="#" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Modal -->
 
         <?php endif; ?>
 
@@ -546,11 +597,10 @@
                             <div class="widget-box">
                                 <div class="widget-body">
                                     <div class="modal-body datagrid table-responsive" >
-                                        <center>
                                             <div class="panel-body" id="partsRequesition">
                                                 <form class="form-horizontal" style="text-align: left;" data-toggle="validator">
                                                     <div class="form-group">
-                                                       
+                                                       <div class="text-required">All fields marked with <span class="required"> * </span> are required.</div>
                                                         <div class="col-md-6  inputGroupContainer" style="padding-left: 0;  ">
                                                             <div class="input-group">
                                                                 <input type="hidden" id="new-techId"   name="new-techId" class="form-control" value="<?php echo $techId ?>"   disabled="disabled"/>
@@ -567,75 +617,67 @@
                                                                     
 
                                                         </div>
-                                                        <label class="col-md-2 control-label" for="techName">TECH NAME</label>
-                                                        <div class="col-md-3" style="padding-left: 2%; padding-right: 0%">
-                                                            <div class="input-group col-md-12">
-                                                                <input type="text" id="new-techName" name="new-techName" class="form-control" value="<?php echo $techName ?>" disabled="disabled"/>
-                                                            </div>
-                                                        </div>
+                                                     
+                                                       
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                            <label class="control-label" for="techName">TECH NAME</label>
+                                                            
+                                                                    <input type="text" id="new-techName" name="new-techName" class="form-control" value="<?php echo $techName ?>" disabled="disabled"/>
                                                     </div>
                                                     <!-- -->
                                                 
                                                    	
                                                     <!-- -->
-                                                    <div class='row'>
-                                                        <div class="form-group">
-                                                            <label class="col-md-1 control-label" for="ro" style="padding-left: 6%;"> *RO#</label>
-                                                            <div class="col-md-3" style="padding-left: 4.5%;">
+                                                        <div class="col-md-6">
+                                                            <label class="" for="ro"><span class="required">*</span>RO#</label>
+                                                            <div class="" >
                                                                 <input type="text" class="form-control" id="ro" placeholder="">
                                                             </div>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                            <label class="col-md-4 control-label" for="vin">VIN#</label>
-                                                            <div class="col-md-3 fix-align-letf">
+                                                        </div>
+                                                        <div class="col-md-6">                                                 
+                                                            <label for="vin">VIN#</label>
                                                                 <input type="text" class="form-control" id="vin" placeholder="">
-                                                            </div>
                                                         </div>
                                                         
-                                                    </div>												
-                                                    <div class='row'>
-                                                    <div class="form-group">
-                                                        <label class="col-md-1 control-label" for="trans" style="padding-left: 4%;">TRANS#</label>
-                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                    <div class="col-md-6">
+                                                        <label  for="trans">TRANS#</label>
                                                             <input type="text" class="form-control" id="trans" placeholder="">
-                                                        </div>
-                                                        <label class="col-md-4 control-label" for="engine">ENGINE#</label>
-                                                        <div class="col-md-3 fix-align-letf">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                            <label class="col-md-4 control-label" for="engine">ENGINE#</label>
+
                                                             <input type="text" class="form-control" id="engine" placeholder="">
-                                                        </div>
                                                     </div>
                                                     
-                                                    </div>
-                                                    <div class='row'>
-                                                    <div class="form-group">
-                                                        <label class="col-md-1 control-label" for="comments" style="padding-left: 2%;">COMMENTS:</label>
-                                                        <div class="col-md-10" style="padding-left: 4%;">
-                                                            <textarea id="comments" class="form-control" rows="3" placeholder=""></textarea>
-                                                        </div>
-                                                    </div>
+                                                    <div class='col-md-12'>
+                                                            <label  for="comments" style="padding-left: 2%;">COMMENTS:</label>
+                                                                <textarea id="comments" class="form-control" rows="3" placeholder="" maxlength=""></textarea>
                                                     </div>
                                                     
-                                                    <div class="form-group col-md-12" style="padding-right:5.5%" >
+                                                    <div class="col-md-12" >
                                                         <table id="table-parts" data-sort-name="" data-sort-order="asc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="false" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="" data-toolbar-align="right"></table>
                                                     </div>
-                                                    <div class="form-group" style="padding-left: 1.5%; padding-right: 8%;">
+                                                    <div class="">
                                                         <div class="col-lg-2" style="padding-left: 0;padding-right: 0;display:none;">
                                                             <input type="text" class="form-control" id="parts" placeholder="* PARTS:">
                                                         </div>
-                                                        <div class="col-lg-2" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="seg" class="form-control" id="seg" placeholder="* SEG:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "15"/>
+                                                        <div class="col-md-2">
+                                                            <label for=""><span class="reuired">*</span>SEG</label>
+                                                            <input name="seg" class="form-control" id="seg" placeholder="" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "15"/>
                                                         </div>
-                                                        <div class="col-lg-3" style="padding-left: 0;padding-right: 0;">
-                                                            <input type="text" class="form-control" id="description" placeholder="* DESCRIPTION:">
+                                                        <div class="col-md-10">
+                                                        <label for=""><span class="required">*</span> DESCRIPTION</label>
+                                                            <input type="text" class="form-control" id="description" placeholder="" maxlength="250">
                                                         </div>
-                                                        <div class="col-lg-2" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="qty" step="0.01" class="form-control" id="qty" placeholder="* QTY:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "5"/>
+                                                        <div class="col-md-2">
+                                                            <label for=""><span class="required">*</span>QTY</label>
+                                                            <input name="qty" step="0.01" class="form-control" id="qty" placeholder="" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "5"/>
                                                         </div>
 
-                                                        <div class="col-lg-5" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="comments"  class="form-control" id="commentsparts" placeholder="Comments of Parts"/>
+                                                        <div class="col-md-10">
+                                                        <label for="comments">Comments of Parts</label>
+                                                            <input name="comments"  class="form-control" id="commentsparts" placeholder="" maxlength="250" />
                                                         </div>
                                                         <div class="col-lg-2 input-group date" id="datetimepickerEndDate" style="display:none;">
                                                                 <input type="text" id="dateofdelivery" class="form-control dateofdelivery" placeholder="Date of delivery">
@@ -643,14 +685,12 @@
                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                 </span>
                                                         </div>
-
-                                                    </div>
-                                                    <div class="form-group" style="text-align: right; padding-right: 7.7%;">
-                                                        <button id="buttonAddParts" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Add parts</button>
+                                                    <br>
+                                                    <div class="col-md-12  table-bdi">
+                                                        <button id="buttonAddParts" type="button" class="btn btn-success pull-right">Add parts</button>
                                                     </div>
                                                 </form>
                                             </div>
-                                        </center>
                                     </div>
                                 </div>
                             </div>
@@ -660,15 +700,443 @@
 								<img src="loader.gif"/>Please wait, sending mail...
 							</div>
 						</div>
-						<font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
                     </div>
-                    <div class="modal-footer" style="padding-right: 2%;">
-                        <button type="button" class="btn btn-primary"  onclick="close_modal()" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button type="button" id="buttonSavePartsRequesition" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Save</button> 
+                    <div class="modal-footer" style="text-align: center !important;">
+                        <button type="button" class="btn btn-danger"  onclick="close_modal()">Close</button>
+                        <button type="button" id="buttonSavePartsRequesition" class="btn btn-success">Save</button> 
                     </div>                        
                 </div>
             </div>
         </div>
+
+        <!-- Inicio Modal Expentiture -->
+        <div class="modal" id="myModalAuthorizationExpenditure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                    All fields marked with<span class="required"> * </span>are required.
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="project_name" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="afe_number" placeholder="">
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <textarea class="form-control rounded-0" id="project_description"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date <span class="required"> * </span></label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="start_date" class="form-control require" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="anticipated_date" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="amount_request" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="requested_by" placeholder="">
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <input type="text" class="form-control" id="request_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control" id="date_signature">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="quote">
+                                Quote
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="estimate">
+                                Estimate
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation" value="business_plan">
+                                Business Plan
+                            </label>
+                            <label>
+                                <input type="radio" name="optionsRadios" class="documentation"  value="budgeted" value="">
+                                Budgeted
+                            </label>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="president_print_name" placeholder="">
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="president_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_president" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="cfo_name" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="cfo_signature" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_cfo" class="form-control" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure">Cancel</button>
+                <button type="button" class="btn btn-success fix-width" id="save-expenditure">Save</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Inicio Modal Expentiture Edit -->
+        <div class="modal" id="myModalAuthorizationExpenditure-Edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                    All fields marked with<span class="required"> * </span>are required.
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="project_name_edit" placeholder="">
+                        <input type="hidden" class="form-control require" id="id_expenditure" placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="afe_number_edit" placeholder="">
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <textarea class="form-control rounded-0" id="project_description_edit"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date <span class="required"> * </span></label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="start_date_edit" class="form-control require fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="anticipated_date_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="amount_request_edit" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by <span class="required"> * </span></label>
+                        <input type="text" class="form-control require" id="requested_by_edit" placeholder="">
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <input type="text" class="form-control" id="request_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="input-group date" data-provide="datepicker">
+                            <input type="text" class="form-control fix-date" id="date_signature_edit">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <label>
+                                <input type="radio"  id='quote_expenditure' class="documentation" value="quote">
+                                Quote
+                            </label>
+                            <label>
+                                <input type="radio" name= id='estimate_expenditure' class="documentation" value="estimate">
+                                Estimate
+                            </label>
+                            <label>
+                                <input type="radio"  id='business_plan_expenditure' class="documentation" value="business_plan">
+                                Business Plan
+                            </label>
+                            <label>
+                                <input type="radio"  id='budgeted_expenditure' class="documentation"  value="budgeted" value="">
+                                Budgeted
+                            </label>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="president_print_name_edit" placeholder="">
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="president_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_president_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <input type="text" class="form-control" id="cfo_name_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <input type="text" class="form-control" id="cfo_signature_edit" placeholder="">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div class='input-group date'>
+                                <input type='text' id="date_approved_cfo_edit" class="form-control fix-date" />
+                                <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure_edit">Cancel</button>
+                <button type="button" class="btn btn-success fix-width" id="save-expenditure_edit">Save</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+        <!-- Fin Modal -->
+        <div class="modal" id="myModalAuthorizationExpenditure-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+                
+                <div class="modal-content fix-authorization-width">
+                <div class="header-bdi modal-header">
+                     Authorization for Expentiture
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="">
+                <div class="text-required">
+                </div>
+                <div class="margin-ra title-1">
+                    Project Definition
+                </div>
+                <form>
+                    <div class="form-group col-md-6">
+                        <label for="projectname">Project Name </label>
+                        <div type="text" class="form-control require" id="project_name_view"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="afe_number">AFE Number </label>
+                        <div type="text" class="form-control require" id="afe_number_view" placeholder=""></div>
+                        </div>
+                    <div class="form-group col-md-12">
+                        <label for="project_description">Project Description</label>
+                        <div class="form-control rounded-0" id="project_description_view"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="start_date">Starting Date </label>
+                        <div>
+                            <div class=''>
+                            <div type='text' id="start_date_view" class="form-control require fix-date" ></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="anticipated_date">Anticipated Completion Date</label>
+                        <div>
+                            <div class=''>
+                                <div id="anticipated_date_view" class="form-control fix-date" ></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="amount_request">Amount Requested </label>
+                        <div class="form-control require" id="amount_request_view"></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="requested_by">Requested by </label>
+                        <div class="form-control require" id="requested_by_view"></div>
+                    </div>
+                        <div class="form-group col-md-3">
+                        <label for="signature">Signature</label>
+                        <div class="form-control" id="request_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="date_signature">Date</label>
+                        <div class="">
+                            <div type="text" class="form-control fix-date" id="date_signature_view"></div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group margin-ra">
+                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
+                        <div class="checkbox disabled">
+                            <div class="form-control" id='documentation'></div>
+                        </div>
+                </div>
+                <div class="margin-ra title-1">
+                    Signing Authority
+                </div>
+                <div class="margin-ra title-2 ">
+                    President
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputPassword1">Print Name</label>
+                        <div class="form-control" id="president_print_name_view" placeholder=""></div>
+                </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <div type="text" class="form-control" id="president_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div>
+                                <div type='text' id="date_approved_president_view" class="form-control fix-date"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin-ra title-2">
+                        CFO
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Print Name</label>
+                        <div type="text" class="form-control" id="cfo_name_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Signature</label>
+                        <div class="form-control" id="cfo_signature_view" placeholder=""></div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputPassword1">Date Approved</label>
+                        <div>
+                            <div>
+                                <div id="date_approved_cfo_view" class="form-control fix-date"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="btn-action">
+                <button type="button" class="btn btn btn-danger fix-width" id="cancel-expenditure_view">Close</button>
+                </div>
+            </div>
+                </div>
+            </div>
+           
+        </div>
+          <!-- Inicio Modal Expentiture View -->
+          
+        <!-- Fin Modal -->
         <!-- Fin Modal -->
         <!-- Fin Button trigger modal -->
 
@@ -694,73 +1162,83 @@
                                             <div class="panel-body" id="partsRequesition" style="padding-right: 2% !important">
                                                 <form class="form-horizontal" style="text-align: left;">
 													<div class="form-group" style="display:none">
-                                                        <label class="col-md-4 control-label" for="idrequest">Request ID</label>
-                                                        <div class="col-md-8">
+                                                        <label class="col-md-3 control-label" for="idrequest">Request ID</label>
+                                                        <div class="col-md-9">
 															<div id="idRequest" class="form-control"></div>	
                                                         </div>							
                                                     </div>												
-													                                                   
-                                                    <div class="form-group">
-                                                        <div class="row" >
-                                                            <div class="col-md-8 col-md-offset-2 inputGroupContainer" style="padding-left: 0;  ">
-                                                                <div class="form-group">
-                                                                    <label class="col-md-4 control-label" for="requestType"><font color="#009207">*</font> Type: </label>
-                                                                    <div class="col-md-8  inputGroupContainer">
-                                                                        <label class="btn type-options"><input type="radio" name="requestType" value="O"> Order </label>                                                        
-                                                                        <label class="btn type-options"><input type="radio" name="requestType" value="Q"> Quote </label>
-                                                                        <label class="btn type-options"><input type="radio" name="requestType" value="9"> 911 </label>
-                                                                    </div>
-                                                                </div>                                                        
-                                                            </div>
-                                                        </div>
-                                                        <div class="row" >
-                                                            <div class="inputGroupContainer">
-                                                                <div class="col-md-6">
-                                                                    <label class="control-label"  for="vin">REQUEST DATE</label>
-                                                                    <div class="" id="div-rd">
-                                                                            <div class="form-control" id="date-view"></div>
-                                                                    </div>
-                                                                </div> 
-                                                                <div class="col-md-6">
-                                                                    <label class="control-label" for="techName">TECH NAME</label>
-                                                                    <div class="form-control" id="view-techname"></div>
-                                                                </div> 
-                                                            </div>
-                                                        </div>
+													
 
 
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="row">     
-                                                            <div class="col-md-6">                                               
-                                                                <label class="control-label" for="ro">*RO#</label>
-                                                                <div  class="form-control" id="view-ro"></div>
-                                                            </div>
-                                                            <div class="col-md-6">    
-                                                                <label class="control-label" for="vin">VIN#</label>
-                                                                <div class="form-control" id="view-vin"></div>
-                                                            </div>                                                            
-                                                        </div>
-                                                    </div>												
-
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-6"> 
-                                                                <label class="control-label" for="trans">TRANS#</label>
-                                                                <div  class="form-control" id="view-trans"></div>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="control-label " for="engine">ENGINE#</label>
-                                                                <div class="form-control" id="view-engine" ></div>          
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <div class="row">
-                                                   <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <label class="control-label" for="comments">COMMENTS:</label>
-                                                            <div id="view-comments" class="form-control"></div>
+                                                        
+                                              <div class="form-group">
+                                                        <div class="col-md-12 inputGroupContainer">
+                                                            <div class="form-group required" id="pruebaImpresion">
+                                                        
+                                                        <label class="col-md-2 control-label"  for="vin" style="text-align: left !important; padding-right: 4% ! important">REQUEST DATE</label>
+                                                        <div class="col-md-3" style="left: -57px; padding-right:4%;" id="div-rd">
+                                                            <div class="form-control" id="date-view"></div>
+                                                        </div>                         
+                                                    </div>
+                                                            
+                                                        </div>
+                                                        <div class="col-md-6  inputGroupContainer" style="padding-left: 0;  ">
+                                                           
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label" for="requestType"><font color="#009207">*</font> TYPE </label>
+                                                                <div class="col-md-9  inputGroupContainer">
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="O"> Order </label>                                                        
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="Q"> Quote </label>
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="9"> 911 </label>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                        <label class="col-md-3 control-label" for="techName">TECH NAME</label>
+                                                        <div class="col-md-3  inputGroupContainer" style="padding-right: 1.5%;">
+                                                            <div class="input-group col-md-12">
+                                                                <div id="view-techname"  class="form-control"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="col-md-1 control-label fix-margin-label" for="ro" style="padding-left:6%;">*RO#</label>
+                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                            <div  class="form-control" id="view-ro"></div>
+                                                        </div>
+                                                    
+                                                        <label class="col-md-5 control-label" for="vin">VIN#</label>
+                                                        <div class="col-md-3 fix-modal-view">
+                                                            <div class="form-control" id="view-vin"></div>
+                                                        </div>
+                                                    </div>
+                                                    </div>												
+                                                   <div class='row'>
+                                                  <div class="form-group">
+                                                        <label class="col-md-1 control-label fix-margin-label" for="trans" style="padding-left: 4%;">TRANS#</label>
+                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                            <div  class="form-control" id="view-trans"></div>
+                                                        </div>
+                                                        <label class="col-md-5 control-label " for="engine">ENGINE#</label>
+                                                        <div class="col-md-3 fix-modal-view">
+                                                            <div class="form-control" id="view-engine" ></div>                                                               
+                                                       </div>
+
+                                                    </div>
+
+                                                   </div>
+                                                    <div class='row'>
+                                                   <div class="form-group" style="padding-left: 0.6%;">
+                                                        <label class="col-md-1 control-label fix-margin-label" for="comments" style="padding-left: 3%;">COMMENTS:</label>
+                                                        <div class="col-md-11" style="padding-left:4%; padding-right:1.5%;">
+                                                            <div id="view-comments" class="form-control" style="word-break: break-word;"></div>
                                                         </div>
                                                     </div>                                              
 
@@ -1077,7 +1555,7 @@
             
         <!-- Inicio Button trigger modal -->
         <!-- Inicio Modal EDIT -->
-        <div class="modal in " id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal in fixmodalbugscss" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background:#009207;">
@@ -1103,10 +1581,16 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-md-3 control-label" for="requestType"><font color='#009207'>*</font> TYPE </label>
-                                                                <div class="col-md-9  inputGroupContainer">
+                                                                <div class="col-md-6  inputGroupContainer">
                                                                     <label class="btn type-options" ><input type="radio"  class="secure" name="requestType" value="O" id='order'> Order </label>														
                                                                     <label class="btn type-options" ><input type="radio" class="secure"  name="requestType" value="Q" id='quote'> Quote </label>
                                                                     <label class="btn type-options" ><input type="radio" class="secure"  name="requestType" value="9" id='911'> 911 </label>
+                                                                </div>
+                                                                <div class="col-md-3  inputGroupContainer">
+                                                                   <label for="status_order">Status Order</label>
+                                                                   <select name="status_order" id="reqstatus">
+                                                                       
+                                                                   </select>
                                                                 </div>
                                                             </div>
                                                         
@@ -1121,7 +1605,7 @@
                                                   	
                                                     <div class="row">
                                                     <div class="form-group">
-                                                        <label class="col-md-1 control-label" for="ro" style="padding-left:6%;">*RO#</label>
+                                                        <label class="col-md-1 control-label fix-margin-label" for="ro" style="padding-left:6%;">*RO#</label>
                                                         <div class="col-md-3" style="padding-left: 4.5%;">
                                                             <input type="text" class="form-control secure" id="edit-ro" placeholder="">
                                                         </div>
@@ -1134,7 +1618,7 @@
                                                     </div>												
                                                     <div class="row">
                                                     <div class="form-group">
-                                                        <label class="col-md-1 control-label" for="trans" style="padding-left: 4%;">TRANS#</label>
+                                                        <label class="col-md-1 control-label fix-margin-label" for="trans" style="padding-left: 4%;">TRANS#</label>
                                                         <div class="col-md-3" style="padding-left: 4.5%;">
                                                             <input type="text" class="form-control secure" id="edit-trans" placeholder="">
                                                         </div>
@@ -1146,7 +1630,7 @@
                                                     </div>
                                                     <div class="row">
                                                     <div class="form-group" style="padding-left: 2%;" >
-                                                        <label class="col-md-1 control-label" for="comments" style="padding-left: 3%;">COMMENTS:</label>
+                                                        <label class="col-md-1 control-label fix-margin-label" for="comments" style="padding-left: 3%;">COMMENTS:</label>
                                                         <div class="col-md-10" style="padding-left:4%; padding-right:2.5%;">
                                                             <textarea id="edit-comments" class="form-control secure" rows="3" placeholder=""></textarea>
                                                         </div>
@@ -1165,13 +1649,13 @@
                                                             <input name="edit-seg" class="form-control" id="edit-seg" placeholder="* SEG:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "10"/>
                                                         </div>
                                                         <div class="col-lg-3" style="padding-left: 0;padding-right: 0;">
-                                                            <input type="text" class="form-control" id="edit-description" placeholder="* DESCRIPTION:">
+                                                            <input type="text" class="form-control" id="edit-description" placeholder="* DESCRIPTION:" maxlength="250">
                                                         </div>
                                                         <div class="col-lg-2" style="padding-left: 0;padding-right: 0;">
                                                             <input name="edit-qty" step="0.01"  class="form-control" id="edit-qty" placeholder="* QTY:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "5"/>
                                                         </div>
                                                         <div class="col-lg-5" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="comments"  class="form-control" id="commentspartsedit" placeholder="Comments of Parts"/>
+                                                            <input name="comments"  class="form-control" id="commentspartsedit" placeholder="Comments of Parts" maxlength="250"  />
                                                         </div>
                                                         <div class="col-lg-2 input-group date" id="datetimepickerdeliveryDate" style="display:none";>
                                                                 <input type="text" id="editdateofdelivery" class="form-control dateofdelivery" placeholder="Date of delivery">
@@ -1288,7 +1772,7 @@
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label" for="enddate">End Date</label>
                                                         <div class="col-md-9">
-                                                            <div class='input-group date' id='datetimepickerEndDate'>
+                                                            <div class='input-group date' id='datetimepickerEndDate1'>
                                                                 <input type='text' id="enddate" class="form-control" />
                                                                 <span class="input-group-addon">
                                                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -1378,7 +1862,7 @@
                                                     </div>
 													<div class="form-group">
                                                         <div class="col-lg-3" style="padding-left: 0;padding-right: 0;">
-                                                            <select multiple class="form-control" id="idGroup"></select>
+                                                            <select multiple class="form-control" id="idGroup" style="display: block !important;" ></select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group pull-right">
@@ -1475,7 +1959,7 @@
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="name" placeholder="* Name:">
                                                                <span class="input-group-addon">-</span>
-                                                            <input type="text" class="form-control input-number" maxlength=15 id="phonenumber" placeholder="* Phonenumber:">
+                                                            <input type="text" class="form-control input-number" maxlength=15 id="phonenumber" placeholder=" Phonenumber:">
 
                                                         </div>
                                                     </div>													
@@ -1560,6 +2044,7 @@
         <?php
 			/* SCRIPTS */
             require_once('templates/views/viewScriptsDashboard.php');
+            require_once('templates/views/viewScrptAuthorizationforExpenditure.php');
             if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
                 require_once('templates/views/viewScriptsWriteUps.php');
             }
