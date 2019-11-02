@@ -55,6 +55,14 @@
 									align: 'center',
 									valign: 'middle',
 									width: 1,
+									formatter : function(value) 
+										{
+											if(value=='infinity'){
+												return '-';
+											}else{
+												return value;
+											}   
+										}
 									
 								},
 								<?php if ($profile='Manager'): ?>
@@ -212,6 +220,12 @@
 	//Guardar nueva expenditure
 	$('#myModalAuthorizationExpenditure #save-expenditure').click(function(){
 		if($('#myModalAuthorizationExpenditure .require').val()!=''){
+			$('#myModalAuthorizationExpenditure .fix-date').each(function(){
+				if($(this).val()==''){
+					$(this).val('infinity');
+					console.log($(this).val());
+				}
+			})
 			let new_expenditure;
 			new_expenditure = {
 				"project_name":$('#project_name').val(),
@@ -240,6 +254,15 @@
 				dataType: "json",
 				success: function (response) {
 					$('#myModalAuthorizationExpenditure').modal('hide');
+					$.ajax({
+						type: "get",
+						url: "common/list_expenditure.php",
+						dataType: "json",
+						success: function (response) {
+							$('#table-expenditure').bootstrapTable('load',response);
+
+						}
+					});
 				}
 			});
 			

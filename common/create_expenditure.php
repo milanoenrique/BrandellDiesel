@@ -3,7 +3,6 @@ include_once 'log_generator.php';
 include_once './connection.php';
 
 $new_expenditure = json_encode([$_POST['new_expenditure']]);
-
 $sth = $dbh->prepare("SELECT * FROM insert_expenditure(:inexpenditure::json);");
 $sth->bindParam(':inexpenditure',      $new_expenditure,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 $sth->execute();

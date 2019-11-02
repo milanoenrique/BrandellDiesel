@@ -347,9 +347,9 @@
                             </div>
                             <font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary red-tooltip fix-bold-tooltip" data-dismiss="modal" data-toggle="tooltip" title="Disscard all Changes"  style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                            <button type="button" id="buttonSaveWriteUp" data-toggle="tooltip" title="Save all changes" class="btn btn-primary buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="save" style="background:#2C3E50;border-color:#2C3E50;">Save</button> 
+                        <div class="modal-footer" style="tex-align:center;">
+                            <button type="button" class="btn btn-danger red-tooltip fix-bold-tooltip" data-dismiss="modal" data-toggle="tooltip" title="Disscard all Changes"  >Close</button>
+                            <button type="button" id="buttonSaveWriteUp" data-toggle="tooltip" title="Save all changes" class="btn btn-success buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="save" >Save</button> 
                         </div>                        
                     </div>
                 </div>
@@ -501,10 +501,10 @@
                             </div>
                             <font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
                         </div>        
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary red-tooltip fix-bold-tooltip" data-dismiss="modal" data-toggle="tooltip" title="Discard all changes" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
-                            <button id="buttonSave" data-toggle="tooltip" title="Save all changes" type="button"  class="btn btn-primary buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="update" style="background:#2C3E50;border-color:#2C3E50;">Save</button>
-                            <button id="buttonSaveClose" type="button" class="btn btn-primary buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="saveclose" data-toggle="tooltip" title="Save all changes and block future modifications." style="background:#2C3E50;border-color:#2C3E50;">Save & Close</button>
+                        <div class="modal-footer" style="text-align:center !important;">
+                            <button type="button" class="btn btn-danger red-tooltip fix-bold-tooltip" data-dismiss="modal" data-toggle="tooltip" title="Discard all changes" >Cancel</button>
+                            <button id="buttonSave" data-toggle="tooltip" title="Save all changes" type="button"  class="btn btn-success buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="update" >Save</button>
+                            <button id="buttonSaveClose" type="button" class="btn btn-success buttonSaveWriteUp red-tooltip fix-bold-tooltip" data-typerecord="saveclose" data-toggle="tooltip" title="Save all changes and block future modifications.">Save & Close</button>
                         </div>                  
                     </div>
                 </div>
@@ -538,8 +538,8 @@
                             </div>
                         </div>        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
-                            <button id="deletewriteup" type="button" class="btn btn-primary" data-record="#" data-user="#" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button id="deletewriteup" type="button" class="btn btn-danger" data-record="#" data-user="#" >Delete</button>
                         </div>                  
                     </div>
                 </div>
@@ -570,8 +570,8 @@
                             </div>
                         </div>        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
-                            <button id="delete-expenditure-button" type="button" class="btn btn-primary" data-record="#" data-user="#" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button id="delete-expenditure-button" type="button" class="btn btn-success" data-record="#" data-user="#">Delete</button>
                         </div>                  
                     </div>
                 </div>
@@ -724,7 +724,7 @@
         <div class="modal" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" style="background:#009207;">
+                    <div class="header-bdi">
 						<font color='#fff'>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-user"></i> View Parts Request</h4>
@@ -737,10 +737,10 @@
                                     <div class="modal-body datagrid table-responsive" >
                                         <center>
                                             <div class="panel-body" id="partsRequesition" style="padding-right: 2% !important">
-                                                <form class="form-horizontal" style="text-align: left;">
+                                                <form class="" style="text-align: left;">
 													<div class="form-group" style="display:none">
                                                         <label class="col-md-3 control-label" for="idrequest">Request ID</label>
-                                                        <div class="col-md-9">
+                                                        <div class="col-md-3">
 															<div id="idRequest" class="form-control"></div>	
                                                         </div>							
                                                     </div>												
@@ -751,17 +751,19 @@
                                                     <div class="row">
                                                         
                                               <div class="form-group">
-                                                        <div class="col-md-12 inputGroupContainer">
+                                                        <div class="inputGroupContainer">
                                                             <div class="form-group required" id="pruebaImpresion">
-                                                        
-                                                        <label class="col-md-2 control-label"  for="vin" style="text-align: left !important; padding-right: 4% ! important">REQUEST DATE</label>
-                                                        <div class="col-md-3" style="left: -57px; padding-right:4%;" id="div-rd">
-                                                            <div class="form-control" id="date-view"></div>
-                                                        </div>                         
+                                                        <div class="col-md-4" style='display:inline-flex'>
+                                                            <span class="required"  for="vin" style='width:80%' >REQUEST DATE</span>
+                                                            
+                                                                <div class="form-control" id="date-view"></div>
+                                                        </div>
+                                                      
+                                                                                
                                                     </div>
                                                             
                                                         </div>
-                                                        <div class="col-md-6  inputGroupContainer" style="padding-left: 0;  ">
+                                                        <div class="col-md-8  inputGroupContainer" >
                                                            
                                                             <div class="form-group">
                                                                 <label class="col-md-3 control-label" for="requestType"><font color="#009207">*</font> TYPE </label>
@@ -773,10 +775,10 @@
                                                             </div>
                                                         
                                                         </div>
-                                                        <label class="col-md-3 control-label" for="techName">TECH NAME</label>
-                                                        <div class="col-md-3  inputGroupContainer" style="padding-right: 1.5%;">
-                                                            <div class="input-group col-md-12">
-                                                                <div id="view-techname"  class="form-control"></div>
+                                                        <div class="col-md-12">
+                                                            <label class="col-md-3 control-label" for="techName">TECH NAME</label>
+                                                            <div class="col-md-12">
+                                                                    <div id="view-techname"  class="form-control"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -785,38 +787,33 @@
                                                     </div>
 
                                                     <div class="row">
-                                                    <div class="form-group">
-                                                        <label class="col-md-1 control-label fix-margin-label" for="ro" style="padding-left:6%;">*RO#</label>
-                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                    <div class="form-group col-md-6">
+                                                        <label  for="ro">*RO#</label>
                                                             <div  class="form-control" id="view-ro"></div>
-                                                        </div>
-                                                    
-                                                        <label class="col-md-5 control-label" for="vin">VIN#</label>
-                                                        <div class="col-md-3 fix-modal-view">
+                                                    </div>
+                                                    <div class='col-md-6'>
+                                                        <label>VIN#</label>
+                                                        <div class="">
                                                             <div class="form-control" id="view-vin"></div>
                                                         </div>
                                                     </div>
                                                     </div>												
                                                    <div class='row'>
-                                                  <div class="form-group">
-                                                        <label class="col-md-1 control-label fix-margin-label" for="trans" style="padding-left: 4%;">TRANS#</label>
-                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                  <div class="col-md-6">
+                                                        <label for="trans">TRANS#</label>
                                                             <div  class="form-control" id="view-trans"></div>
-                                                        </div>
-                                                        <label class="col-md-5 control-label " for="engine">ENGINE#</label>
-                                                        <div class="col-md-3 fix-modal-view">
+                                                    </div>
+                                                    <div class='col-md-6'>
+                                                        <label for="engine">ENGINE#</label>
                                                             <div class="form-control" id="view-engine" ></div>                                                               
-                                                       </div>
 
                                                     </div>
 
                                                    </div>
                                                     <div class='row'>
-                                                   <div class="form-group" style="padding-left: 0.6%;">
-                                                        <label class="col-md-1 control-label fix-margin-label" for="comments" style="padding-left: 3%;">COMMENTS:</label>
-                                                        <div class="col-md-11" style="padding-left:4%; padding-right:1.5%;">
+                                                   <div class="col-md-12">
+                                                        <label  for="comments">COMMENTS:</label>
                                                             <div id="view-comments" class="form-control" style="word-break: break-word;"></div>
-                                                        </div>
                                                     </div>                                              
 
                                                     </div>
@@ -837,10 +834,10 @@
 							</div>
 						</div>
                     </div>        
-                    <div class="modal-footer">					
-						<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;" id="btnSendPDF" onclick="sendPDF()">Send PDF</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;" id="print" onclick="printpdf()">Print</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
+                    <div class="modal-footer" style='text-align:center'>					
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="btnSendPDF" onclick="sendPDF()">Send PDF</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" id="print" onclick="printpdf()">Print</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>                  
                 </div>
             </div>
@@ -878,7 +875,7 @@
                     </div>        
                     <div class="modal-footer">					
 						
-						<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
                     </div>                  
                 </div>
             </div>
@@ -916,7 +913,7 @@
                     </div>        
                     <div class="modal-footer">					
 						
-						<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
                     </div>                  
                 </div>
             </div>
@@ -991,9 +988,9 @@
                         </div>
 						<font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
                     </div>  
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button type="button" id="buttonSendMessage" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Send</button> 
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" id="buttonSendMessage" class="btn btn-success">Send</button> 
                     </div>                        
                 </div>
             </div>
@@ -1044,9 +1041,9 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button id="buttonAssignPartsRequesition" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Assign</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+                        <button id="buttonAssignPartsRequesition" type="button" class="btn btn-success">Assign</button>
                     </div>                  
                 </div>
             </div>
@@ -1082,9 +1079,9 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button id="buttonAssignPartsRequesitionSp" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Assign</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+                        <button id="buttonAssignPartsRequesitionSp" type="button" class="btn btn-success">Assign</button>
                     </div>                  
                 </div>
             </div>
@@ -1119,9 +1116,9 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button id="buttonDeletePartsRequesition" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+                    <div class="modal-footer"style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button id="buttonDeletePartsRequesition" type="button" class="btn btn-success" >Delete</button>
                     </div>                  
                 </div>
             </div>
@@ -1135,21 +1132,32 @@
         <div class="modal in fixmodalbugscss" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header" style="background:#009207;">
+                    <div class="modal-header header-bdi">
 						<font color='#fff'>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-user"></i> Edit Parts Request</h4>
 						</font>
                     </div>
                     <div class="modal-body">
-                        <div class="col-sm-16">
+                        <div class="col-sm-12">
                             <div class="widget-box">
                                 <div class="widget-body">
                                     <div class="modal-body datagrid table-responsive" >
-                                        <center>
-                                            <div class="panel-body" id="partsRequesition">
-                                                <form class="form-horizontal" style="text-align: left;">
+                                        
+                                            <div class="" id="partsRequesition">
+                                                <form class="" style="text-align: left;">
                                                     <div class="form-group">
+
+                                                        <div class="col-md-3"style="display:inline-grid">
+                                                            <b>DATE</b> <span id="date_request"></span>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <select name="" id="reqstatus" class='form-control'>
+                                                            <option  value='null'>Select an option </option>
+                                                            <option value="C">Close</option>
+                                                            </select>
+                                                        </div>
                                                         
                                                         <div class="col-md-6  inputGroupContainer" style="padding-left: 0;  ">
                                                             <div class="input-group">
@@ -1166,67 +1174,66 @@
                                                             </div>
                                                         
                                                         </div>
-                                                        <label class="col-md-2 control-label" for="techName">TECH NAME</label>
-                                                        <div class="col-md-3  inputGroupContainer" style="padding-right: 0;">
-                                                            <div class="input-group col-md-12">
-                                                                <input type="text" id="edit-techName" name="edit-techName" class="form-control" disabled="disabled"/>
-                                                            </div>
-                                                        </div>
+                                                       
+                                                       <div class="col-md-12">
+                                                        <label  for="techName">TECH NAME</label>
+                                                                    <input type="text" id="edit-techName" name="edit-techName" class="form-control" disabled="disabled"/>
+                                                       </div>
+                                                       
                                                     </div>
                                                   	
-                                                    <div class="row">
-                                                    <div class="form-group">
-                                                        <label class="col-md-1 control-label fix-margin-label" for="ro" style="padding-left:6%;">*RO#</label>
-                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                    <div class="">
+                                                    <div class="col-md-6">
+                                                        <label  for="ro">*RO#</label>
                                                             <input type="text" class="form-control secure" id="edit-ro" placeholder="">
-                                                        </div>
-                                                    
-                                                        <label class="col-md-4 control-label" for="vin">VIN#</label>
-                                                        <div class="col-md-3 fix-align-letf" id="div-edit-vin">
-                                                            <input type="text" class="form-control secure" id="edit-vin" placeholder="">
-                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="" for="vin">VIN#</label>
+                                                        <input type="text" class="form-control secure" id="edit-vin" placeholder="">
+                                                    </div>
+                                                        
+                                                            
                                                     </div>
                                                     </div>												
-                                                    <div class="row">
-                                                    <div class="form-group">
-                                                        <label class="col-md-1 control-label fix-margin-label" for="trans" style="padding-left: 4%;">TRANS#</label>
-                                                        <div class="col-md-3" style="padding-left: 4.5%;">
+                                                    <div>
+                                                    <div class="col-md-6">
+                                                        <label  for="trans" style="padding-left: 4%;">TRANS#</label>
                                                             <input type="text" class="form-control secure" id="edit-trans" placeholder="">
-                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class='col-md-6'>
                                                         <label class="col-md-4 control-label" for="engine">ENGINE#</label>
-                                                        <div class="col-md-3 fix-align-letf">
                                                             <input type="text" class="form-control secure" id="edit-engine" placeholder="">                                                               
-                                                       </div>
 
                                                     </div>
-                                                    <div class="row">
-                                                    <div class="form-group" style="padding-left: 2%;" >
-                                                        <label class="col-md-1 control-label fix-margin-label" for="comments" style="padding-left: 3%;">COMMENTS:</label>
-                                                        <div class="col-md-10" style="padding-left:4%; padding-right:2.5%;">
+                                                    <div class="col-md-12" >
+                                                        <label for="comments" style="padding-left: 3%;">COMMENTS:</label>
                                                             <textarea id="edit-comments" class="form-control secure" rows="3" placeholder=""></textarea>
-                                                        </div>
                                                     </div>
 
-                                                    </div>
                                                    
-                                                    <div class="form-group fixed-calendar" style="padding-right:9.5%; padding-left: 4%;">
+                                                    <div class="form-group fixed-calendar col-md-12">
                                                         <table id="table-parts" data-sort-name="" data-sort-order="asc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="false" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="" data-toolbar-align="right"></table>
                                                     </div>
-                                                    <div class="form-group" id="newpart-container" style="padding-left: 4%; padding-right: 9%;">                                                        
+                                                    <div class="form-group" id="newpart-container">                                                        
                                                         <div class="col-lg-2" style="padding-left: 0;padding-right: 0;display:none;">
                                                             <input type="text" class="form-control" id="edit-parts" placeholder="* PARTS:">
                                                         </div>
-                                                        <div class="col-lg-2" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="edit-seg" class="form-control" id="edit-seg" placeholder="* SEG:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "10"/>
+                                                        <div class="col-md-2">
+                                                            <label for=""><span class="required">*</span>SEG</label>
+                                                            <input name="edit-seg" class="form-control" id="edit-seg"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "10"/>
                                                         </div>
-                                                        <div class="col-lg-3" style="padding-left: 0;padding-right: 0;">
-                                                            <input type="text" class="form-control" id="edit-description" placeholder="* DESCRIPTION:" maxlength="250">
+                                                        <div class="col-md-10">
+                                                        <label for=""><span class="required">*</span>DESCRIPTION</label>
+                                                            <input type="text" class="form-control" id="edit-description"  maxlength="250">
                                                         </div>
-                                                        <div class="col-lg-2" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="edit-qty" step="0.01"  class="form-control" id="edit-qty" placeholder="* QTY:" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "5"/>
+                                                        <div class="col-md-2">
+                                                            <label for=""><span class="required">*</span>QTY</label>
+                                                            <input name="edit-qty" step="0.01"  class="form-control" id="edit-qty"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeypress="return Onlynumbers(event)" type = "number" maxlength = "5"/>
                                                         </div>
-                                                        <div class="col-lg-5" style="padding-left: 0;padding-right: 0;">
-                                                            <input name="comments"  class="form-control" id="commentspartsedit" placeholder="Comments of Parts" maxlength="250"  />
+                                                        <div class="col-lg-10">
+                                                        <label for="">COMMENTS</label>
+                                                            <input name="comments"  class="form-control" id="commentspartsedit" maxlength="250"  />
                                                         </div>
                                                         <div class="col-lg-2 input-group date" id="datetimepickerdeliveryDate" style="display:none";>
                                                                 <input type="text" id="editdateofdelivery" class="form-control dateofdelivery" placeholder="Date of delivery">
@@ -1237,12 +1244,11 @@
                                                     </div>
 
                                                     
-                                                    <div class="form-group pull-right" style="padding-right:9%;">
-														<button id="buttonAddPartsE" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Add parts</button>
+                                                    <div class="form-group col-md-12 table-bdi">
+														<button id="buttonAddPartsE" type="button" class="btn btn-success pull-right">Add parts</button>
                                                     </div>
                                                 </form>
                                             </div>
-                                        </center>                                                                                                            
                                     </div>
                                 </div>
                             </div>
@@ -1252,11 +1258,10 @@
 								<img src="loader.gif"/>Please wait, sending mail...
 							</div>
 						</div>
-						<font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
                     </div>        
-                    <div class="modal-footer" style="padding-right:2%;">
-                        <button type="button" id="close-edit" class="btn btn-primary" onclick="" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button id="buttonSave" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;" disabled>Save</button>
+                    <div class="modal-footer" style="text-align:center !important">
+                        <button type="button" id="close-edit" class="btn btn-danger" onclick="" >Close</button>
+                        <button id="buttonSave" type="button" class="btn btn-success"  disabled>Save</button>
                     </div>                  
                 </div>
             </div>
@@ -1291,9 +1296,9 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Cancel</button>
-                        <button id="buttonClosePartsRequesition" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Close Request</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="buttonClosePartsRequesition" type="button" class="btn btn-sucess">Close Request</button>
                     </div>                  
                 </div>
             </div>
@@ -1372,9 +1377,9 @@
                             </div>
                         </div>
                     </div>  
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-                        <button type="button" id="buttonApplyFilter" data-tabletarget="" data-filename="" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Filter</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+                        <button type="button" id="buttonApplyFilter" data-tabletarget="" data-filename="" class="btn btn-success">Filter</button>
                     </div>                       
                 </div>
             </div>
@@ -1437,9 +1442,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group pull-right">
-                                                        <button id="buttonAddUser" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Add user</button>
+                                                        <button id="buttonAddUser" type="button" class="btn btn-success">Add user</button>
 														<div class="col-lg-7" style="padding-left: 0;padding-right: 0;">
-                                                        <button id="buttonEditUser" type="button" class="btn btn-primary" style="display:none;background:#2C3E50;border-color:#2C3E50;">Save user</button>
+                                                        <button id="buttonEditUser" type="button" class="btn btn-success" style="display:none;background:#2C3E50;border-color:#2C3E50;">Save user</button>
 														</div>
 														<div class="col-lg-3" style="padding-left: 0;padding-right: 0;">
                                                         <button id="buttonCancelEdit" type="button" class="btn btn-primary" style="display:none;background:#2C3E50;border-color:#2C3E50;">Cancel</button>
@@ -1473,9 +1478,9 @@
 																		</div>
 																	</div>
 																</div>        
-																<div class="modal-footer">
-																	<button type="button" id="buttonCloseDeleteUser" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-																	<button id="buttonDeleteUser" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+																<div class="modal-footer" style="text-align:center !important;">
+																	<button type="button" id="buttonCloseDeleteUser" class="btn btn-danger" >Close</button>
+																	<button id="buttonDeleteUser" type="button" class="btn btn-success">Delete</button>
 																</div>                  
 															</div>
 														</div>
@@ -1489,8 +1494,8 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
                     </div>                  
                 </div>
             </div>
@@ -1535,7 +1540,7 @@
                                                         </div>
                                                     </div>													
                                                     <div class="form-group pull-right">
-                                                        <button id="buttonAddGroup" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Add group</button>
+                                                        <button id="buttonAddGroup" type="button" class="btn btn-success" >Add group</button>
                                                         
 							<div class="col-lg-7" style="padding-left: 0;padding-right: 0;">
                                                         <button id="buttonEditGroup" type="button" class="btn btn-primary" style="display:none;background:#2C3E50;border-color:#2C3E50;">Save group</button>
@@ -1570,9 +1575,9 @@
 																		</div>
 																	</div>
 																</div>        
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
-																	<button id="buttonDeleteGroup" type="button" class="btn btn-primary" style="background:#2C3E50;border-color:#2C3E50;">Delete</button>
+																<div class="modal-footer" style="text-align:center !important;">
+																	<button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+																	<button id="buttonDeleteGroup" type="button" class="btn btn-success">Delete</button>
 																</div>                  
 															</div>
 														</div>
@@ -1586,8 +1591,8 @@
                             </div>
                         </div>
                     </div>        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" style="background:#2C3E50;border-color:#2C3E50;">Close</button>
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>                  
                 </div>
             </div>
@@ -1614,15 +1619,15 @@
                 <form>
                     <div class="form-group col-md-6">
                         <label for="projectname">Project Name <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="project_name" placeholder="">
+                        <input type="text" class="form-control require" id="project_name" maxlength = 30>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="afe_number">AFE Number <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="afe_number" placeholder="">
+                        <input type="text" class="form-control require" id="afe_number" placeholder="" maxlength = 20>
                         </div>
                     <div class="form-group col-md-12">
                         <label for="project_description">Project Description</label>
-                        <textarea class="form-control rounded-0" id="project_description"></textarea>
+                        <textarea class="form-control rounded-0" id="project_description" maxlength = 300></textarea>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="start_date">Starting Date <span class="required"> * </span></label>
@@ -1639,7 +1644,7 @@
                         <label for="anticipated_date">Anticipated Completion Date</label>
                         <div>
                             <div class='input-group date'>
-                                <input type='text' id="anticipated_date" class="form-control" />
+                                <input type='text' id="anticipated_date" class="form-control fix-date" />
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -1648,20 +1653,20 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="amount_request">Amount Requested <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="amount_request" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                        <input type="text" class="form-control require" id="amount_request" maxlength=10 onkeypress="return Onlynumbers(event)" value = 0>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="requested_by">Requested by <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="requested_by" placeholder="">
+                        <input type="text" class="form-control require" id="requested_by" placeholder="" maxlength = 20>
                     </div>
                         <div class="form-group col-md-3">
                         <label for="signature">Signature</label>
-                        <input type="text" class="form-control" id="request_signature" placeholder="">
+                        <input type="text" class="form-control" id="request_signature" placeholder="" maxlength=20>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="date_signature">Date</label>
                         <div class="input-group date" data-provide="datepicker">
-                            <input type="text" class="form-control" id="date_signature">
+                            <input type="text" class="form-control fix-date" id="date_signature" maxlength=20>
                             <div class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </div>
@@ -1696,17 +1701,17 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="exampleInputPassword1">Print Name</label>
-                        <input type="text" class="form-control" id="president_print_name" placeholder="">
+                        <input type="text" class="form-control" id="president_print_name" maxlength = 20>
                 </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Signature</label>
-                        <input type="text" class="form-control" id="president_signature" placeholder="">
+                        <input type="text" class="form-control" id="president_signature" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Date Approved</label>
                         <div>
                             <div class='input-group date'>
-                                <input type='text' id="date_approved_president" class="form-control" />
+                                <input type='text' id="date_approved_president fix-date" class="form-control" />
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -1718,17 +1723,17 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Print Name</label>
-                        <input type="text" class="form-control" id="cfo_name" placeholder="">
+                        <input type="text" class="form-control" id="cfo_name" placeholder="" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="exampleInputPassword1">Signature</label>
-                        <input type="text" class="form-control" id="cfo_signature" placeholder="">
+                        <label for="exampleInputPassword1">Signature</label>    
+                        <input type="text" class="form-control" id="cfo_signature" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Date Approved</label>
                         <div>
                             <div class='input-group date'>
-                                <input type='text' id="date_approved_cfo" class="form-control" />
+                                <input type='text' id="date_approved_cfo" class="form-control fix-date" />
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -1765,19 +1770,19 @@
                 <form>
                     <div class="form-group col-md-6">
                         <label for="projectname">Project Name <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="project_name_edit" placeholder="">
+                        <input type="text" class="form-control require" id="project_name_edit" maxlength = 30>
                         <input type="hidden" class="form-control require" id="id_expenditure" placeholder="">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="afe_number">AFE Number <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="afe_number_edit" placeholder="">
+                        <input type="text" class="form-control require" id="afe_number_edit" maxlength = 20>
                         </div>
                     <div class="form-group col-md-12">
                         <label for="project_description">Project Description</label>
-                        <textarea class="form-control rounded-0" id="project_description_edit"></textarea>
+                        <textarea class="form-control rounded-0" id="project_description_edit" maxlength = 300></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="start_date">Starting Date <span class="required .fix-date"> * </span></label>
+                        <label for="start_date">Starting Date <span class="required fix-date"> * </span></label>
                         <div>
                             <div class='input-group date'>
                                 <input type='text' id="start_date_edit" class="form-control require fix-date" />
@@ -1800,15 +1805,15 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="amount_request">Amount Requested <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="amount_request_edit" placeholder="000000" onkeypress="return Onlynumbers(event)">
+                        <input type="text" class="form-control require" value=0 id="amount_request_edit" maxlength=10 onkeypress="return Onlynumbers(event)">
                     </div>
                     <div class="form-group col-md-3">
                         <label for="requested_by">Requested by <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="requested_by_edit" placeholder="">
+                        <input type="text" class="form-control require" id="requested_by_edit" maxlength = 20>
                     </div>
                         <div class="form-group col-md-3">
                         <label for="signature">Signature</label>
-                        <input type="text" class="form-control" id="request_signature_edit" placeholder="">
+                        <input type="text" class="form-control" id="request_signature_edit" maxlength = 20>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="date_signature">Date</label>
@@ -1848,11 +1853,11 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="exampleInputPassword1">Print Name</label>
-                        <input type="text" class="form-control" id="president_print_name_edit" placeholder="">
+                        <input type="text" class="form-control" id="president_print_name_edit" maxlength = 20>
                 </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Signature</label>
-                        <input type="text" class="form-control" id="president_signature_edit" placeholder="">
+                        <input type="text" class="form-control" id="president_signature_edit" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Date Approved</label>
@@ -1870,11 +1875,11 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Print Name</label>
-                        <input type="text" class="form-control" id="cfo_name_edit" placeholder="">
+                        <input type="text" class="form-control" id="cfo_name_edit" placeholder="" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Signature</label>
-                        <input type="text" class="form-control" id="cfo_signature_edit" placeholder="">
+                        <input type="text" class="form-control" id="cfo_signature_edit" placeholder="" maxlength = 20>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputPassword1">Date Approved</label>

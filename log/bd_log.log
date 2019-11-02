@@ -106,3 +106,60 @@ CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,descri
 			from json_populate_recordset(null::expenditure, inexpenditure)"
 PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
 [2019-10-26 20:38:35.24259900] transaction successfully update expenditure complete
+[2019-10-27 12:20:41.09506600] transaction successfully
+[2019-10-27 12:21:39.94496400] "Insert_Request: transaction successfully
+[2019-10-27 12:21:40.02077300] "Insert_Parts: transaction successfully
+[2019-10-27 12:21:40.02229100] "Insert_Parts: transaction successfully
+[2019-10-27 12:22:03.05906400] transaction successfully
+[2019-10-27 12:30:01.15037800] "Insert_Request: transaction successfully
+[2019-10-27 12:30:01.22099600] "Insert_Parts: transaction successfully
+[2019-10-27 12:38:08.94755900] transaction successfully
+[2019-10-27 12:40:11.81030200] "Insert_Request: transaction successfully
+[2019-10-27 12:40:11.89164800] "Insert_Parts: transaction successfully
+[2019-10-27 12:40:36.27682600] transaction successfully
+[2019-10-27 12:47:35.28475600] "Insert_Request: transaction successfully
+[2019-10-27 12:47:35.36249600] "Insert_Parts: transaction successfully
+[2019-10-27 13:05:31.86683400] transaction successfully
+[2019-10-27 13:05:50.87651800] transaction successfully
+[2019-10-27 13:12:41.61793700] transaction successfully
+[2019-10-27 13:21:06.52235800] transaction successfully
+[2019-10-27 13:21:22.20116300] transaction successfully
+[2019-10-27 13:34:56.35647100] transaction successfully
+[2019-10-27 13:40:05.54860100] transaction successfully
+[2019-10-27 15:28:04.41500800] "Insert_Request: transaction successfully
+[2019-10-27 15:28:04.48930300] "Insert_Parts: transaction successfully
+[2019-10-27 16:18:55.77667400] transaction successfully registration expenditur complete
+[2019-10-27 16:27:19.57978200] transaction successfully registration expenditur complete
+[2019-10-27 16:40:31.63393300] transaction successfully registration expenditur complete
+[2019-10-28 17:33:52.79341500] transaction successfully registration expenditur complete
+[2019-10-28 17:33:55.84779000] transaction successfully registration expenditur complete
+[2019-10-28 17:34:03.99230900] transaction successfully registration expenditur complete
+[2019-10-28 17:40:23.44991000] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
+[2019-10-28 17:49:29.91470700] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 7 at SQL statement
+[2019-10-28 17:52:17.26166600] transaction successfully registration expenditur complete
+[2019-10-28 18:04:32.15734900] transaction successfully
+[2019-10-28 18:12:45.04419300] transaction successfully
+[2019-10-28 18:12:58.89678100] transaction successfully
+[2019-10-28 18:28:52.02062600] "Insert_Request: transaction successfully
+[2019-10-28 18:28:52.10717600] "Insert_Parts: transaction successfully
+[2019-10-28 18:29:16.87701000] transaction successfully
+[2019-10-28 18:29:43.54776100] transaction successfully
+[2019-10-28 18:50:06.34522000] transaction successfully
+[2019-10-28 18:51:13.58968800] "Insert_Request: transaction successfully
+[2019-10-28 18:51:13.65880300] "Insert_Parts: transaction successfully

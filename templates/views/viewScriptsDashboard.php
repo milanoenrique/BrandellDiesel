@@ -595,7 +595,7 @@
                             DATA    = null;
                             parts   = [];
     						var vOType = "";
-
+                            
                             $('#modal-edit').modal('show');
     						rederizsoftHideLoad( '#partsRequesition', '#cargar_data_edit' );
                             ROW = row;
@@ -609,15 +609,18 @@
                                 parts   = DATA.PARTS;
     							vOType = DATA.REQUESTS[0].idrequesttype;
 
+                                $(".modal-body #date_request").text(moment(DATA.REQUESTS[0].requestdate).format("MMM DD YYYY, hh:mm:ss a"));
                                 if(DATA.REQUESTS[0].idpriority === "H"){
     								vOType='9';
     							}
-                                let verify_status=false;
+                                let verify_status=true;
                                 let status_temp=null;
                                 parts.forEach(function(element){
-                                    status_temp = (status_temp==null)?element.status:status_temp;
-                                    verify_status = (status_temp==element.status)?true:false;
-                                    console.log(verify_status);
+                                    console.log(element);
+                                    if((element.status=='ordered')||(element.status=='1')){
+                                        verify_status = false;
+                                    }
+                                   
                                 });
                                 if(verify_status){
                                    $("#modal-edit #reqstatus").prop("disabled", false);
@@ -634,13 +637,7 @@
                                     $("#modal-edit #requestType").prop('checked', true);}
                                 else {
                                     $("#modal-edit #requestType").prop('checked', false);}*/
-                                    let status;
-                                    status = (DATA.REQUESTS[0].reqstatus=='O')?'Open':'Closed';
-                                    let status2 
-                                    status2=(status=='Open')?'Closed':'Open';
-                                    let value2 
-                                    value2= (status2=='Open')? 'O':'C';
-                                    console.log(status2);
+                                    
                                 
     							$("#modal-edit #edit-techName").val(DATA.REQUESTS[0].techname);
                                 $("#modal-edit #edit-ro").val(DATA.REQUESTS[0].ro);
@@ -648,7 +645,7 @@
                                 $("#modal-edit #edit-trans").val(DATA.REQUESTS[0].trans);
                                 $("#modal-edit #edit-engine").val(DATA.REQUESTS[0].engine);
                                 $("#modal-edit #edit-comments").val(DATA.REQUESTS[0].reqcomment);
-                                $("#modal-edit #reqstatus").append('<option value='+DATA.REQUESTS[0].reqstatus+'>'+status+'</option><option value='+value2+'>'+status2+'</option>');
+                                $("#modal-edit #reqstatus").html('<option value='+DATA.REQUESTS[0].reqstatus+'>Select an option</option><option value="C">CLose</option>');
 
                                  compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
 
@@ -746,37 +743,46 @@
                                                             var text;
                                                             if($('#quote').is(':checked')){
                                                                  if(parts[index_part].ord=='quoted'||parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option></select>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
                                                             }
+
+                                                            if(parts[index_part].ord=='quoted'||parts[index_part].ord=='In-Stock'){
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option><option value="In-Stock">In-Stock</option></select>';
+                                                            }
+
                                                             if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option></select>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
                                                             }
                                                             if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option></select>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
                                                             }
 
                                                             }else{
                                                                  if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>';
 
 
                                                             }
                                                             if(parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option><option value="In-Stock">In-Stock</option>';
+                                                            }
+
+                                                            if(parts[index_part].ord=='In-Stock'){
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option>';
                                                             }
                                                             if(parts[index_part].ord=='canceled'){
 
 
 
-                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option>'
+                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option><option value="In-Stock">In-Stock</option>'
                                                             }
 
                                                               if(parts[index_part].ord=='quote'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option><option value="In-Stock">In-Stock</option>';
                                                             }
 
                                                             if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>'
                                                             }
 
                                                             }
@@ -787,7 +793,7 @@
 
 
                                                         }else{
-                                                            return '<select id='+parts[index_part].part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option></select>';
+                                                            return '<select id='+parts[index_part].part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option></select>';
 
                                                         }
 
@@ -4443,6 +4449,10 @@
 
   });
 
+
+
+
+
  $('#modal-edit .modal-footer #close').click(function(){
     
         $("#modal-edit #buttonSave").prop('disabled',true);
@@ -4530,6 +4540,10 @@ function send_post(url,data,fn){
 $('.form-control').keypress(function(){
    flag_chance = true;
 
+});
+
+$('#modal-edit #reqstatus').change(function(){
+    $('#modal-edit #buttonSave').removeAttr('disabled');;
 });
 
 
