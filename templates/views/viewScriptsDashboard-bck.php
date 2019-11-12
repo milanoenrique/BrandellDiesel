@@ -511,7 +511,7 @@
                                                 align: 'center',
                                                 valign: 'middle',
                                                 width: 1,
-						                        formatter: function(value){
+						formatter: function(value){
                                                     if(value=='1'){
                                                         text = 'N/A';
                                                     }
@@ -531,10 +531,10 @@
                                                     var text;
                                                     var value_temp='';
                                                     var value2='';
-							                    if(value!=null){
-								                    value_temp=value;
-								                    value2=value.substr(0,15);
-							                    }
+							if(value!=null){
+								value_temp=value;
+								value2=value.substr(0,15);
+							}
                                                     text = '<div  class="red-tooltip" data-toggle="tooltip" title="'+value_temp+'">'+value2+'...</div>';
 
                                                     return text;
@@ -595,15 +595,8 @@
                             DATA    = null;
                             parts   = [];
     						var vOType = "";
-                            
+
                             $('#modal-edit').modal('show');
-                            if(assignedto==null){
-                               
-                                $('#modal-edit #global-status').hide();
-                            }
-                            else{
-                                $('#modal-edit #global-status').show();
-                            }
     						rederizsoftHideLoad( '#partsRequesition', '#cargar_data_edit' );
                             ROW = row;
                             $("#modal-edit #idRequest").val(row.idrequest);
@@ -616,24 +609,10 @@
                                 parts   = DATA.PARTS;
     							vOType = DATA.REQUESTS[0].idrequesttype;
 
-                                $(".modal-body #date_request").text(moment(DATA.REQUESTS[0].requestdate).format("MMM DD YYYY, hh:mm:ss a"));
                                 if(DATA.REQUESTS[0].idpriority === "H"){
     								vOType='9';
     							}
-                                let verify_status=true;
-                                let status_temp=null;
-                                parts.forEach(function(element){
-                                    console.log(element);
-                                    if((element.status=='ordered')||(element.status=='1')){
-                                        verify_status = false;
-                                    }
-                                   
-                                });
-                                if(verify_status){
-                                   $("#modal-edit #reqstatus").prop("disabled", false);
-                                }else{
-                                    $("#modal-edit #reqstatus").prop("disabled", true);
-                                }
+
     							var $radios = $('#modal-edit input:radio[name=requestType]');
     							$radios.filter('[value='+vOType+']').prop('checked', true);
 
@@ -644,15 +623,13 @@
                                     $("#modal-edit #requestType").prop('checked', true);}
                                 else {
                                     $("#modal-edit #requestType").prop('checked', false);}*/
-                                    
-                                
+
     							$("#modal-edit #edit-techName").val(DATA.REQUESTS[0].techname);
                                 $("#modal-edit #edit-ro").val(DATA.REQUESTS[0].ro);
                                 $("#modal-edit #edit-vin").val(DATA.REQUESTS[0].vin);
                                 $("#modal-edit #edit-trans").val(DATA.REQUESTS[0].trans);
                                 $("#modal-edit #edit-engine").val(DATA.REQUESTS[0].engine);
                                 $("#modal-edit #edit-comments").val(DATA.REQUESTS[0].reqcomment);
-                                $("#modal-edit #reqstatus").html('<option value='+DATA.REQUESTS[0].reqstatus+'>Select an option</option><option value="C">CLose</option>');
 
                                  compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
 
@@ -665,26 +642,6 @@
                                     columns:
                                     [
                                         [
-                                            {
-                                                field: 'edit',
-                                                title: '',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                formatter: function(value){
-							                    let val;
-							                    val = value.split('|');
-                                                if(assignedto!=null){
-                                                    var text = '<input type="checkbox" name="" id="ch-'+val[1]+'" class="check-part" value="'+val[1]+'">';
-                                                    return text;
-                                                }else{
-                                                    return '-';
-                                                }
-                                                   
-
-                                                }
-                                            },
-                                
                                             {
                                                 field: 'seg',
                                                 title: '<font color="#009207">*</font> SEG:',
@@ -770,46 +727,37 @@
                                                             var text;
                                                             if($('#quote').is(':checked')){
                                                                  if(parts[index_part].ord=='quoted'||parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option></select>';
                                                             }
-
-                                                            if(parts[index_part].ord=='quoted'||parts[index_part].ord=='In-Stock'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option><option value="In-Stock">In-Stock</option></select>';
-                                                            }
-
                                                             if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option></select>'
                                                             }
                                                             if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option></select>'
                                                             }
 
                                                             }else{
                                                                  if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option>';
 
 
                                                             }
                                                             if(parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option><option value="In-Stock">In-Stock</option>';
-                                                            }
-
-                                                            if(parts[index_part].ord=='In-Stock'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option>';
                                                             }
                                                             if(parts[index_part].ord=='canceled'){
 
 
 
-                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option><option value="In-Stock">In-Stock</option>'
+                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option>'
                                                             }
 
                                                               if(parts[index_part].ord=='quote'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option><option value="In-Stock">In-Stock</option>';
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option>';
                                                             }
 
                                                             if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>'
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option>'
                                                             }
 
                                                             }
@@ -820,7 +768,7 @@
 
 
                                                         }else{
-                                                            return '<select id='+parts[index_part].part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option></select>';
+                                                            return '<select id='+parts[index_part].part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option></select>';
 
                                                         }
 
@@ -1052,29 +1000,19 @@
 
                                                 }
 
+
+
                                                 if (add_class){
                                                     y= require_date.indexOf($(this).attr('id'));
                                                     if (y==-1){
                                                         require_date.push($(this).attr('id'));
-                                                    } 
-                                                }
-                                                    let status=null;
-                                                    let flag=false;
-                                                $('.status_part').each(function(){
-                                                   status = (status==null)?$(this).val():status;
-                                                   flag=(status == $(this).val())?true:false;
-                                                   console.log(flag);
-                                                });
-                                                if(flag==true){
+                                                    }
                                                     
-                                                    $("#modal-edit #reqstatus").prop("disabled", false);
-                                                }else{
-                                                    $("#modal-edit #reqstatus").prop("disabled", true);  
                                                 }
 
                                           
                                              
-                                            });
+                                              });
                                         }
                                         if(field==='date_of_delivery'){
                                             $("#modal-edit #table-parts").on('click','.fixdate', function (e){
@@ -1089,35 +1027,6 @@
                                                        
                                                 });
                                             });
-                                        }
-
-                                        if(field==='edit'){
-                                            let check = value.split('|');
-                                            if( $('#ch-'+check[1]).prop('checked') ) {
-                                                $('#c-'+check[1]).prop('disabled','disabled');
-                                                $('#'+check[1]).prop('disabled','disabled');
-                                                $('#global-status-part').prop('disabled',false);
-                                             
-                                            }else{
-                                                if($('#all-check').prop('checked',false)){
-                                                    $('#c-'+check[1]).prop('disabled',false);
-                                                    $('#'+check[1]).prop('disabled',false);
-                                                }                                              
-                                            }
-                                            if($(".check-part").toArray().length== $(".check-part:checked").length){
-                                                $('#all-check').prop('checked','checked');
-
-                                            }
-                                            if($(".check-part:checked").length>0){
-                                                $('#global-status-part').prop('disabled',false);
-
-                                            }else{
-                                                $('#global-status-part').prop('selectedIndex',0);
-                                                $('#global-status-part').prop('disabled','disabled');
-
-
-                                            }
-                                            
                                         }
                                         
                                     }
@@ -2639,16 +2548,13 @@
 
 			// Modal EDIT Button SAVE
 			$("#modal-edit #buttonSave").click(function(event){
-                
                 var stop =false;
                 if(parts.length==0){
                     alert("This request need at least a part!");
                     $(this).prop('disabled',true);
                 }else{
 
-                   
-
-                    
+                    array_edit=[];
 
                     $('#table-parts .status_part').each(function(){
                         var part_edit = $(this).prop('id');
@@ -2672,12 +2578,8 @@
                                     "real_date":real_date_part_edit, 
                                     "part":part_edit
                                 };
-                        let not_repeat = array_edit.filter(part => part.part == part_edit);
-
-                        if (not_repeat.length ==0){
-                            array_edit.push(json_edit);
-                        }
                         
+                        array_edit.push(json_edit);
                     });
 
                       array_deleted.forEach(function(element){
@@ -2820,17 +2722,9 @@
                        
                     });
                 }
-                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|" + $('#modal-edit #reqstatus').val() + "|" + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
+                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|"  + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
                 real_date=[];
                 newPart_edit=[];
-                $('input:checkbox').removeAttr('checked');
-                $('#global-estimated_date').val('');
-                $('#global-estimated_date').prop('disabled','disabled');
-                $('#global-real_date').val('');
-                $('#global-real_date').prop('disabled','disabled');
-                $('#global-status-part').prop('disabled','disabled');
-                
-
 
                 send_post(URL,VALOR, function(data){
                     DATA = data;
@@ -2944,7 +2838,6 @@
                  z=0;
                  array_edit = [];
                  array_deleted = [];
-                 $('#global-status-part').prop('selectedIndex',0);
 
                 
             });
@@ -4521,10 +4414,6 @@
 
   });
 
-
-
-
-
  $('#modal-edit .modal-footer #close').click(function(){
     
         $("#modal-edit #buttonSave").prop('disabled',true);
@@ -4613,561 +4502,6 @@ $('.form-control').keypress(function(){
    flag_chance = true;
 
 });
-
-$('#modal-edit #reqstatus').change(function(){
-    $('#modal-edit #buttonSave').removeAttr('disabled');;
-});
-
-    $('#modal-edit #all-check').click(function(){
-        if( $(this).prop('checked') ) {
-            $('.check-part').prop('checked',true);
-            $('.comments_parts').prop('disabled','disabled');
-            $('.status_part').prop('disabled','disabled');
-            $('#global-status-part').prop('disabled',false);
-            $('.fixdate').each(function(){
-                    $(this).prop('disabled','disabled');
-            });
-        }else{
-            $('#global-status-part').prop('disabled','disabled');
-            $('.check-part').prop('checked',false);
-            $('.comments_parts').prop('disabled',false);
-            $('.status_part').each(function(){
-                if( $(this).val() != 'received' && $(this).val()!='quoted' && $(this).val()!='In-Stock'){
-                    $(this).prop('disabled',false);
-                }
-            });
-        }
-    });
-
-    $('#global-status-part').change(function(){
-       if($(this).val()=='ordered'){
-           $('#global-estimated_date').prop('disabled',false);
-           $('#global-real_date').prop('disabled','disabled');
-       }
-       if($(this).val()=='received'){
-           $('#global-real_date').prop('disabled',false);
-           $('#global-estimated_date').prop('disabled','disabled');
-       }
-       if($(this).val()!='received' && $(this).val()!='ordered' ){
-           $('#global-real_date').prop('disabled','disabled');
-           $('#global-estimated_date').prop('disabled','disabled');
-       }
-       $('#modal-edit #buttonSave').removeAttr('disabled');
-    });
-
-    $('#modal-edit #aplly-massive-button').click(function(e){
-        e.preventDefault();
-        var date_flag;
-        var array_edit=[];
-        flag_chance = false;
-        if( $('#global-status-part option:selected').val()=='ordered' && $('#global-estimated_date').val()==''){
-            date_flag = false
-
-        }
-
-        if( ($('#global-status-part option:selected').val()=='received' || $('#global-status-part option:selected').val()=='received') && $('#global-real_date').val()==''){
-            date_flag = false
-
-        }
-        if(date_flag==false){
-            alert('Please insert a date valid.');
-        }else{
-           
-
-        $('#modal-edit .check-part').each(function(){
-            console.log('x');
-            if( $(this).prop('checked') ) {
-                var part_edit = $(this).val();
-                var comment_part_edit = $('#'+'c-'+part_edit).val();
-                var status_part_edit = $('#global-status-part option:selected').val();
-                var estimate_date_part_edit = $('#global-estimated_date').val();
-                var real_date_part_edit = $('#global-real_date').val();
-
-                if (estimate_date_part_edit==undefined || estimate_date_part_edit ==""){
-                    estimate_date_part_edit = null;
-                }
-
-                if (real_date_part_edit==undefined || real_date_part_edit ==""){
-                    real_date_part_edit = null;
-                }
-
-                if($('#part-'+part_edit).val()!=''){
-                    estimate_date_part_edit = $('#part-'+part_edit).val();
-                }
-                if($('#real_date_part-'+part_edit).val()!=''){
-                    estimate_date_part_edit = $('#real_date_part-'+part_edit).val();
-                }
-
-
-                if(($('#'+$(this).val()+'').val()!='received') && ($('#'+$(this).val()+'').val()!='In-Stock') )
-                {
-                    json_edit = {
-                            "comment_parts":comment_part_edit, 
-                            "status_order":status_part_edit, 
-                            "date_of_delivery":estimate_date_part_edit, 
-                            "real_date":real_date_part_edit, 
-                            "part":part_edit
-                        };
-                        
-                
-                        array_edit.push(json_edit);
-
-                }
-               
-             
-                
-                
-            }
-        });
-        if (array_edit.length > 0){
-                    array_edit = JSON.stringify(array_edit);
-                    $('#all-check').prop('checked',false);
-                    $('#global-estimated_date').val('');
-                    $('#global-real_date').val('');
-                    $('#global-status-part').prop('selectedIndex',0);
-                    $.ajax({
-                        type: "post",
-                        url: "common/massive_status.php",
-                        data: {'data':array_edit,
-                               'id_request':idrequest
-                              },
-                        dataType: "JSON",
-                        success: function (response) {
-                              parts = response;
-                            $('#modal-edit #table-parts').bootstrapTable('destroy');
-                                index_part = -1
-                                $('#modal-edit #table-parts').bootstrapTable({
-                                    data: parts,
-                                    striped: true,
-                                    columns:
-                                    [
-                                        [
-                                            {
-                                                field: 'edit',
-                                                title: '',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                formatter: function(value){
-							                    let val;
-							                    val = value.split('|');
-                                                    var text = '<input type="checkbox" name="" id="ch-'+val[1]+'" class="check-part" value="'+val[1]+'">';
-                                                    return text;
-                                                }
-                                            },
-                                
-                                            {
-                                                field: 'seg',
-                                                title: '<font color="#009207">*</font> SEG:',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1
-                                            },
-                                            {
-                                                field: 'part',
-                                                title: '<font color="#009207">*</font> PART:',
-                                                align: 'center',
-                                                valign: 'middle',
-    											visible: false,
-                                                width: 1
-                                            },
-                                            {
-                                                field: 'description',
-                                                title: '<font color="#009207">*</font> DESCRIPTION:',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                formatter: function(value){
-                                                    var text = '<div style="word-break: break-word;">'+value+'</div>';
-                                                    return text;
-
-                                                }
-                                            },
-                                            {
-                                                field: 'quantity',
-                                                title: '<font color="#009207">*</font> QTY:',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1
-                                            },
-                                            {
-                                                field:'comment_parts',
-                                                title: 'COMMENT OF PARTS',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                clickToSelect: false,
-                                                formatter: function(value){
-                                                    index_part++;
-                                                    var comment_temp='';
-
-                                                    if(index_part<0){
-                                                        index_part = index_part+1;    
-                                                    }
-                                                    
-                                                     if(typeof parts[index_part].allcoments!=='undefined'){
-                                                        parts[index_part].allcoments.forEach(function(element){
-                                                            var date='';
-                                                            date = element.date.split(".")
-                                                           comment_temp += '<i>'+date[0] +'</i> : ' + element.comment+'&#10;';
-
-                                                    });
-                                                    }
-                                                      if (value == null){
-                                                        value = '';
-
-                                                    }
-                                                    var text;
-                                                    text = '<div class="father"><div><div><div  title="'+comment_temp+'" class="red-tooltip" data-toggle="tooltip" data-html="true"><i class="fa fa-comments"></i></div></div></div></div><div class="textarea-bug"><textarea id=c-'+parts[index_part].part+ '   rows=3 maxlength=100 class="comments_parts secure">'+value+'</textarea></div><input type="hidden" id=h-'+parts[index_part].part+' value="'+value+'">';
-                                                    comment_temp='';
-                                                    return text;
-                                                }
-                                            },
-                                            {
-                                                field: 'ord',
-                                                title: 'STATUS:',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                clickToSelect: false,
-                                                formatter: function(value){
-                                                   
-
-                                                            if(typeof parts[index_part].ord != 'undefined'){
-
-
-                                                            var text;
-                                                            if($('#quote').is(':checked')){
-                                                                 if(parts[index_part].ord=='quoted'||parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
-                                                            }
-                                                               
-                                                            if(value=='quoted'||parts[index_part].ord=='In-Stock'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option><option value="In-Stock">In-Stock</option></select>';
-                                                            }
-
-                                                            if(value=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
-                                                            }
-                                                            if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
-                                                            }
-
-                                                            }else{
-                                                                 if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>';
-
-
-                                                            }
-                                                            if(value=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option><option value="In-Stock">In-Stock</option>';
-                                                            }
-
-                                                            if(value=='In-Stock'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option>';
-                                                            }
-                                                            if(parts[index_part].ord=='canceled'){
-
-
-
-                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option><option value="In-Stock">In-Stock</option>'
-                                                            }
-
-                                                              if(value=='quote'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option><option value="In-Stock">In-Stock</option>';
-                                                            }
-
-                                                            if(value=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>'
-                                                            }
-
-                                                            }
-
-                                                           
-                                                            return text;
-
-
-
-                                                        }else{
-                                                            return '<select id='+value+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option></select>';
-
-                                                        }
-
-                                                        
-
-
-
-
-
-                                                    }
-
-
-                                            },
-                                            {
-                                                field:'date_of_delivery',
-                                                title: '&nbsp;&nbsp;ESTIMATED DATE&nbsp;&nbsp;',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                formatter: function(value){
-                                                    
-                                                    var text;
-                                                        if(value!=null){
-                                                          
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";        
-                                                        }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";
-
-                                                        }
-                                                    
-
-                                                    return text;
-
-                                                    
-
-                                                }
-                                            },
-
-                                            {
-                                                field:'real_date',
-                                                title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REAL DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                formatter: function(value,row){
-                                                    //console.log(row);
-                                                    if(row.ord==="received" || row.ord=='quoted' ){
-                                                       value = row.real_date;
-                                                      // console.log(value);
-                                                    }
-                                                    
-                                                    var text;
-                                                        if(value!=null){
-                                                          
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";        
-                                                        }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";
-
-                                                        }
-                                                    
-
-                                                    return text;
-
-                                                    
-                                                    
-
-                                                }
-                                            },
-
-                                            {
-                                                field: 'delete',
-                                                title: '',
-                                                align: 'center',
-                                                valign: 'middle',
-                                                width: 1,
-                                                clickToSelect: false,
-                                                formatter : function(value)
-                                                {
-                                                    //console.log(parts[index_part].ord);
-                                                    if(parts[index_part].ord!='received' && parts[index_part].ord!='quoted'){
-                                                        return '<a class=""><span class="fa fa-trash" aria-hidden="true"></span></a>';
-
-                                                    }
-                                                    else{
-                                                        return '-';
-                                                    }
-                                                    
-                                                }
-                                            }
-                                        ]
-                                    ],
-                                    onClickCell: function (field, value, row, element){
-                                             if(field === "delete")
-                                        {
-
-                                            newParts = parts.filter(function(el)
-                                            {
-
-                                                if(row.ord=='received'||row.ord=='quoted'){
-
-                                                    return '-'
-                                                }else{
-                                                       deletedParts.push(value);
-                                                       delete_flag = true;
-                                                    return el.delete !== value;
-                                                    
-
-                                                }
-                                               
-                                               
-                                                        
-                                            });
-                                            index_part= -1;
-
-
-                                            
-                                                //$('.modal-body #table-parts').bootstrapTable('load', newParts);
-                                                $(element).closest('tr').remove();
-                                                var temp_date_of_delivery;
-                                                var temp_real_date;
-
-                                                if (row.dateofdelivery==undefined || row.dateofdelivery ==""){
-                                                    temp_date_of_delivery = null;
-                                                }else{
-                                                    temp_date_of_delivery = row.dateofdelivery;
-                                                }
-
-                                                if (row.real_date==undefined || row.real_date ==""){
-                                                    temp_real_date = null;
-                                                }else{
-                                                    temp_real_date = row.dateofdelivery;
-                                                }
-
-                                                var parts_delete = {
-                                                                        "comment_parts":row.comment_parts,
-                                                                        "date_of_delivery":temp_date_of_delivery,
-                                                                        "status": 'deleted',
-                                                                        "real_date": temp_real_date,
-                                                                        "part":row.part
-                                                                    }
-                                                array_deleted.push(parts_delete);
-
-                                                     value = value.split("|");  
-                                                 $('#'+value[1]+'option selected').val('deleted');
-                                                var eliminar_reqdate =require_date.indexOf(value[1]);
-                                                var eliminar_ord_parts = ordParts.indexOf(value[1]);
-
-                                                     if (eliminar_ord_parts !=-1){
-                                                        
-                                                        ordParts.splice(eliminar_ord_parts,2);
-
-                                                    }  
-                                               
-                                                    if (eliminar_reqdate !=-1){
-                                                        
-                                                        require_date.splice(eliminar_reqdate,1);
-
-                                                    }                                    
-                                                    newPart_edit.forEach(function(element){
-                                                if(value[1] == element.part){
-                                                    element.part = null;
-                                                    delete_flag = false;
-
-
-
-                                                }
-                                            });
-                                                
-                                                if(newParts.length==0){
-                                                    alert("A request must have at least one part; the changes will not be saved, if the request is empty...");
-                                                    $(".modal-footer #buttonSave").attr('disabled','disabled');
-                                                    delete_flag = true;
-                                                    
-                                                }else{
-                                                    $(".modal-footer #buttonSave").removeAttr('disabled');
-                                                }
-
-
-
-                                            parts = newParts;
-
-
-                                        }
-                                          
-                                        if(field==="ord"){
-                                            var x;
-                                            $('#modal-edit').on('click','select.status_part',function(e){
-                                                id = $(this).attr('id');
-                                                //part_status_value = $(this).attr('val');
-                                                x= ordParts.indexOf(id);
-                                                if(x==-1){
-                                                    ordParts.push(id,$('#'+id+' option:selected').val());
-                                                    //console.log("nuevo elemento");
-                                                    //console.log(ordParts);
-                                                }
-                                                else{
-
-                                                    //console.log("ya existe");
-                                                    ordParts[x+1]=$('#'+id+' option:selected').val();
-                                                    //console.log(ordParts);
-
-                                                    }
-
-
-
-
-                                            });
-                                            $('#modal-edit').on('change','select.status_part', function(e){
-                                                var add_class=false;
-                                                var y;
-                                                $('#c-'+$(this).attr('id')).prop('disabled',false);
-                                                if($(this).val()=='ordered'){
-                                                    add_class='true'
-                                                    $('#part-'+$(this).attr('id')).prop('disabled',false);
-                                                     $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
-                                                     $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
-                                                }else{
-                                                    if ($(this).val()=='received' || $(this).val()=='quoted') {
-                                                        add_class='true'
-                                                        $('#real_date_part-'+$(this).attr('id')).prop('disabled',false);
-                                                        $('#real_date_part-'+$(this).attr('id')).val('');
-                                                        $('#part-'+$(this).attr('id')).prop('disabled','disabled');
-                                                    }
-                                                    
-
-
-                                                }
-
-                                                if (add_class){
-                                                    y= require_date.indexOf($(this).attr('id'));
-                                                    if (y==-1){
-                                                        require_date.push($(this).attr('id'));
-                                                    } 
-                                                }
-                                                    let status=null;
-                                                    let flag=false;
-                                                $('.status_part').each(function(){
-                                                   status = (status==null)?$(this).val():status;
-                                                   flag=(status == $(this).val())?true:false;
-                                                   console.log(flag);
-                                                });
-                                                if(flag==true){
-                                                    
-                                                    $("#modal-edit #reqstatus").prop("disabled", false);
-                                                }else{
-                                                    $("#modal-edit #reqstatus").prop("disabled", true);  
-                                                }
-
-                                          
-                                             
-                                            });
-                                        }
-                                        if(field==='date_of_delivery'){
-                                            $("#modal-edit #table-parts").on('click','.fixdate', function (e){
-                                                $(this).on("dp.change",function(e){
-                                                        index_date++;
-                                                            
-                                                          
-                                                            date_of_delivery[$(this).attr('id')] = $(this).val();
-                                                            
-                                                        
-                                                        
-                                                       
-                                                });
-                                            });
-                                        }
-                                        
-                                    }
-                                });
-                        }
-                    });
-                }
-        }
-        
-    });
-
-  
-
 
 
 

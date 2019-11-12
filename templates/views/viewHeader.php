@@ -11,11 +11,12 @@
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css"/>	
         <link href="css/theme.css" rel="stylesheet" type="text/css"/>
-       <meta http-equiv="Expires" content="Sat, 1 Jul 2000 05:00:00 GMT">
+        <link rel="stylesheet" href="css/custom-theme-bdi-parch.css?v=1.00.000">
+        <meta http-equiv="Expires" content="Sat, 1 Jul 2000 05:00:00 GMT">
         <meta http-equiv="Last-Modified" content="Mon, 06 May 2019 05:00:00 GMT">
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-        <meta http-equiv="Pragma" content="n<metao-cache">
-	<meta http-equiv="Cache-Control" content = "no-store">
+        <meta http-equiv="Pragma" content="no-cache">
+	    <meta http-equiv="Cache-Control" content = "no-store">
 		<script src="js/readyRederizSoft.js"></script>
 		<script src="vendor/Print.js-1.0.18/print.min.js"></script>
     </head>
