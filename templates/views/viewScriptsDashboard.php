@@ -846,9 +846,9 @@
                                                     if(assignedto!=null){
                                                         if(value!=null){
                                                           
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";        
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"></div>";        
                                                         }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date'></div>";
 
                                                         }
                                                     
@@ -878,9 +878,9 @@
                                                     if(assignedto!=null){
                                                         if(value!=null){
                                                           
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";        
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"></div>";        
                                                         }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date'></div>";
 
                                                         }
                                                     
@@ -1039,12 +1039,14 @@
                                                     add_class='true'
                                                     $('#part-'+$(this).attr('id')).prop('disabled',false);
                                                      $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
+                                                     $('#part-'+$(this).attr('id')).val(now());
                                                      $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+
                                                 }else{
                                                     if ($(this).val()=='received' || $(this).val()=='quoted') {
                                                         add_class='true'
                                                         $('#real_date_part-'+$(this).attr('id')).prop('disabled',false);
-                                                        $('#real_date_part-'+$(this).attr('id')).val('');
+                                                        $('#real_date_part-'+$(this).attr('id')).val(now());
                                                         $('#part-'+$(this).attr('id')).prop('disabled','disabled');
                                                     }
                                                     
@@ -5177,7 +5179,24 @@ $('#modal-edit #reqstatus').change(function(){
     });
 
   
+function now(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
 
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+
+}
 
 
 
