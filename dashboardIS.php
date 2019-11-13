@@ -532,7 +532,7 @@
         <!-- Inicio Button trigger modal -->
         <!-- Inicio Modal -->
 		<input type="hidden" id="partsRequesition"/>
-        <div class="modal in fixmodalbugscss" id="myModalPartsRequesition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal in" id="myModalPartsRequesition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background:#009207;">
@@ -1077,7 +1077,7 @@
             
         <!-- Inicio Button trigger modal -->
         <!-- Inicio Modal EDIT -->
-        <div class="modal in fixmodalbugscss" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal in " id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header" style="background:#009207;">

@@ -33,7 +33,6 @@
     }
   
 
-
       $sth = $dbh->prepare("SELECT * FROM json_update_req_parts(:idrequest,:json_parts::json,:jobnumber,:appuser,:idrequesttype,:idpriority,:ro,:vin,:trans,:engine,:comments, :reqstatus, :new_parts::json);");
  
     $sth->bindParam(':idrequest',       $idrequest,     PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT);  

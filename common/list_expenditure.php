@@ -4,7 +4,6 @@
 	$sth=$dbh->prepare("select * from get_expenditure();");
 	$sth->execute();
 	$retorno = $sth->fetchAll();
-
     $expenditure = [];
 	foreach ($retorno  as $row) {
 		$expenditure[] = array

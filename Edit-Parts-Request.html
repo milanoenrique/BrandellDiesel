@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Template BID</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div class="container-fluid">
+    <div class="header-bdi">
+      Edit Parts Request
+    </div>
+</div>
+    <div class="container">
+      <div class="text-required">
+        All fields marked with<span class="required"> * </span>are required.
+      </div>
+        <form>
+          <div class="col-md-3">
+            <b><span class="date-bdi">DATE</span></b>   07/09/2019
+          </div>
+          <div class="col-md-3">
+             <div class="form-group form-inline">
+                <label for="exampleInputEmail1">Status</label>
+                <select class="form-control" id="sel1">
+                  <option>select status</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+             </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group form-inline margin-ra">
+              <label for="exampleInputName2">* Type:</label>
+              <div class="checkbox disabled">
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" value="">
+                  Order
+                </label>
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" value="">
+                  Quote
+                </label>
+                <label>
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" value="">
+                  911   
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <label for="exampleInputPassword1">Tech name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder=""  readonly>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1"><span class="required"> * </span>RO#</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">VIN#</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">TRANS#</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputPassword1">ENGINE#</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="">
+          </div>
+          <div class="form-group col-md-12">
+            <label for="exampleInputPassword1">COMMENTS:</label>
+             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2"></textarea>
+          </div>
+          <div class="form-group col-md-12 ">
+            <div class="form-inline ApplyAction">
+                <div class="form-group">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1"></label>
+                    </div>
+                 </div>
+                 <div class="form-group">
+                      <select class="form-control" id="sel1">
+                        <option>Select employee</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                 </div>
+                 <div class="form-group">
+                    <div class="input-group date" data-provide="datepicker">
+                        <input type="text" class="form-control">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="form-group pull-right">
+                    <button type="button" class="btn btn-success text-left">Apply</button>                
+                  </div>
+              </div>
+              <div class="table-bdi table-responsive">
+                <table class="table table-bordered">
+                  <tr>
+                    <th></th>
+                    <th>
+                      <select class="form-control" id="sel1">
+                        <option><span class="required"> * </span>SEQ</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                    </th>
+                    <th>* DESCRIPTION</th>
+                    <th>
+                      <select class="form-control" id="sel1">
+                        <option><span class="required"> * </span>QTY</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                    </th>
+                    <th>COMMENT OF PARTS</th>
+                    <th>STATUS</th>
+                    <th>ESTIMATED DATE</th>
+                    <th>REAL DATE</th>
+                    <th></th>
+                  </tr>
+                </table>
+              </div>
+          </div>
+          <div class="col-md-2">
+            <label for="exampleInputEmail1"><span class="required"> * </span>SEQ</label>
+            <select class="form-control" id="sel1">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+          <div class="col-md-10">
+             <label for="exampleInputPassword1"><span class="required"> * </span>DESCRIPTION</label>
+             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2"></textarea>
+          </div>
+          <div class="col-md-2">
+            <label for="exampleInputEmail1"><span class="required"> * </span>QTY</label>
+            <select class="form-control" id="sel1">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+          </div>
+          <div class="col-md-10">
+             <label for="exampleInputPassword1"><span class="required"> * </span>COMMENT OF PARTS</label>
+             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2"></textarea>
+          </div>
+          <div class="col-md-12 form-group table-bdi">
+            <button type="button" class="btn btn-success pull-right">Add parts</button>                
+          </div>
+        </form>
+          <div class="btn-action">
+            <button type="button" class="btn btn btn-danger">Close</button>
+            <button type="button" class="btn btn-success">Save</button>
+          </div>
+      </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
