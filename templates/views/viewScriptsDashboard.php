@@ -904,7 +904,7 @@
                                                 {
                                                     //console.log(parts[index_part].ord);
                                                     if(parts[index_part].ord!='received' && parts[index_part].ord!='quoted'){
-                                                        return '<a class=""><span class="fa fa-trash" aria-hidden="true"></span></a>';
+                                                        return '<div id=delete-'+parts[index_part].part+'><a class=""><span class="fa fa-trash" aria-hidden="true"></span></a></div>';
 
                                                     }
                                                     else{
@@ -4662,7 +4662,6 @@ $('#modal-edit #reqstatus').change(function(){
         flag_chance = false;
         if( $('#global-status-part option:selected').val()=='ordered' && $('#global-estimated_date').val()==''){
             date_flag = false
-
         }
 
         if( ($('#global-status-part option:selected').val()=='received' || $('#global-status-part option:selected').val()=='received') && $('#global-real_date').val()==''){
@@ -4675,7 +4674,6 @@ $('#modal-edit #reqstatus').change(function(){
            
 
         $('#modal-edit .check-part').each(function(){
-            console.log('x');
             if( $(this).prop('checked') ) {
                 var part_edit = $(this).val();
                 var comment_part_edit = $('#'+'c-'+part_edit).val();
@@ -4702,21 +4700,33 @@ $('#modal-edit #reqstatus').change(function(){
                 if(($('#'+$(this).val()+'').val()!='received') && ($('#'+$(this).val()+'').val()!='In-Stock') )
                 {
                     json_edit = {
-                            "comment_parts":comment_part_edit, 
-                            "status_order":status_part_edit, 
-                            "date_of_delivery":estimate_date_part_edit, 
-                            "real_date":real_date_part_edit, 
-                            "part":part_edit
-                        };
+                                    "comment_parts":comment_part_edit, 
+                                    "status_order":status_part_edit, 
+                                    "date_of_delivery":estimate_date_part_edit, 
+                                    "real_date":real_date_part_edit, 
+                                    "part":part_edit
+                                 };
                         
                 
                         array_edit.push(json_edit);
+                        $('#'+part_edit+' option[value='+status_part_edit+']').attr('selected',true);
+                        
+                        if($('#part-'+part_edit).val()==''){
+                            $('#part-'+part_edit).val($('#global-estimated_date').val());
+                        }
+                        if($('#part-'+part_edit).val()==''){
+                            $('#real_date_part-'+part_edit).val($('#global-real_date').val());
+                        }
+                        if(status_part_edit=='received' || status_part_edit=='In-Stock' || status_part_edit=='quoted' ){
+                            $('#delete-'+part_edit).text('-');
+                            $('#'+part_edit).prop('disabled','disabled');
+                        }
+                        $('#c-'+part_edit).prop('disabled',false);
+                        
 
                 }
-               
-             
-                
-                
+
+                $(this).prop('checked',false);
             }
         });
         if (array_edit.length > 0){
@@ -4734,7 +4744,7 @@ $('#modal-edit #reqstatus').change(function(){
                         dataType: "JSON",
                         success: function (response) {
                               parts = response;
-                            $('#modal-edit #table-parts').bootstrapTable('destroy');
+                           /* $('#modal-edit #table-parts').bootstrapTable('destroy');
                                 index_part = -1
                                 $('#modal-edit #table-parts').bootstrapTable({
                                     data: parts,
@@ -5158,7 +5168,7 @@ $('#modal-edit #reqstatus').change(function(){
                                         }
                                         
                                     }
-                                });
+                                });*/
                         }
                     });
                 }
