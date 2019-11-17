@@ -615,15 +615,7 @@
                                 DATA    = data;
                                 parts   = DATA.PARTS;
     							vOType = DATA.REQUESTS[0].idrequesttype;
-                                if(vOType=='Q'){
-                                    $('#global-status-part option[value=received]').hide()
-                                    $('#global-status-part option[value=quoted]').show()
 
-                                }else{
-                                    $('#global-status-part option[value=received]').show()
-                                    $('#global-status-part option[value=quoted]').hide()
-
-                                }
                                 $(".modal-body #date_request").text(moment(DATA.REQUESTS[0].requestdate).format("MMM DD YYYY, hh:mm:ss a"));
                                 if(DATA.REQUESTS[0].idpriority === "H"){
     								vOType='9';
@@ -776,15 +768,10 @@
 
 
                                                             var text;
-                                                           
                                                             if($('#quote').is(':checked')){
                                                                  if(parts[index_part].ord=='quoted'||parts[index_part].ord=='received'){
                                                                 text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
-                                                                $('#global-status-part option[value=received]').hide()
-                                                                $('#global-status-part option[value=quoted]').show()
-
                                                             }
-                                                           
 
                                                             if(parts[index_part].ord=='quoted'||parts[index_part].ord=='In-Stock'){
                                                                 text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option><option value="In-Stock">In-Stock</option></select>';
@@ -1054,6 +1041,7 @@
                                                      $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
                                                      $('#part-'+$(this).attr('id')).val(now());
                                                      $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+
                                                 }else{
                                                     if ($(this).val()=='received' || $(this).val()=='quoted') {
                                                         add_class='true'
@@ -1859,22 +1847,22 @@
                 });
 
                 $("#modal-edit #table-parts").on('click','.fixdate', function (e){
-                    if (!$(this).hasClass('haspicker')) {
-                        $(".modal-footer #buttonSave").removeAttr('disabled');
-                        /*$(this).datetimepicker({
-                            useCurrent: false,
-                            format: 'YYYY-MM-DD',
-                            minDate: new Date()
-                        });
-                        $(this).datetimepicker('show');*/
-                            $(this).addClass('haspicker');
-                    }else{
-                        //$(this).datetimepicker('show');
-                    }
-                        /*$(this).on("dp.change",function(e){
-                            //date_of_delivery = $(this).val();
-                        });*/
-                        
+                if (!$(this).hasClass('haspicker')) {
+                    $(".modal-footer #buttonSave").removeAttr('disabled');
+                $(this).datetimepicker({
+                    useCurrent: false,
+                    format: 'YYYY-MM-DD',
+                    minDate: new Date()
+                });
+                $(this).datetimepicker('show');
+                        $(this).addClass('haspicker');
+                }else{
+                $(this).datetimepicker('show');
+                }
+                $(this).on("dp.change",function(e){
+                        //date_of_delivery = $(this).val();
+                });
+                    
                 });
 
                 
@@ -2653,22 +2641,16 @@
 
 			// Modal EDIT Button SAVE
 			$("#modal-edit #buttonSave").click(function(event){
-                var valid_date;
-                $('#modal-edit .fixdate').each(function(){
-                   
-                    if($(this).val()!=''){
-                        valid_date=moment($(this).val(), 'YYYY-M-D').isValid();
-                        console.log(valid_date);
-                    }
-                });
-
-                if(valid_date){
-                    var stop =false;
-
+                
+                var stop =false;
                 if(parts.length==0){
                     alert("This request need at least a part!");
                     $(this).prop('disabled',true);
-                }else{      
+                }else{
+
+                   
+
+                    
 
                     $('#table-parts .status_part').each(function(){
                         var part_edit = $(this).prop('id');
@@ -2725,191 +2707,201 @@
 
                  
                 
-                        require_date.forEach(function(element) {
-                            console.log($('#'+element).val());
-                            if ($('#part-'+element).val()=='' && $('#'+element).val()==='ordered'){
-                                z++;
+                require_date.forEach(function(element) {
+                    console.log($('#'+element).val());
+                if ($('#part-'+element).val()=='' && $('#'+element).val()==='ordered'){
+                   z++;
 
-                            }else{
-                                if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='received'){
-                                    z++;
+                }else{
+                     if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='received'){
+                   z++;
 
-                                }else{
-                                    if ($('#real_date_part-'+element).val()!='' && ($('#'+element).val()==='received')|| $('#'+element).val()==='quoted'){
-                                        real_date.push({'part':element, 'real_date': $('#real_date_part-'+element).val() });
+                }else{
+                     if ($('#real_date_part-'+element).val()!='' && ($('#'+element).val()==='received')|| $('#'+element).val()==='quoted'){
+                        real_date.push({'part':element, 'real_date': $('#real_date_part-'+element).val() });
 
-                                    }
+                }
 
-                                }
-                            }
+                }
+                }
                
-                            if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='quoted'){
-                                z++;
-                            }
-                        });
+                if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='quoted'){
+                   z++;
 
-                        if (z>0){
-                            alert("The Date of Delivery it's required for parts with status ordered, received or quoted");                            
+                }
+                });
 
-                        }                
+              
+                    if (z>0){
+
+                        alert("The Date of Delivery it's required for parts with status ordered, received or quoted");   
+                                                
+
+                    }                
                    
                 
-                        if(z==0){
-                            techName        = $("#modal-edit #edit-techName").val();
-                            idrequest       = $("#modal-edit #idRequest").val();
-                            jobnumber       = $("#modal-edit #edit-ro").val();
-                            appuser         = $("#modal-edit #edit-techId").val();
+                if(z==0){
+                techName        = $("#modal-edit #edit-techName").val();
+                idrequest       = $("#modal-edit #idRequest").val();
+                jobnumber       = $("#modal-edit #edit-ro").val();
+                appuser         = $("#modal-edit #edit-techId").val();
 
-                            var $radiotype = $('#modal-edit input:radio[name="requestType"]:checked');
-                            idrequesttype = $radiotype.val();
-                            if (aux_colorflag==="O"){
+                var $radiotype = $('#modal-edit input:radio[name="requestType"]:checked');
+                idrequesttype = $radiotype.val();
+                if (aux_colorflag==="O"){
 
-                            //idpriority   = "O";
-                            aux_colorflag =null;
-                            }else
-                            {
-                                idpriority = "N";
-                                vPriority   = "Normal";
-                            }
+                    //idpriority   = "O";
+                    aux_colorflag =null;
+                }   else{
+                    idpriority = "N";
+                    vPriority   = "Normal";
+                }
 
-                            if(aux_colorflag=="RI"){
-                                //idpriority = "D";
-                                vPriority   = "Normal";
-                            }
+                if(aux_colorflag=="RI"){
+                    //idpriority = "D";
+                    vPriority   = "Normal";
+                }
 
                 
-                            if(idrequesttype == "Q"){
-                                vType   = "Quote";
-                            } else {
-                                if(idrequesttype == "O"){
-                                    idrequesttype = "O";
-                                    vType   = "Order";
-                                    vPriority   = "Normal";
-                                }
-                                else
-                                {
-                                    idrequesttype = "O";
-                                    vType   = "Order";
-                                    idpriority   = "H";
-                                    vPriority   = "911";
-                                }
-                            }
+                if(idrequesttype == "Q"){
+                    vType   = "Quote";
+                } else {
+                    if(idrequesttype == "O"){
+                        idrequesttype = "O";
+                        vType   = "Order";
+                        vPriority   = "Normal";
+                    }
+                    else
+                    {
+                        idrequesttype = "O";
+                        vType   = "Order";
+                        idpriority   = "H";
+                        vPriority   = "911";
+                    }
+                }
 
 
-                            ro              = $("#modal-edit #edit-ro").val();
-                            vin             = $("#modal-edit #edit-vin").val();
-                            trans           = $("#modal-edit #edit-trans").val();
-                            engine          = $("#modal-edit #edit-engine").val();
-                            comments        = $("#modal-edit #edit-comments").val();
-                            DATA            = null;
-                            URL             = "common/editParts.php";
+                ro              = $("#modal-edit #edit-ro").val();
+                vin             = $("#modal-edit #edit-vin").val();
+                trans           = $("#modal-edit #edit-trans").val();
+                engine          = $("#modal-edit #edit-engine").val();
+                comments        = $("#modal-edit #edit-comments").val();
+                DATA            = null;
+                URL             = "common/editParts.php";
                
-                            partsJSON   = JSON.stringify(parts)+"||"+ordParts+"*|||"+JSON.stringify(newPart_edit)+"||||"+JSON.stringify(date_of_delivery)+ "|||||"+JSON.stringify(comment_canceled)+"||||||"+JSON.stringify(deletedParts);
-                                date_of_delivery={};
-                                comment_canceled = [];
-                                deletedParts=[];
-              
-                            var newPart_edit_temp =newPart_edit;
-                            newPart_edit=[];
+               partsJSON   = JSON.stringify(parts)+"||"+ordParts+"*|||"+JSON.stringify(newPart_edit)+"||||"+JSON.stringify(date_of_delivery)+ "|||||"+JSON.stringify(comment_canceled)+"||||||"+JSON.stringify(deletedParts);
+                date_of_delivery={};
+                comment_canceled = [];
+                deletedParts=[];
+              //  console.log(partsJSON);
+               // newPart_edit =[];
 
-                            if(newPart_edit_temp.length>0){
+                         // var compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
+                             
+                
+                //METODO          = partsJSON;
+                var newPart_edit_temp =newPart_edit;
+                newPart_edit=[];
+
+                if(newPart_edit_temp.length>0){
                     
-                                newPart_edit_temp.forEach(function(element){
-                                    var newPart_temp = {
-                                        "idrequest":element.idrequest,
-                                        "seg" : element.seg,
-                                        "description":element.description,
-                                        "quantity":element.quantity,
-                                        "ord":element.ord,
-                                        "date_of_delivery":element.date_of_delivery,
-                                        "comment_parts":element.comment_parts,
-                                        "appuser":appuser,
-                                        "part":element.part
-                                    };
-                                    newPart_edit.push(newPart_temp);
-                                    console.log(newPart_edit);
-                                
-                                });
-                            }
-                            VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|" + $('#modal-edit #reqstatus').val() + "|" + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
-                            real_date=[];
-                            newPart_edit=[];
-                            $('input:checkbox').removeAttr('checked');
-                            $('#global-estimated_date').val('');
-                            $('#global-estimated_date').prop('disabled','disabled');
-                            $('#global-real_date').val('');
-                            $('#global-real_date').prop('disabled','disabled');
-                            $('#global-status-part').prop('disabled','disabled');
+                    newPart_edit_temp.forEach(function(element){
+                        var newPart_temp = {
+                            "idrequest":element.idrequest,
+                            "seg" : element.seg,
+                            "description":element.description,
+                            "quantity":element.quantity,
+                            "ord":element.ord,
+                            "date_of_delivery":element.date_of_delivery,
+                            "comment_parts":element.comment_parts,
+                            "appuser":appuser,
+                            "part":element.part
+                        };
+                        newPart_edit.push(newPart_temp);
+                        console.log(newPart_edit);
+                       
+                    });
+                }
+                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|" + $('#modal-edit #reqstatus').val() + "|" + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
+                real_date=[];
+                newPart_edit=[];
+                $('input:checkbox').removeAttr('checked');
+                $('#global-estimated_date').val('');
+                $('#global-estimated_date').prop('disabled','disabled');
+                $('#global-real_date').val('');
+                $('#global-real_date').prop('disabled','disabled');
+                $('#global-status-part').prop('disabled','disabled');
                 
 
 
-                            send_post(URL,VALOR, function(data){
-                                DATA = data;
-                                //console.log(parts);
-                                $('#modal-edit').modal('hide');
-                                //**************FILTER DASHBOARD*******************
-                                if (filter === 0) {
-                                    appuser     = $(".modal-body #new-techId").val();
-                                    VALOR       = '';
-                                    <?php if ($profile == 'TECH'): ?>
-                                        VALOR   = appuser;
-                                    <?php endif;?>
+                send_post(URL,VALOR, function(data){
+                    DATA = data;
+                    //console.log(parts);
+                    $('#modal-edit').modal('hide');
+                    //**************FILTER DASHBOARD*******************
+                    if (filter === 0) {
+                        appuser     = $(".modal-body #new-techId").val();
+                        VALOR       = '';
+                        <?php if ($profile == 'TECH'): ?>
+                            VALOR   = appuser;
+                        <?php endif;?>
 
-                                    reloadDashboard(VALOR, 'common/ws.php');
-                                } else {
-                                    iduser      = $("#modal-filter #techId").val();
-                                    startdate   = $("#modal-filter #startdate").val();
-                                    enddate     = $("#modal-filter #enddate").val();
-                                    jobnumber   = $("#modal-filter #jobnumber").val();
-                                    keyword     = $("#modal-filter #keyword").val();
-                                    URL     = "common/dashboard_search.php";
-                                    DATA        = null;
-                                    VALOR       = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
-                                    reloadDashboard(VALOR, 'common/dashboard_search.php');
-                                }
-                            if (data[0].RESULTADO!='00000'){
-                                    alert("Error at save data");
-                                    stop = true;
-                                    compare_order = {};
-                                    delete_flag = false
-                            }
+                        reloadDashboard(VALOR, 'common/ws.php');
+                    } else {
+                        iduser      = $("#modal-filter #techId").val();
+                        startdate   = $("#modal-filter #startdate").val();
+                        enddate     = $("#modal-filter #enddate").val();
+                        jobnumber   = $("#modal-filter #jobnumber").val();
+                        keyword     = $("#modal-filter #keyword").val();
+                        URL     = "common/dashboard_search.php";
+                        DATA        = null;
+                        VALOR       = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
+                        reloadDashboard(VALOR, 'common/dashboard_search.php');
+                    }
+                   if (data[0].RESULTADO!='00000'){
+                        alert("Error at save data");
+                        stop = true;
+                        compare_order = {};
+                        delete_flag = false
+                   }
 
-                            if(ro!=compare_order.ro || vin!=compare_order.vin || comments!=compare_order.comments || engine != compare_order.engine || parts.length !=compare_order.parts || delete_flag == true && stop==false ){
+                        if(ro!=compare_order.ro || vin!=compare_order.vin || comments!=compare_order.comments || engine != compare_order.engine || parts.length !=compare_order.parts || delete_flag == true && stop==false ){
                    // rederizsoftReady('A','#partsRequesition', 'common/sendMail.php?vRo='+encodeURIComponent(ro)+'&vtechName='+encodeURIComponent(techName)+'&vPriority='+encodeURIComponent(vPriority)+'&vType='+encodeURIComponent(vType)+'&vVin='+encodeURIComponent(vin)+'&vComments='+encodeURIComponent(comments)+'&vpartsJSON='+encodeURIComponent(partsJSON)+'&vDate='+encodeURIComponent(moment(DATE).format("MMM DD YYYY, hh:mm:ss a"))+'&vEngine='+encodeURIComponent(engine)+'&vID='+encodeURIComponent(idrequest)+'&vStatus=', '#cargar_data_edit', 'consultar');
 
-                            var url_mail = 'common/sendMail.php';
-                            var data_mail = {
-                                                "vRo":ro,
-                                                "vtechName":techName,
-                                                "vPriority": vPriority,
-                                                "vType": vType,
-                                                "vVin":vin,
-                                                "vComments": comments,
-                                                "vpartsJSON": partsJSON,
-                                                "vDate": moment(DATE).format("MMM DD YYYY, hh:mm:ss a"),
-                                                "vEngine":engine,
-                                                "vID": idrequest,
-                                                "vStatus" : 'A'
-                                            };
-                            $.ajax({
-                                        url: url_mail,
-                                        type: 'POST',
-                                        dataType: 'JSON',
-                                        data: {"data":data_mail},
-                                        cache: false,
-                                        success: function(data)
-                                        {
+                    var url_mail = 'common/sendMail.php';
+                    var data_mail = {
+                                        "vRo":ro,
+                                        "vtechName":techName,
+                                        "vPriority": vPriority,
+                                        "vType": vType,
+                                        "vVin":vin,
+                                         "vComments": comments,
+                                         "vpartsJSON": partsJSON,
+                                         "vDate": moment(DATE).format("MMM DD YYYY, hh:mm:ss a"),
+                                         "vEngine":engine,
+                                         "vID": idrequest,
+                                         "vStatus" : 'A'
+                                     };
+                    console.log(data_mail);
+                    $.ajax({
+        url: url_mail,
+        type: 'POST',
+        dataType: 'JSON',
+        data: {"data":data_mail},
+        cache: false,
+        success: function(data)
+        {
 
-                                            alert(data.msn);
+            alert(data.msn);
             
-                                        }
-                                    });
-                                compare_order = {};
-                                delete_flag = false
+        }
+    });
+                    compare_order = {};
+                    delete_flag = false
 
-            }  
+                }  
 
-                            });
+                });
                 /*call_Ajax_Jsonp(URL, METODO, VALOR, LOADER, ERROR, function(data){
                     DATA = data;
                     //console.log(parts);
@@ -2955,9 +2947,8 @@
                  array_edit = [];
                  array_deleted = [];
                  $('#global-status-part').prop('selectedIndex',0);
-                }else{
-                    alert('Please insert a valid date');
-                }
+
+                
             });
 
             $("#buttonClosePartsRequesition").click(function(){
@@ -4653,17 +4644,14 @@ $('#modal-edit #reqstatus').change(function(){
     $('#global-status-part').change(function(){
        if($(this).val()=='ordered'){
            $('#global-estimated_date').prop('disabled',false);
-           $('#global-estimated_date').val(now());
            $('#global-real_date').prop('disabled','disabled');
        }
        if($(this).val()=='received'){
            $('#global-real_date').prop('disabled',false);
-           $('#global-real_date').val(now());
            $('#global-estimated_date').prop('disabled','disabled');
        }
        if($(this).val()!='received' && $(this).val()!='ordered' ){
            $('#global-real_date').prop('disabled','disabled');
-           
            $('#global-estimated_date').prop('disabled','disabled');
        }
        $('#modal-edit #buttonSave').removeAttr('disabled');
@@ -4671,7 +4659,6 @@ $('#modal-edit #reqstatus').change(function(){
 
     $('#modal-edit #aplly-massive-button').click(function(e){
         e.preventDefault();
-        
         var date_flag;
         var array_edit=[];
         flag_chance = false;
@@ -4686,77 +4673,65 @@ $('#modal-edit #reqstatus').change(function(){
         if(date_flag==false){
             alert('Please insert a date valid.');
         }else{
-           if($('#global-estimated_date').val()!=''&& ($('#global-estimated_date').prop('disabled',false))){
-               date_flag = moment($('#global-estimated_date').val(), 'YYYY-MM-DD').isValid();
-           }
-           if($('#global-real_date').val()!='' &&($('#global-real_date').prop('disabled',false))){
-               date_flag = moment($('#global-real_date').val(), 'YYYY-MM-DD').isValid();
-           }
-           if(!date_flag){
-            alert('Please insert a date valid.');
-           }else{
+           
 
-               $('#modal-edit .check-part').each(function(){
+        $('#modal-edit .check-part').each(function(){
+            if( $(this).prop('checked') ) {
+                var part_edit = $(this).val();
+                var comment_part_edit = $('#'+'c-'+part_edit).val();
+                var status_part_edit = $('#global-status-part option:selected').val();
+                var estimate_date_part_edit = $('#global-estimated_date').val();
+                var real_date_part_edit = $('#global-real_date').val();
 
-                    if( $(this).prop('checked') ) {
-                        var part_edit = $(this).val();
-                        var comment_part_edit = $('#'+'c-'+part_edit).val();
-                        var status_part_edit = $('#global-status-part option:selected').val();
-                        var estimate_date_part_edit = $('#global-estimated_date').val();
-                        var real_date_part_edit = $('#global-real_date').val();
+                if (estimate_date_part_edit==undefined || estimate_date_part_edit ==""){
+                    estimate_date_part_edit = null;
+                }
 
-                        if (estimate_date_part_edit==undefined || estimate_date_part_edit ==""){
-                            estimate_date_part_edit = null;
-                        }
+                if (real_date_part_edit==undefined || real_date_part_edit ==""){
+                    real_date_part_edit = null;
+                }
 
-                        if (real_date_part_edit==undefined || real_date_part_edit ==""){
-                            real_date_part_edit = null;
-                        }
-
-                        if($('#part-'+part_edit).val()!=''){
-                            estimate_date_part_edit = $('#part-'+part_edit).val();
-                        }
-                        if($('#real_date_part-'+part_edit).val()!=''){
-                            estimate_date_part_edit = $('#real_date_part-'+part_edit).val();
-                        }
+                if($('#part-'+part_edit).val()!=''){
+                    estimate_date_part_edit = $('#part-'+part_edit).val();
+                }
+                if($('#real_date_part-'+part_edit).val()!=''){
+                    estimate_date_part_edit = $('#real_date_part-'+part_edit).val();
+                }
 
 
-                        if(($('#'+$(this).val()+'').val()!='received') && ($('#'+$(this).val()+'').val()!='In-Stock') )
-                        {
-                            json_edit = {
-                                            "comment_parts":comment_part_edit, 
-                                            "status_order":status_part_edit, 
-                                            "date_of_delivery":estimate_date_part_edit, 
-                                            "real_date":real_date_part_edit, 
-                                            "part":part_edit
-                                        };
-                                
+                if(($('#'+$(this).val()+'').val()!='received') && ($('#'+$(this).val()+'').val()!='In-Stock') )
+                {
+                    json_edit = {
+                                    "comment_parts":comment_part_edit, 
+                                    "status_order":status_part_edit, 
+                                    "date_of_delivery":estimate_date_part_edit, 
+                                    "real_date":real_date_part_edit, 
+                                    "part":part_edit
+                                 };
                         
-                                array_edit.push(json_edit);
-                                $('#'+part_edit+' option[value='+status_part_edit+']').attr('selected',true);
-                            if(part_edit!='received'||part_edit!='In-Stock'){
-                                $('#'+part_edit).prop('disabled',false);
-                            }
-                                
-                                if($('#part-'+part_edit).val()==''){
-                                    $('#part-'+part_edit).val($('#global-estimated_date').val());
-                                }
-                                if($('#real_date_part-'+part_edit).val()==''){
-                                    $('#real_date_part-'+part_edit).val($('#global-real_date').val());
-                                }
-                                if(status_part_edit=='received' || status_part_edit=='In-Stock' || status_part_edit=='quoted' ){
-                                    $('#delete-'+part_edit).text('-');
-                                    $('#'+part_edit).prop('disabled','disabled');
-                                }
-                                $('#c-'+part_edit).prop('disabled',false);
-                                
-
+                
+                        array_edit.push(json_edit);
+                        $('#'+part_edit+' option[value='+status_part_edit+']').attr('selected',true);
+                        
+                        if($('#part-'+part_edit).val()==''){
+                            $('#part-'+part_edit).val($('#global-estimated_date').val());
                         }
+                        if($('#part-'+part_edit).val()==''){
+                            $('#real_date_part-'+part_edit).val($('#global-real_date').val());
+                        }
+                        if(status_part_edit=='received' || status_part_edit=='In-Stock' || status_part_edit=='quoted' ){
+                            $('#delete-'+part_edit).text('-');
+                            $('#'+part_edit).prop('disabled','disabled');
+                        }
+                        $('#c-'+part_edit).prop('disabled',false);
+                        
 
-                        $(this).prop('checked',false);
-                    }
-                });
-             if (array_edit.length > 0){
+                }
+
+                $(this).prop('checked',false);
+            }
+        });
+        if (array_edit.length > 0){
                     array_edit = JSON.stringify(array_edit);
                     $('#all-check').prop('checked',false);
                     $('#global-estimated_date').val('');
@@ -4771,16 +4746,6 @@ $('#modal-edit #reqstatus').change(function(){
                         dataType: "JSON",
                         success: function (response) {
                               parts = response;
-                              let valid_status = 0;
-                              for(let key in parts){
-                                  if(parts[key].status=='received'||parts[key].status=='quoted'||parts[key].status=='In-Stock'){
-                                    valid_status++;
-                                  }
-                              }
-                              if(valid_status==response.length){
-                                  
-                                  $('#reqstatus').prop('disabled',false);
-                              }
                            /* $('#modal-edit #table-parts').bootstrapTable('destroy');
                                 index_part = -1
                                 $('#modal-edit #table-parts').bootstrapTable({
@@ -5209,18 +5174,7 @@ $('#modal-edit #reqstatus').change(function(){
                         }
                     });
                 }
-                }
-                part_edit ='';
-                comment_part_edit = '';
-                status_part_edit = '';
-                estimate_date_part_edit = '';
-                real_date_part_edit = '';
-                array_edit=[];
-                json_edit={};
-        
-
-        }   
-
+        }
         
     });
 
@@ -5244,22 +5198,6 @@ function now(){
 
 }
 
-$('.haspicker').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
-$('.fixdate').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
-$('#global-estimated_date').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
-$('#global-real_date').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
-
-$('#911').click(function () { 
-    $('#global-status-part option[value=received]').show();
-    $('#global-status-part option[value=quoted]').hide();
-
-    
-});
-$('#order').click(function () { 
-    $('#global-status-part option[value=received]').show();
-    $('#global-status-part option[value=quoted]').hide();
-
-});
 
 
 

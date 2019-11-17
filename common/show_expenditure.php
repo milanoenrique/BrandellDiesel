@@ -30,7 +30,8 @@
             'president_date_approved'=> $row['president_date_approved'],
             'cfo_name'               => $row['cfo_name'],
             'cfo_signature'          => $row['cfo_name'],
-            'cfo_date_approved'      => $row['cfo_date_approved']
+            'cfo_date_approved'      => $row['cfo_date_approved'],
+            'support_documentation'  => $row['support_documentation'],
         );
 	}
 	echo json_encode($expenditure);

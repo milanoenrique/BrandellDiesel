@@ -156,7 +156,9 @@
 									$('#myModalAuthorizationExpenditure-view  #cfo_name_view').text(response[0].cfo_name);
 									$('#myModalAuthorizationExpenditure-view  #cfo_signature_view').text(response[0].cfo_signature);
 									$('#myModalAuthorizationExpenditure-view  #date_approved_cfo_view').text(response[0].cfo_date_approved);
-									$('#myModalAuthorizationExpenditure-view #documentation').text(response[0].support_documentation);
+									if(response[0].support_documentation!=''){
+										$('#myModalAuthorizationExpenditure-view #exp_view_'+response[0].support_documentation+'').prop('checked', true);
+									}	
 								}
 								
 							
@@ -172,10 +174,11 @@
 								url: "common/show_expenditure.php",
 								data: {'data':id_expenditure},
 								dataType: "json",
-								success: function (response) {
+								success: function (response) { 
+									console.log(response);
 									$('#myModalAuthorizationExpenditure-Edit  #id_expenditure').val(response[0].id);
 									$('#myModalAuthorizationExpenditure-Edit  #project_name_edit').val(response[0].project_name);
-									$('#myModalAuthorizationExpenditure-Edit  #afe_number_edit').val(response[0].afe_number);
+									
 									$('#myModalAuthorizationExpenditure-Edit  #project_description_edit').val(response[0].description);
 									$('#myModalAuthorizationExpenditure-Edit  #start_date_edit').val(response[0].starting_date);
 									$('#myModalAuthorizationExpenditure-Edit  #anticipated_date_edit').val(response[0].anticipated_date);
@@ -189,8 +192,15 @@
 									$('#myModalAuthorizationExpenditure-Edit  #cfo_name_edit').val(response[0].cfo_name);
 									$('#myModalAuthorizationExpenditure-Edit  #cfo_signature_edit').val(response[0].cfo_signature);
 									$('#myModalAuthorizationExpenditure-Edit  #date_approved_cfo_edit').val(response[0].cfo_date_approved);
-									$('#myModalAuthorizationExpenditure-Edit #'+response[0].support_documentation+'').prop('checked', true);
-										console.log(response[0].support_documentation);
+									if(response[0].support_documentation!=''){
+										$('#myModalAuthorizationExpenditure-Edit #exp_edit_'+response[0].support_documentation+'').prop('checked', true);
+									}
+									
+										
+										let prefix = response[0].afe_number.substr(0,8);
+										let afe_number =  response[0].afe_number.substr(8);
+									$('#myModalAuthorizationExpenditure-Edit  #afe_prefix_edit').text(prefix);	
+									$('#myModalAuthorizationExpenditure-Edit  #afe_number_edit').val(afe_number);	
 								}
 							});
 
@@ -213,13 +223,22 @@
 	
 
     $('#linkToAuthorizationExpenditure').click(function(){
+		$('#amount_request').val(0);
+		$.ajax({
+			type: "get",
+			url: "common/get_prefix.php",
+			dataType: "JSON",
+			success: function (response) {
+				$('#afe-prefix').text(response);
+			}
+		});
        $('#myModalAuthorizationExpenditure').modal('show');
 	   $('#project_name').val('');
 	   $('#afe_number').val('');
 	   $('#project_description').val('');
 	   $('#start_date').val('');
 	   $('#anticipated_date').val('');
-	   $('#amount_request').val('');
+	   $('#amount_request').val(0);
 	   $('#requested_by').val('');
 	   $('#request_signature').val('');
 	   $('#date_signature').val('');
@@ -234,7 +253,15 @@
     });
 	//Guardar nueva expenditure
 	$('#myModalAuthorizationExpenditure #save-expenditure').click(function(){
-		if($('#myModalAuthorizationExpenditure .require').val()!=''){
+		let require = true;
+		$('#myModalAuthorizationExpenditure .require').each(function(){
+			if($(this).val()=='' &&  require==true){
+				require = false
+			}else{
+				require= true;
+			}
+		});
+		if(require){
 			$('#myModalAuthorizationExpenditure .fix-date').each(function(){
 				if($(this).val()==''){
 					$(this).val('infinity');
@@ -252,7 +279,7 @@
 				"request_by":$('#requested_by').val(),
 				"request_signature":$('#request_signature').val(),
 				"date_request":$('#date_signature').val(),
-				"support_documentation":$('.documentation').val(),
+				"support_documentation":$('input:radio[name=optionsRadios]:checked').val(),
 				"president_name":$('#president_print_name').val(),
 				"president_signature":$('#president_signature').val(),
 				"president_date_approved":$('#date_approved_president').val(),
@@ -269,6 +296,15 @@
 				dataType: "json",
 				success: function (response) {
 					$('#myModalAuthorizationExpenditure').modal('hide');
+						$.ajax({
+						type: "get",
+						url: "common/list_expenditure.php",
+						dataType: "json",
+						success: function (response) {
+					$('#table-expenditure').bootstrapTable('load',response);
+
+						}
+					});
 					$.ajax({
 						type: "get",
 						url: "common/list_expenditure.php",
@@ -519,7 +555,7 @@
 			edit_expenditure = {
 				"id":$('#id_expenditure').val(),
 				"project_name":$('#project_name_edit').val(),
-				"afe_number":$('#afe_number_edit').val(),
+				"afe_number":$('#afe_prefix_edit').text()+$('#afe_number_edit').val(),
 				"description":$('#project_description_edit').val(),
 				"start_date":$('#start_date_edit').val(),
 				"anticipated_date":$('#anticipated_date_edit').val(),
@@ -527,7 +563,7 @@
 				"request_by":$('#requested_by_edit').val(),
 				"request_signature":$('#request_signature_edit').val(),
 				"date_request":$('#date_signature_edit').val(),
-				"support_documentation":$('.documentation_edit').val(),
+				"support_documentation":$('input:radio[name=optionsRadios]:checked').val(),
 				"president_name":$('#president_print_name_edit').val(),
 				"president_signature":$('#president_signature_edit').val(),
 				"president_date_approved":$('#date_approved_president_edit').val(),

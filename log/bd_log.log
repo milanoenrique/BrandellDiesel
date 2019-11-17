@@ -308,3 +308,191 @@ CONTEXT:  PL/pgSQL function json_update_massive_status(json,integer) line 32 at 
 [2019-11-12 18:43:18.31272500] transaction successfully
 [2019-11-12 18:43:47.25443900] transaction successfully
 [2019-11-12 18:51:12.70888500] transaction successfully
+[2019-11-13 17:19:32.33157500] transaction successfully
+[2019-11-13 17:22:50.33956800] "Insert_Request: transaction successfully
+[2019-11-13 17:22:50.42198600] "Insert_Parts: transaction successfully
+[2019-11-13 17:22:50.42346100] "Insert_Parts: transaction successfully
+[2019-11-13 17:22:50.42485000] "Insert_Parts: transaction successfully
+[2019-11-13 17:23:16.49837300] transaction successfully
+[2019-11-13 17:34:55.59935700] transaction successfully
+[2019-11-13 17:35:22.19282400] transaction successfully
+[2019-11-13 17:37:45.54380800] "Insert_Request: transaction successfully
+[2019-11-13 17:37:45.61505800] "Insert_Parts: transaction successfully
+[2019-11-13 17:37:45.61664800] "Insert_Parts: transaction successfully
+[2019-11-13 17:37:45.61802500] "Insert_Parts: transaction successfully
+[2019-11-13 17:38:26.61410400] transaction successfully
+[2019-11-13 17:38:39.88587200] transaction successfully
+[2019-11-13 17:38:54.54999600] transaction successfully
+[2019-11-13 17:43:21.10305300] transaction successfully
+[2019-11-13 17:43:39.26868300] transaction successfully
+[2019-11-13 17:44:31.08388900] transaction successfully
+[2019-11-13 17:44:50.87611000] transaction successfully
+[2019-11-13 17:49:42.18830000] transaction successfully
+[2019-11-13 17:55:40.50078200] transaction successfully
+[2019-11-13 17:56:24.40671100] transaction successfully
+[2019-11-13 17:57:43.17854600] "Insert_Request: transaction successfully
+[2019-11-13 17:57:43.25133400] "Insert_Parts: transaction successfully
+[2019-11-13 17:57:43.25309100] "Insert_Parts: transaction successfully
+[2019-11-13 17:58:07.16854700] transaction successfully
+[2019-11-13 17:58:18.15554200] transaction successfully
+[2019-11-14 17:14:56.06823100] 7ERROR:  date/time field value out of range: "2019-13-45"
+HINT:  Perhaps you need a different "datestyle" setting.
+CONTEXT:  SQL statement "update parts set comment_parts = j.comment_parts, status_order = j.status_order, date_of_delivery = j.date_of_delivery , real_date = j.real_date
+from json_populate_recordset(null::parts, inparts)  j
+where parts.idrequest = inidrequest and parts.part = j.part"
+PL/pgSQL function json_update_req_parts(integer,json,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,json) line 28 at SQL statement
+[2019-11-14 17:16:41.40215400] 7ERROR:  date/time field value out of range: "2019-11-56"
+HINT:  Perhaps you need a different "datestyle" setting.
+CONTEXT:  SQL statement "update parts set comment_parts = j.comment_parts, status_order = j.status_order, date_of_delivery = j.date_of_delivery , real_date = j.real_date
+from json_populate_recordset(null::parts, inparts)  j
+where parts.idrequest = inidrequest and parts.part = j.part"
+PL/pgSQL function json_update_req_parts(integer,json,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,json) line 28 at SQL statement
+[2019-11-14 17:41:41.47978700] 7ERROR:  date/time field value out of range: "0000-00-00"
+CONTEXT:  SQL statement "update parts set comment_parts = j.comment_parts, status_order = j.status_order, date_of_delivery = j.date_of_delivery , real_date = j.real_date
+from json_populate_recordset(null::parts, inparts)  j
+where parts.idrequest = inidrequest and parts.part = j.part"
+PL/pgSQL function json_update_req_parts(integer,json,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,character varying,json) line 28 at SQL statement
+[2019-11-14 17:43:52.53264400] transaction successfully
+[2019-11-14 18:25:09.50234100] transaction successfully
+[2019-11-14 18:36:49.86904800] "Insert_Request: transaction successfully
+[2019-11-14 18:36:49.94645800] "Insert_Parts: transaction successfully
+[2019-11-14 18:36:49.94820200] "Insert_Parts: transaction successfully
+[2019-11-14 18:37:35.39745600] transaction successfully
+[2019-11-14 18:54:03.97237400] 7ERROR:  date/time field value out of range: "2019-21-12"
+HINT:  Perhaps you need a different "datestyle" setting.
+CONTEXT:  SQL statement "update parts set comment_parts = j.comment_parts, status_order = j.status_order, date_of_delivery = j.date_of_delivery , real_date = j.real_date
+from json_populate_recordset(null::parts, inparts)  j
+where parts.idrequest = inidrequest and parts.part = j.part"
+PL/pgSQL function json_update_massive_status(json,integer) line 11 at SQL statement
+[2019-11-14 19:03:09.82267500] transaction successfully
+[2019-11-14 19:04:23.14597100] transaction successfully
+[2019-11-14 19:09:51.86891900] transaction successfully
+[2019-11-14 19:10:07.16711600] transaction successfully
+[2019-11-14 19:10:48.00072100] transaction successfully
+[2019-11-14 19:11:11.61115200] transaction successfully
+[2019-11-14 19:12:29.23911200] "Insert_Request: transaction successfully
+[2019-11-14 19:12:29.31255900] "Insert_Parts: transaction successfully
+[2019-11-14 19:12:56.88095300] transaction successfully
+[2019-11-16 10:18:03.18592700] transaction successfully registration expenditur complete
+[2019-11-16 10:19:38.86190900] transaction successfully registration expenditur complete
+[2019-11-16 10:23:45.21244800] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-16 10:25:28.56755300] transaction successfully registration expenditur complete
+[2019-11-16 10:30:31.89634200] 7ERROR:  invalid input syntax for type double precision: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-16 10:46:47.66102100] transaction successfully registration expenditur complete
+[2019-11-16 10:56:10.24332200] 7ERROR:  function to_char(integer, integer) does not exist
+LINE 1: SELECT year_prefix||'-'||to_char(verify_prefix+1,00)
+                                 ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+QUERY:  SELECT year_prefix||'-'||to_char(verify_prefix+1,00)
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 11 at assignment
+[2019-11-16 10:58:55.64652000] transaction successfully registration expenditur complete
+[2019-11-17 06:07:59.12259100] 7ERROR:  invalid input syntax for type double precision: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 06:09:06.24245800] 7ERROR:  invalid input syntax for type double precision: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 06:10:15.01981400] transaction successfully registration expenditur complete
+[2019-11-17 06:40:10.50916100] transaction successfully registration expenditur complete
+[2019-11-17 06:50:30.17533000] transaction successfully registration expenditur complete
+[2019-11-17 06:53:12.19809100] transaction successfully registration expenditur complete
+[2019-11-17 07:00:02.91767600] transaction successfully registration expenditur complete
+[2019-11-17 07:00:46.68462100] transaction successfully update expenditure complete
+[2019-11-17 07:00:56.10256800] transaction successfully update expenditure complete
+[2019-11-17 07:02:01.50633800] transaction successfully registration expenditur complete
+[2019-11-17 07:06:04.24614800] transaction successfully update expenditure complete
+[2019-11-17 07:11:25.88060600] transaction successfully update expenditure complete
+[2019-11-17 07:21:30.29784900] transaction successfully registration expenditur complete
+[2019-11-17 07:23:37.81991400] transaction successfully registration expenditur complete
+[2019-11-17 07:24:10.59610700] transaction successfully update expenditure complete
+[2019-11-17 07:24:24.60489600] transaction successfully update expenditure complete
+[2019-11-17 07:24:32.72931400] transaction successfully update expenditure complete
+[2019-11-17 07:24:46.39507600] transaction successfully update expenditure complete
+[2019-11-17 07:27:38.80234900] transaction successfully update expenditure complete
+[2019-11-17 07:41:47.89234900] transaction successfully registration expenditur complete
+[2019-11-17 07:42:39.73085200] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 07:49:16.67215900] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 07:57:01.99074700] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 07:58:01.21756200] transaction successfully registration expenditur complete
+[2019-11-17 07:58:32.47452500] transaction successfully registration expenditur complete
+[2019-11-17 07:59:40.99650700] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 08:01:27.01764100] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 08:04:01.49284200] transaction successfully registration expenditur complete
+[2019-11-17 08:06:57.38130200] 7ERROR:  invalid input syntax for type timestamp: ""
+CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by)   
+			select project_name,prefix||afe_number, description,start_date,anticipated_date, amount_request, request_by, request_signature,
+									 date_request,support_documentation, president_name, president_signature, president_date_approved,
+									cfo_name, cfo_signature, cfo_date_approved, created_by,updated_by
+			from json_populate_recordset(null::expenditure, inexpenditure)"
+PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-17 08:13:41.37934900] transaction successfully registration expenditur complete

@@ -1482,17 +1482,18 @@
                                                             <option value="ordered">Ordered</option>
                                                             <option value="received">Received</option>
                                                             <option value="In-Stock">In-Stock</option>
+                                                            <option value="quoted">Quoted</option>
                                                         </select>
                                                    </div>
-                                                   <div class="col-md-3" class="input-group date">
-                                                        <div class="col-lg-12 input-group date">
-                                                            <input type="text" id="global-estimated_date" disabled="" class="form-control  date" placeholder="Estimated date"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                   <div class="col-md-3" class="input-group date_global">
+                                                        <div class="col-lg-12 input-group ">
+                                                            <input type="text" id="global-estimated_date" disabled="" class="form-control" placeholder="Estimated date">
                                                         </div>
                                                    </div>
 
-                                                   <div class="col-md-3" class="input-group date">
-                                                        <div class="col-md-12 input-group date">
-                                                            <input type="text" id="global-real_date" disabled="" class="form-control  date" placeholder="Real date"> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                   <div class="col-md-3" class="input-group date_global">
+                                                        <div class="col-md-12 input-group">
+                                                            <input type="text" id="global-real_date" disabled="" class="form-control" placeholder="Real date"> 
                                                         </div>
                                                    </div>
                                                    <div class="col-md-2">
@@ -1920,8 +1921,12 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="afe_number">AFE Number <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="afe_number" placeholder="" maxlength = 20>
+                        <div class='input-group'>
+                            <span id='afe-prefix' class='input-group-addon'>prefix</span>
+                            <input type="text" class="form-control require" id="afe_number" placeholder="" maxlength = 20>
                         </div>
+                        
+                    </div>
                     <div class="form-group col-md-12">
                         <label for="project_description">Project Description</label>
                         <textarea class="form-control rounded-0" id="project_description" maxlength = 300></textarea>
@@ -1950,7 +1955,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="amount_request">Amount Requested <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="amount_request" maxlength=10 onkeypress="return Onlynumbers(event)" value = 0>
+                        <input type="text" class="form-control require" id="amount_request" maxlength=10 onkeypress="return Onlynumbers(event)" value="0" >
                     </div>
                     <div class="form-group col-md-3">
                         <label for="requested_by">Requested by <span class="required"> * </span></label>
@@ -1975,22 +1980,22 @@
                             <label>Supporting Documentation (attached)</label>
                             <div class="bdi-radio-btns">
                                 <label class="btn type-options" >
-                                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="quote">
                                   <span class="checkmark"></span>
                                   Quote
                                 </label>
                                 <label class="btn type-options">
-                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="estimate">
                                   <span class="checkmark"></span>
                                   Estimate
                                 </label>
                                 <label class="btn type-options">
-                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="businessplan">
                                   <span class="checkmark"></span>
                                   Business Plan
                                 </label>
                                 <label class="btn type-options">
-                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="budgeted">
                                   <span class="checkmark"></span>
                                   Budgeted
                                 </label>
@@ -2016,7 +2021,7 @@
                         <label for="exampleInputPassword1">Date Approved</label>
                         <div>
                             <div class='input-group date'>
-                                <input type='text' id="date_approved_president" class="form-control" />
+                                <input type='text' id="date_approved_president" class="form-control fix-date" />
                                 <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -2079,8 +2084,12 @@
                         <input type="hidden" class="form-control require" id="id_expenditure" placeholder="">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="afe_number">AFE Number <span class="required"> * </span></label>
-                        <input type="text" class="form-control require" id="afe_number_edit" maxlength = 20>
+                            <label for="afe_number">AFE Number <span class="required"> * </span></label>
+                        <div class='input-group'>
+                            <span class='input-group-addon' id='afe_prefix_edit'>prefix</span>
+                            <input type="text" class="form-control require" id="afe_number_edit" maxlength = 20>
+                        </div>
+                        
                         </div>
                     <div class="form-group col-md-12">
                         <label for="project_description">Project Description</label>
@@ -2129,26 +2138,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group margin-ra">
-                        <label for="exampleInputName2">Supporting Documentation (attached)</label>
-                        <div class="checkbox disabled">
-                            <label>
-                                <input type="radio"  id='quote_expenditure' class="documentation" value="quote">
-                                Quote
-                            </label>
-                            <label>
-                                <input type="radio" name= id='estimate_expenditure' class="documentation" value="estimate">
-                                Estimate
-                            </label>
-                            <label>
-                                <input type="radio"  id='business_plan_expenditure' class="documentation" value="business_plan">
-                                Business Plan
-                            </label>
-                            <label>
-                                <input type="radio"  id='budgeted_expenditure' class="documentation"  value="budgeted" value="">
-                                Budgeted
-                            </label>
+                    <div class='from group col-md-12'>
+                        <div class="inputGroupContainer bdi-flex-aligner">
+                            <label>Supporting Documentation (attached)</label>
+                            <div class="bdi-radio-btns">
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_edit_quote" value="quote">
+                                  <span class="checkmark"></span>
+                                  Quote
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_edit_estimate" value="estimate">
+                                  <span class="checkmark"></span>
+                                  Estimate
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_edit_businessplan" value="businessplan">
+                                  <span class="checkmark"></span>
+                                  Business Plan
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_edit_budgeted" value="budgeted">
+                                  <span class="checkmark"></span>
+                                  Budgeted
+                                </label>
+                            </div>
                         </div>
+                    </div>
+                    
                 </div>
                 <div class="margin-ra title-1">
                     Signing Authority
@@ -2273,11 +2290,35 @@
                             
                         </div>
                     </div>
-                    <div class="form-group margin-ra">
+                    <div class="form-groupcol-md-12">
                         <label for="exampleInputName2">Supporting Documentation (attached)</label>
-                        <div class="checkbox disabled">
-                            <div class="form-control" id='documentation'></div>
+                        <div class='from group col-md-12'>
+                        <div class="inputGroupContainer bdi-flex-aligner">
+                            <label>Supporting Documentation (attached)</label>
+                            <div class="bdi-radio-btns">
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_view_quote" value="quote" disabled>
+                                  <span class="checkmark"></span>
+                                  Quote
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_view_estimate" value="estimate" disabled>
+                                  <span class="checkmark"></span>
+                                  Estimate
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_view_businessplan" value="businessplan" disabled>
+                                  <span class="checkmark"></span>
+                                  Business Plan
+                                </label>
+                                <label class="btn type-options">
+                                  <input type="radio" name="optionsRadios" id="exp_view_budgeted" value="budgeted" disabled>
+                                  <span class="checkmark"></span>
+                                  Budgeted
+                                </label>
+                            </div>
                         </div>
+                    </div>
                 </div>
                 <div class="margin-ra title-1">
                     Signing Authority
@@ -2347,6 +2388,8 @@
         <script src="js/bootstrap-datetimepicker.js" type="text/javascript"></script>
         <script src="js/ajax.js" type="text/javascript"></script>
         <script src="js/jspdf.debug.js" type="text/javascript"></script>
+        <script src="js/jquery.mask.js"></script>
+        <script src="js/moment.js"></script>
      
         
         <?php
