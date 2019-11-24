@@ -131,8 +131,8 @@
 					onClickCell: function (field, value, row){
 
 						if(field === "id"){ 
-						
-							$('#myModalAuthorizationExpenditure-view').modal('show');
+							printpdf_expenditure(value);
+							/*$('#myModalAuthorizationExpenditure-view').modal('show');
 							$.ajax({
 								type: "POST",
 								url: "common/show_expenditure.php",
@@ -162,7 +162,7 @@
 								}
 								
 							
-							});
+							});*/
 						}else if(field === "edit" && row.status != "C"){ 
 
 							DATA    = null;
@@ -295,13 +295,14 @@
 				data: {"new_expenditure":new_expenditure},
 				dataType: "json",
 				success: function (response) {
+					var id =response[0].id;
 					$('#myModalAuthorizationExpenditure').modal('hide');
 						$.ajax({
 						type: "get",
 						url: "common/list_expenditure.php",
 						dataType: "json",
 						success: function (response) {
-					$('#table-expenditure').bootstrapTable('load',response);
+							$('#table-expenditure').bootstrapTable('load',response);
 
 						}
 					});
@@ -312,214 +313,222 @@
 						success: function (response) {
 							$('.nav.nav-tabs a[href=#tabexpenditure]').tab('show');
 							$.ajax({
-			type: "get",
-			url: "common/list_expenditure.php",
-			dataType: "json",
-			success: function (response) {
-				console.log(response);
-				result = response;
-				$('#table-expenditure').bootstrapTable({
-				data: response,
-				striped: true,
-				columns:
-				[
-							[
-								{
-									field: 'project_name',
-									title: 'Project Name',
-									rowspan: 2,
-									align: 'center',
-									valign: 'middle',
-									width: 1,
-								}, 
-								{
-									field: 'starting_date',
-									title: 'Starting date',
-									rowspan: 2,
-									align: 'center',
-									valign: 'middle',
-									width: 1
-								},
-								{
-									field: 'amount',
-									title: 'Amount',
-									rowspan: 2,
-									align: 'center',
-									valign: 'middle',
-									width: 1
-								}, 
-								{
-									field: 'requested',
-									title: 'Requested',
-									rowspan: 2,
-									align: 'center',
-									valign: 'middle',
-									width: 1
-								}, 
-								{
-									field: 'approved_date',
-									title: 'Approved Date',
-									rowspan: 2,
-									align: 'center',
-									valign: 'middle',
-									width: 1,
-									formatter : function(value) 
-										{
-											if(value=='infinity'){
-												return '-';
-											}else{
-												return value;
-											}   
-										}
-									
-								},
-								<?php if ($profile='Manager'): ?>
-									{
-										title: 'Actions',
-										colspan: 4,
-										align: 'center'
-									}
-								<?php endif; ?>
-							],
-
-							[
-								<?php if ($profile!='TV'): ?>
-									{
-										field: 'id',
-										title: '',
-										align: 'center',
-										valign: 'middle',
-										width: 1,
-										clickToSelect: false,
-										formatter : function(value) 
-										{
-											var view = value;//arr[1];
-											return '<a class="eye" title="id: '+view+'"><span class="fa fa-eye"></span></a>'   
-										}
-									}
-									<?php if ($profile=='Manager'): ?>
-
-										,{
-											field: 'edit',
-											title: '',
-											align: 'center',
-											valign: 'middle',
-											width: 1,
-											clickToSelect: false,
-											formatter : function(value, row) 
-											{
-												var vEdit = '<a class=""><span class="fa fa-pencil" aria-hidden="true"></span></a>';
-												
-												return vEdit; 										
-											}
-										}
-										,{
-											field: 'delete',
-											title: '',
-											align: 'center',
-											valign: 'middle',
-											width: 1,
-											clickToSelect: false,
-											formatter : function(value, row){
-
-												var vDelete = '<a class=""><span class="fa fa-trash" aria-hidden="true"></span></a>';
-												
-												
-												
-												return vDelete;   
-											}
-										}
-
-									<?php endif; ?>
-
-								<?php endif; ?>
-									
-							],
-				],
-					onClickCell: function (field, value, row){
-
-						if(field === "id"){ 
-						
-							$('#myModalAuthorizationExpenditure-view').modal('show');
-							$.ajax({
-								type: "POST",
-								url: "common/show_expenditure.php",
-								data: {'data':value},
+								type: "get",
+								url: "common/list_expenditure.php",
 								dataType: "json",
 								success: function (response) {
-									response[0].support_documentation = (response[0].support_documentation==null)?'':response[0].support_documentation;	
-									$('#myModalAuthorizationExpenditure-view  #id_expenditure').val(response[0].id);
-									$('#myModalAuthorizationExpenditure-view  #project_name_view').text(response[0].project_name);
-									$('#myModalAuthorizationExpenditure-view  #afe_number_view').text(response[0].afe_number);
-									$('#myModalAuthorizationExpenditure-view  #project_description_view').text(response[0].description);
-									$('#myModalAuthorizationExpenditure-view  #start_date_view').text(response[0].starting_date);
-									$('#myModalAuthorizationExpenditure-view  #anticipated_date_view').text(response[0].anticipated_date);
-									$('#myModalAuthorizationExpenditure-view  #amount_request_view').text(response[0].amount);
-									$('#myModalAuthorizationExpenditure-view  #requested_by_view').text(response[0].request_by);
-									$('#myModalAuthorizationExpenditure-view  #request_signature_view').text(response[0].request_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_signature_view').text(response[0].date_request);
-									$('#myModalAuthorizationExpenditure-view  #president_print_name_view').text(response[0].president_name);
-									$('#myModalAuthorizationExpenditure-view  #president_signature_view').text(response[0].president_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_approved_president_view').text(response[0].president_date_approved);
-									$('#myModalAuthorizationExpenditure-view  #cfo_name_view').text(response[0].cfo_name);
-									$('#myModalAuthorizationExpenditure-view  #cfo_signature_view').text(response[0].cfo_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_approved_cfo_view').text(response[0].cfo_date_approved);
-									$('#myModalAuthorizationExpenditure-view #documentation').text(response[0].support_documentation);
+									result = response;
+									$('#table-expenditure').bootstrapTable({
+										data: response,
+										striped: true,
+										columns:
+										[
+													[
+														{
+															field: 'project_name',
+															title: 'Project Name',
+															rowspan: 2,
+															align: 'center',
+															valign: 'middle',
+															width: 1,
+														}, 
+														{
+															field: 'starting_date',
+															title: 'Starting date',
+															rowspan: 2,
+															align: 'center',
+															valign: 'middle',
+															width: 1
+														},
+														{
+															field: 'amount',
+															title: 'Amount',
+															rowspan: 2,
+															align: 'center',
+															valign: 'middle',
+															width: 1
+														}, 
+														{
+															field: 'requested',
+															title: 'Requested',
+															rowspan: 2,
+															align: 'center',
+															valign: 'middle',
+															width: 1
+														}, 
+														{
+															field: 'approved_date',
+															title: 'Approved Date',
+															rowspan: 2,
+															align: 'center',
+															valign: 'middle',
+															width: 1,
+															formatter : function(value) 
+																{
+																	if(value=='infinity'){
+																		return '-';
+																	}else{
+																		return value;
+																	}   
+																}
+															
+														},
+														<?php if ($profile='Manager'): ?>
+															{
+																title: 'Actions',
+																colspan: 4,
+																align: 'center'
+															}
+														<?php endif; ?>
+													],
+
+													[
+														<?php if ($profile!='TV'): ?>
+															{
+																field: 'id',
+																title: '',
+																align: 'center',
+																valign: 'middle',
+																width: 1,
+																clickToSelect: false,
+																formatter : function(value) 
+																{
+																	var view = value;//arr[1];
+																	return '<a class="eye" title="id: '+view+'"><span class="fa fa-eye"></span></a>'   
+																}
+															}
+															<?php if ($profile=='Manager'): ?>
+
+																,{
+																	field: 'edit',
+																	title: '',
+																	align: 'center',
+																	valign: 'middle',
+																	width: 1,
+																	clickToSelect: false,
+																	formatter : function(value, row) 
+																	{
+																		var vEdit = '<a class=""><span class="fa fa-pencil" aria-hidden="true"></span></a>';
+																		
+																		return vEdit; 										
+																	}
+																}
+																,{
+																	field: 'delete',
+																	title: '',
+																	align: 'center',
+																	valign: 'middle',
+																	width: 1,
+																	clickToSelect: false,
+																	formatter : function(value, row){
+
+																		var vDelete = '<a class=""><span class="fa fa-trash" aria-hidden="true"></span></a>';
+																		
+																		
+																		
+																		return vDelete;   
+																	}
+																}
+
+															<?php endif; ?>
+
+														<?php endif; ?>
+															
+													],
+										],
+										onClickCell: function (field, value, row){
+
+											if(field === "id"){ 
+											
+												$('#myModalAuthorizationExpenditure-view').modal('show');
+												$.ajax({
+													type: "POST",
+													url: "common/show_expenditure.php",
+													data: {'data':value},
+													dataType: "json",
+													success: function (response) {
+														response[0].support_documentation = (response[0].support_documentation==null)?'':response[0].support_documentation;	
+														$('#myModalAuthorizationExpenditure-view  #id_expenditure').val(response[0].id);
+														$('#myModalAuthorizationExpenditure-view  #project_name_view').text(response[0].project_name);
+														$('#myModalAuthorizationExpenditure-view  #afe_number_view').text(response[0].afe_number);
+														$('#myModalAuthorizationExpenditure-view  #project_description_view').text(response[0].description);
+														$('#myModalAuthorizationExpenditure-view  #start_date_view').text(response[0].starting_date);
+														$('#myModalAuthorizationExpenditure-view  #anticipated_date_view').text(response[0].anticipated_date);
+														$('#myModalAuthorizationExpenditure-view  #amount_request_view').text(response[0].amount);
+														$('#myModalAuthorizationExpenditure-view  #requested_by_view').text(response[0].request_by);
+														$('#myModalAuthorizationExpenditure-view  #request_signature_view').text(response[0].request_signature);
+														$('#myModalAuthorizationExpenditure-view  #date_signature_view').text(response[0].date_request);
+														$('#myModalAuthorizationExpenditure-view  #president_print_name_view').text(response[0].president_name);
+														$('#myModalAuthorizationExpenditure-view  #president_signature_view').text(response[0].president_signature);
+														$('#myModalAuthorizationExpenditure-view  #date_approved_president_view').text(response[0].president_date_approved);
+														$('#myModalAuthorizationExpenditure-view  #cfo_name_view').text(response[0].cfo_name);
+														$('#myModalAuthorizationExpenditure-view  #cfo_signature_view').text(response[0].cfo_signature);
+														$('#myModalAuthorizationExpenditure-view  #date_approved_cfo_view').text(response[0].cfo_date_approved);
+														$('#myModalAuthorizationExpenditure-view #documentation').text(response[0].support_documentation);
+													}
+													
+												
+												});
+											}else if(field === "edit" && row.status != "C"){ 
+
+												DATA    = null;
+
+												$('#myModalAuthorizationExpenditure-Edit').modal('show');
+												var id_expenditure = row.id;
+												$.ajax({
+													type: "POST",
+													url: "common/show_expenditure.php",
+													data: {'data':id_expenditure},
+													dataType: "json",
+													success: function (response) {
+														$('#myModalAuthorizationExpenditure-Edit  #id_expenditure').val(response[0].id);
+														$('#myModalAuthorizationExpenditure-Edit  #project_name_edit').val(response[0].project_name);
+														$('#myModalAuthorizationExpenditure-Edit  #afe_number_edit').val(response[0].afe_number);
+														$('#myModalAuthorizationExpenditure-Edit  #project_description_edit').val(response[0].description);
+														$('#myModalAuthorizationExpenditure-Edit  #start_date_edit').val(response[0].starting_date);
+														$('#myModalAuthorizationExpenditure-Edit  #anticipated_date_edit').val(response[0].anticipated_date);
+														$('#myModalAuthorizationExpenditure-Edit  #amount_request_edit').val(response[0].amount);
+														$('#myModalAuthorizationExpenditure-Edit  #requested_by_edit').val(response[0].request_by);
+														$('#myModalAuthorizationExpenditure-Edit  #request_signature_edit').val(response[0].request_signature);
+														$('#myModalAuthorizationExpenditure-Edit  #date_signature_edit').val(response[0].date_request);
+														$('#myModalAuthorizationExpenditure-Edit  #president_print_name_edit').val(response[0].president_name);
+														$('#myModalAuthorizationExpenditure-Edit  #president_signature_edit').val(response[0].president_signature);
+														$('#myModalAuthorizationExpenditure-Edit  #date_approved_president_edit').val(response[0].president_date_approved);
+														$('#myModalAuthorizationExpenditure-Edit  #cfo_name_edit').val(response[0].cfo_name);
+														$('#myModalAuthorizationExpenditure-Edit  #cfo_signature_edit').val(response[0].cfo_signature);
+														$('#myModalAuthorizationExpenditure-Edit  #date_approved_cfo_edit').val(response[0].cfo_date_approved);
+														$('#myModalAuthorizationExpenditure-Edit #'+response[0].support_documentation+'').prop('checked', true);
+															console.log(response[0].support_documentation);
+													}
+												});
+
+
+											
+										
+											}else if(field === "delete" && row.status != "C"){ 
+												$('#expendituremodal-delete .comfirmtext span').text(row.project_name);
+
+												$('#delete-expenditure-button').attr('data-record',row.id);
+
+												$('#expendituremodal-delete').modal('show');
+												}
+											}          
+									});
 								}
-								
+							});							
+						}
+					});
+					$.ajax({
+						type: "post",
+						url: "common/create_expenditurePdf.php",
+						data: 	{
+									"expenditure":new_expenditure,
+									"action":"create",
+									"id":id
+								},
+						dataType: "json",
+						success: function (response) {
 							
-							});
-						}else if(field === "edit" && row.status != "C"){ 
-
-							DATA    = null;
-
-							$('#myModalAuthorizationExpenditure-Edit').modal('show');
-							var id_expenditure = row.id;
-							$.ajax({
-								type: "POST",
-								url: "common/show_expenditure.php",
-								data: {'data':id_expenditure},
-								dataType: "json",
-								success: function (response) {
-									$('#myModalAuthorizationExpenditure-Edit  #id_expenditure').val(response[0].id);
-									$('#myModalAuthorizationExpenditure-Edit  #project_name_edit').val(response[0].project_name);
-									$('#myModalAuthorizationExpenditure-Edit  #afe_number_edit').val(response[0].afe_number);
-									$('#myModalAuthorizationExpenditure-Edit  #project_description_edit').val(response[0].description);
-									$('#myModalAuthorizationExpenditure-Edit  #start_date_edit').val(response[0].starting_date);
-									$('#myModalAuthorizationExpenditure-Edit  #anticipated_date_edit').val(response[0].anticipated_date);
-									$('#myModalAuthorizationExpenditure-Edit  #amount_request_edit').val(response[0].amount);
-									$('#myModalAuthorizationExpenditure-Edit  #requested_by_edit').val(response[0].request_by);
-									$('#myModalAuthorizationExpenditure-Edit  #request_signature_edit').val(response[0].request_signature);
-									$('#myModalAuthorizationExpenditure-Edit  #date_signature_edit').val(response[0].date_request);
-									$('#myModalAuthorizationExpenditure-Edit  #president_print_name_edit').val(response[0].president_name);
-									$('#myModalAuthorizationExpenditure-Edit  #president_signature_edit').val(response[0].president_signature);
-									$('#myModalAuthorizationExpenditure-Edit  #date_approved_president_edit').val(response[0].president_date_approved);
-									$('#myModalAuthorizationExpenditure-Edit  #cfo_name_edit').val(response[0].cfo_name);
-									$('#myModalAuthorizationExpenditure-Edit  #cfo_signature_edit').val(response[0].cfo_signature);
-									$('#myModalAuthorizationExpenditure-Edit  #date_approved_cfo_edit').val(response[0].cfo_date_approved);
-									$('#myModalAuthorizationExpenditure-Edit #'+response[0].support_documentation+'').prop('checked', true);
-										console.log(response[0].support_documentation);
-								}
-							});
-
-
-						
-					
-						}else if(field === "delete" && row.status != "C"){ 
-							$('#expendituremodal-delete .comfirmtext span').text(row.project_name);
-
-							$('#delete-expenditure-button').attr('data-record',row.id);
-
-							$('#expendituremodal-delete').modal('show');
-							}
-						}          
-				});
-			}
-			});
-
-							
-
-
 						}
 					});
 				}
@@ -551,7 +560,7 @@
 			})
 				
 			
-			let edit_expenditure;
+			var edit_expenditure={};
 			edit_expenditure = {
 				"id":$('#id_expenditure').val(),
 				"project_name":$('#project_name_edit').val(),
@@ -584,11 +593,26 @@
 						url: "common/list_expenditure.php",
 						dataType: "json",
 						success: function (response) {
-					$('#table-expenditure').bootstrapTable('load',response);
+							$('#table-expenditure').bootstrapTable('load',response);
 
 						}
 					});
 
+				}
+			});
+			var expenditure_id = edit_expenditure.id;
+			$.ajax({
+				
+				type: "post",
+				url: "common/create_expenditurePdf.php",
+				data: 	{
+							"expenditure":edit_expenditure,
+							"action":"edit",
+							"id":expenditure_id
+						},
+				dataType: "json",
+				success: function (response) {
+					
 				}
 			});
 			
@@ -674,5 +698,10 @@
    
    bindDatePicker();
  });
+
+ function printpdf_expenditure(id){
+			
+			printJS('PDF/expenditure_'+ id +'.pdf');
+		}	
 
 </script>

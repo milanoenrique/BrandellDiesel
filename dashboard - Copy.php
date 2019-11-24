@@ -599,41 +599,24 @@
                         <div class="col-sm-16">
                             <div class="widget-box">
                                 <div class="widget-body">
-                                    <div class="datagrid table-responsive" >
+                                    <div class="modal-body datagrid table-responsive" >
                                         <center>
-                                            <div id="partsRequesition">
-                                                <form class="form-horizontal" style="text-align: left; overflow: hidden;" data-toggle="validator">
-                                                    <div>
+                                            <div class="panel-body" id="partsRequesition">
+                                                <form class="form-horizontal" style="text-align: left;" data-toggle="validator">
+                                                    <div class="form-group">
                                                        <div class="text-required">All fields marked with <span class="required"> * </span> are required.</div>
-                                                        <div class="col-md-12  inputGroupContainer">
+                                                        <div class="col-md-6  inputGroupContainer" style="padding-left: 0;  ">
                                                             <div class="input-group">
                                                                 <input type="hidden" id="new-techId"   name="new-techId" class="form-control" value="<?php echo $techId ?>"   disabled="disabled"/>
                                                             </div>
                                                             
-
-
-                                                            <div class="bdi-inline-group">
-                                                           
-                                                                <div class="inputGroupContainer">
-                                                                    <label class="" for="requestType"><font color="#009207">*</font> TYPE </label>
-
-                                                                    <div class="bdi-radio-btns">
-                                                                        <label class="btn type-options" >
-                                                                            Order 
-                                                                            <input type="radio" name="requestType" value="O">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>                                                        
-                                                                        <label class="btn type-options" >
-                                                                            Quote
-                                                                            <input type="radio" name="requestType" value="Q">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>
-                                                                        <label class="btn type-options" >
-                                                                            911
-                                                                            <input type="radio" name="requestType" value="9">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>
-                                                                    </div>
+                                                            <div class="form-group">
+                                                                
+                                                                <div class="col-md-9   inputGroupContainer">
+                                                                <label class="" for="requestType"><font color='#009207'>*</font> TYPE </label><br>
+                                                                    <label class="btn type-options" ><input type="radio" name="requestType" value="O" checked> Order </label>														
+                                                                    <label class="btn type-options" ><input type="radio" name="requestType" value="Q"> Quote </label>
+                                                                    <label class="btn type-options" ><input type="radio" name="requestType" value="9"> 911 </label>
                                                                 </div>
                                                             </div>
                                                                     
@@ -667,7 +650,7 @@
                                                             <input type="text" class="form-control" id="trans" placeholder="">
                                                     </div>
                                                     <div class="col-md-6">
-                                                            <label class="control-label" for="engine">ENGINE#</label>
+                                                            <label class="col-md-4 control-label" for="engine">ENGINE#</label>
 
                                                             <input type="text" class="form-control" id="engine" placeholder="">
                                                     </div>
@@ -742,8 +725,8 @@
         <div class="modal" id="modal-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="header-bdi bdi-parch-header">
-                        <font color='#fff'>
+                    <div class="header-bdi">
+						<font color='#fff'>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-user"></i> View Parts Request</h4>
 						</font>
@@ -754,7 +737,7 @@
                                 <div class="widget-body">
                                     <div class="modal-body datagrid table-responsive" >
                                         <center>
-                                            <div class="panel-body" id="partsRequesition" style="padding:0px">
+                                            <div class="panel-body" id="partsRequesition" style="padding-right: 2% !important">
                                                 <form class="" style="text-align: left;">
 													<div class="form-group" style="display:none">
                                                         <label class="col-md-3 control-label" for="idrequest">Request ID</label>
@@ -781,30 +764,15 @@
                                                     </div>
                                                             
                                                         </div>
-                                                        <div class="col-md-8" >
+                                                        <div class="col-md-8  inputGroupContainer" >
                                                            
-                                                            <div class="bdi-inline-group">
+                                                            <div class="form-group">
                                                                
-                                                                <div class="inputGroupContainer">
-                                                                    <label class="" for="requestType"><font color="#009207">*</font> TYPE </label>
-
-                                                                    <div class="bdi-radio-btns">
-                                                                        <label class="btn type-options" >
-                                                                            Order 
-                                                                            <input type="radio" name="requestType" value="O">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>                                                        
-                                                                        <label class="btn type-options" >
-                                                                            Quote
-                                                                            <input type="radio" name="requestType" value="Q">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>
-                                                                        <label class="btn type-options" >
-                                                                            911
-                                                                            <input type="radio" name="requestType" value="9">
-                                                                            <span class="checkmark"></span>
-                                                                        </label>
-                                                                    </div>
+                                                                <div class="col-md-9  inputGroupContainer">
+                                                                <label class="" for="requestType"><font color="#009207">*</font> TYPE </label><br>
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="O"> Order </label>                                                        
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="Q"> Quote </label>
+                                                                    <label class="btn type-options"><input type="radio" name="requestType" value="9"> 911 </label>
                                                                 </div>
                                                             </div>
                                                         
@@ -1180,6 +1148,232 @@
                                 <div class="" id="partsRequesition">
                                     <form>
                                         
+                                        <style>
+
+                                            .form-control{
+                                                height: 27px;
+                                                padding: 4px 12px;
+                                            }
+
+                                            .input-group-addon{
+                                                padding:4px 12px;
+                                            }
+
+                                            .bdi-inline-group{
+                                                display: flex;
+                                                align-items: center;
+                                            }
+
+                                            .bdi-inline-group>div {
+                                                margin-right: 20px;
+                                                display: flex;
+                                                align-items: center;
+                                            }
+
+                                            .inlinelabel{
+                                                width: 70%;
+                                            }
+
+                                            .bdi-inline-group label{
+                                                margin: 0px;
+                                            }
+
+                                            .bdi-inline-group .inputGroupContainer{
+                                                display: flex;
+                                                align-items: center;
+                                            }
+
+                                            .bdi-radio-btns{
+                                                padding: 0px 20px;
+                                            }
+                                            
+                                            .form-group{
+                                                overflow: hidden;
+                                            }
+                                            /* Customize the label (the container) */
+                                            .bdi-radio-btns>label {
+                                                display: block;
+                                                float: left;
+                                                position: relative;
+                                                padding-left: 17px;
+                                                margin-bottom: 12px;
+                                                cursor: pointer;
+                                                font-size: 13px;
+                                                -webkit-user-select: none;
+                                                -moz-user-select: none;
+                                                -ms-user-select: none;
+                                                user-select: none;
+                                                margin-top: 12px;
+                                            }
+
+                                            /* Hide the browser's default radio button */
+                                            .bdi-radio-btns>label input {
+                                              position: absolute;
+                                              opacity: 0;
+                                              cursor: pointer;
+                                              height: 0;
+                                              width: 0;
+                                            }
+
+                                            /* Create a custom radio button */
+                                            .checkmark {
+                                              position: absolute;
+                                              top: 30%;
+                                              left: 0;
+                                              height: 12px;
+                                              width: 12px;
+                                              background-color: #d2d2d2;
+                                              border-radius: 50%;
+                                            }
+
+                                            /* On mouse-over, add a grey background color */
+                                            .bdi-radio-btns>label:hover input ~ .checkmark {
+                                              background-color: #ccc;
+                                            }
+
+                                            /* When the radio button is checked, add a blue background */
+                                            .bdi-radio-btns>label input:checked ~ .checkmark {
+                                              background-color: #0FB300;
+                                            }
+
+                                            /* Show the indicator (dot/circle) when checked */
+                                            .bdi-radio-btns>label input:checked ~ .checkmark:after {
+                                              display: block;
+                                            }
+
+                                            .modal-content .form-control{
+                                                width: 100%!important;
+                                            }
+
+                                            .inputGroupContainer{
+                                                overflow: hidden;
+                                            }
+
+                                            .collapse-margin>div{
+                                                margin-bottom: 10px;
+                                            }
+
+                                            .bdi-esp-col{
+                                                padding:0px 30px;
+                                            }
+
+                                            .bdi-separation-esp{
+                                                margin-bottom: 15px;
+                                                margin-top: 10px;
+                                            }
+
+                                            .bdi-dark-side{
+                                                background-color: #222;
+                                                width: 100%;
+                                                padding: 15px 0px;
+                                            }
+
+                                            .bdi-dark-side label{
+                                                color: #fff;
+                                            }
+
+                                            .bdi-dark-side .all-check{
+                                                padding-left: 15px;
+                                                position: relative;
+                                            }
+
+                                            .bdi-dark-side .all-check>input{
+                                                position: absolute;
+                                                left: 0;
+                                            }
+
+                                            .header-bdi{
+                                                font-size:18px;
+                                            }
+
+                                            .title-1{
+                                                font-size:16px;
+                                            }
+
+                                            .bdi-full-aling-text{
+                                                text-align: right;
+                                            }
+
+                                            .bdi-flex-aligner{
+                                                display: flex;
+                                                align-items: center;
+                                            }
+
+                                            .panel-heading>font{
+                                                display: block;
+                                                position: relative;
+                                                overflow: hidden;
+                                            }
+
+                                            .panel-heading{
+                                                padding: 10px 15px;
+                                            }
+
+                                            .bdi-flex-btns-container{
+                                                display: flex;
+                                                justify-content: center;
+                                                width: 100%;
+                                            }
+
+                                            .bdi-flex-btns-container>.btn{
+                                                padding: 6px 30px;
+                                                display: block;
+                                                width: auto;
+                                                margin-right: 10px;
+                                            }
+
+                                            .bdi-flex-btns-container>.btn:last-child{
+                                                margin-right: 0px;
+                                            }
+
+                                            .btn-action{
+                                                margin:35px 0px;
+                                            }
+
+                                            .bdi-marginin-inside>div{
+                                                margin-bottom: 10px;
+                                            }
+
+                                            @media only screen and (max-width: 992px){
+                                                .bdi-inline-group .inputGroupContainer{
+                                                    display: block;
+                                                }
+
+                                                .bdi-inline-group{
+                                                    display: block;
+                                                }
+
+                                                .bdi-inline-group>div {
+                                                    margin-right: 0px;
+                                                    display: block;
+                                                }
+
+                                                .inlinelabel{
+                                                    width: 100%;
+                                                }
+
+                                                .bdi-inline-group label{
+                                                    margin-bottom: 10px;
+                                                }
+
+                                                .bdi-inline-group .inputGroupContainer{
+                                                    display: block;
+                                                    align-items: center;
+                                                }
+
+                                                .bdi-flex-aligner{
+                                                    display: block;
+                                                }
+
+                                                #myModalAuthorizationExpenditure .modal-dialog{
+                                                    margin:auto;
+                                                }
+                                            }
+
+
+
+                                        </style>
+
                                         <div class="col-md-12">
                                             <div class="text-required">
                                                 All fields marked with<span class="required"> * </span>are required.
@@ -1187,6 +1381,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-group">
 
                                                     <div class="col-md-12">
                                                         <div class="bdi-inline-group">
@@ -1229,38 +1424,36 @@
                                                         </div>
                                                     </div>
 
-                                                <div class="col-md-12">
-                                                    <label  for="techName">TECH NAME</label>
-                                                    <input type="text" id="edit-techName" name="edit-techName" class="form-control" disabled="disabled"/>
+                                                    <div class="col-md-12">
+                                                        <label  for="techName">TECH NAME</label>
+                                                        <input type="text" id="edit-techName" name="edit-techName" class="form-control" disabled="disabled"/>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <div class="col-md-6">
-                                                    <label  for="ro">*RO#</label>
-                                                        <input type="text" class="form-control secure" id="edit-ro" placeholder="">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="" for="vin">VIN#</label>
-                                                    <input type="text" class="form-control secure" id="edit-vin" placeholder="">
-                                                </div>
-                                                
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <label  for="ro">*RO#</label>
+                                                    <input type="text" class="form-control secure" id="edit-ro" placeholder="">
                                             </div>
+                                            <div class="col-md-6">
+                                                <label class="" for="vin">VIN#</label>
+                                                <input type="text" class="form-control secure" id="edit-vin" placeholder="">
+                                            </div>
+                                            
                                         </div>
 
-                                        <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <div class="col-md-6">
-                                                    <label  for="trans" >TRANS#</label>
-                                                    <input type="text" class="form-control secure" id="edit-trans" placeholder="">
-                                                </div>
-                                                
-                                                <div class='col-md-6'>
-                                                    <label class="control-label" for="engine">ENGINE#</label>
-                                                    <input type="text" class="form-control secure" id="edit-engine" placeholder="">
-                                                </div>
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <label  for="trans" >TRANS#</label>
+                                                <input type="text" class="form-control secure" id="edit-trans" placeholder="">
+                                            </div>
+                                            
+                                            <div class='col-md-6'>
+                                                <label class="control-label" for="engine">ENGINE#</label>
+                                                <input type="text" class="form-control secure" id="edit-engine" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-md-12" >

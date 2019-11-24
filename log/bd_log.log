@@ -496,3 +496,113 @@ CONTEXT:  SQL statement "INSERT INTO expenditure (project_name,afe_number,descri
 			from json_populate_recordset(null::expenditure, inexpenditure)"
 PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
 [2019-11-17 08:13:41.37934900] transaction successfully registration expenditur complete
+[2019-11-17 10:08:19.81663700] transaction successfully
+[2019-11-21 17:02:56.11158000] transaction successfully
+[2019-11-21 17:12:08.95551000] "Insert_Request: transaction successfully
+[2019-11-21 17:12:09.12577200] "Insert_Parts: transaction successfully
+[2019-11-21 17:12:09.12739300] "Insert_Parts: transaction successfully
+[2019-11-21 17:12:09.12895500] "Insert_Parts: transaction successfully
+[2019-11-21 17:12:32.22049800] transaction successfully
+[2019-11-21 17:38:26.00522100] transaction successfully
+[2019-11-21 17:41:13.93603500] transaction successfully
+[2019-11-21 17:41:44.57752300] transaction successfully
+[2019-11-21 17:41:59.55846500] transaction successfully
+[2019-11-21 17:49:00.64172100] "Insert_Request: transaction successfully
+[2019-11-21 17:49:00.72070000] "Insert_Parts: transaction successfully
+[2019-11-21 17:49:18.50125000] transaction successfully
+[2019-11-23 05:24:06.64855200] "Insert_Request: transaction successfully
+[2019-11-23 05:24:06.73716100] "Insert_Parts: transaction successfully
+[2019-11-23 05:24:54.27071800] transaction successfully
+[2019-11-23 05:25:07.02226500] transaction successfully
+[2019-11-23 05:26:44.04131200] transaction successfully
+[2019-11-23 05:27:17.28639800] transaction successfully
+[2019-11-23 05:28:01.21435100] "Insert_Request: transaction successfully
+[2019-11-23 05:28:01.29017600] "Insert_Parts: transaction successfully
+[2019-11-23 05:28:01.29239700] "Insert_Parts: transaction successfully
+[2019-11-23 05:28:01.29380500] "Insert_Parts: transaction successfully
+[2019-11-23 05:28:21.65825000] transaction successfully
+[2019-11-23 05:28:39.79369100] transaction successfully
+[2019-11-23 05:29:02.52247100] transaction successfully
+[2019-11-23 05:31:08.49280000] "Insert_Request: transaction successfully
+[2019-11-23 05:31:08.56377000] "Insert_Parts: transaction successfully
+[2019-11-23 05:31:08.56568900] "Insert_Parts: transaction successfully
+[2019-11-23 05:31:55.03493200] "Insert_Request: transaction successfully
+[2019-11-23 05:31:55.11929100] "Insert_Parts: transaction successfully
+[2019-11-23 05:32:18.84989700] transaction successfully
+[2019-11-23 05:33:08.26935000] transaction successfully
+[2019-11-23 16:13:09.13996300] transaction successfully registration expenditur complete
+[2019-11-23 16:13:41.10029400] transaction successfully registration expenditur complete
+[2019-11-23 16:14:12.07979900] transaction successfully registration expenditur complete
+[2019-11-23 16:34:08.09072700] transaction successfully registration expenditur complete
+[2019-11-23 16:35:43.66999300] transaction successfully registration expenditur complete
+[2019-11-23 16:36:36.80356000] transaction successfully registration expenditur complete
+[2019-11-23 16:50:46.67925100] 7ERROR:  column "id" does not exist
+LINE 1: SELECT id
+               ^
+QUERY:  SELECT id
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 22 at RETURN
+[2019-11-23 16:50:46.73348700] 7ERROR:  column "id" does not exist
+LINE 1: SELECT id
+               ^
+QUERY:  SELECT id
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 22 at RETURN
+[2019-11-23 16:52:15.26395400] 7ERROR:  column "id" does not exist
+LINE 1: SELECT id
+               ^
+QUERY:  SELECT id
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 22 at RETURN
+[2019-11-23 16:54:02.79477100] 7ERROR:  missing FROM-clause entry for table "expenditure"
+LINE 1: SELECT expenditure.id
+               ^
+QUERY:  SELECT expenditure.id
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 22 at RETURN
+[2019-11-23 16:55:03.77774000] 7ERROR:  column "afe_number" does not exist
+LINE 1: SELECT afe_number
+               ^
+QUERY:  SELECT afe_number
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 22 at RETURN
+[2019-11-23 16:57:26.10539000] 7ERROR:  query has no destination for result data
+CONTEXT:  PL/pgSQL function insert_expenditure(json) line 14 at SQL statement
+[2019-11-23 17:00:40.67032900] 7ERROR:  control reached end of function without RETURN
+CONTEXT:  PL/pgSQL function insert_expenditure(json)
+[2019-11-23 17:01:48.18521800] transaction successfully registration expenditure complete
+[2019-11-23 17:05:48.34625700] transaction successfully registration expenditure complete
+[2019-11-23 17:06:11.24664800] transaction successfully registration expenditure complete
+[2019-11-23 17:07:17.00786400] transaction successfully registration expenditure complete
+[2019-11-23 17:09:13.56284300] transaction successfully registration expenditure complete
+[2019-11-23 17:10:13.23541000] transaction successfully registration expenditure complete
+[2019-11-23 17:11:14.39611200] transaction successfully registration expenditure complete
+[2019-11-23 17:12:25.69926800] transaction successfully registration expenditure complete
+[2019-11-23 17:13:14.18464200] transaction successfully registration expenditure complete
+[2019-11-23 17:13:50.82995500] transaction successfully registration expenditure complete
+[2019-11-23 17:15:04.24413500] transaction successfully registration expenditure complete
+[2019-11-23 17:21:06.00582200] transaction successfully registration expenditure complete
+[2019-11-23 17:22:08.74275700] transaction successfully registration expenditure complete
+[2019-11-23 17:25:05.09710900] transaction successfully registration expenditure complete
+[2019-11-23 17:26:08.56396900] transaction successfully registration expenditure complete
+[2019-11-23 17:27:27.55082200] transaction successfully registration expenditure complete
+[2019-11-23 17:30:27.20471600] transaction successfully registration expenditure complete
+[2019-11-23 17:33:27.46576100] transaction successfully registration expenditure complete
+[2019-11-23 17:36:08.09097200] transaction successfully registration expenditure complete
+[2019-11-23 17:36:48.25425400] transaction successfully registration expenditure complete
+[2019-11-23 17:40:51.87132900] transaction successfully registration expenditure complete
+[2019-11-23 17:41:37.96431500] transaction successfully registration expenditure complete
+[2019-11-23 17:50:02.49823300] transaction successfully update expenditure complete
+[2019-11-23 17:50:37.56174100] transaction successfully update expenditure complete
+[2019-11-23 17:52:03.52841300] transaction successfully update expenditure complete
+[2019-11-23 17:52:24.77208000] transaction successfully update expenditure complete
+[2019-11-23 17:53:59.80921800] transaction successfully update expenditure complete
+[2019-11-23 17:55:01.04269200] transaction successfully update expenditure complete
+[2019-11-23 17:55:59.37218800] transaction successfully update expenditure complete
+[2019-11-23 17:57:24.93557300] transaction successfully update expenditure complete
+[2019-11-23 17:58:11.74175700] transaction successfully update expenditure complete
+[2019-11-23 17:59:28.66338500] transaction successfully update expenditure complete
+[2019-11-23 17:59:52.41973400] transaction successfully update expenditure complete
+[2019-11-23 18:00:57.58239000] transaction successfully update expenditure complete
+[2019-11-23 18:01:10.85355100] transaction successfully update expenditure complete
+[2019-11-23 18:01:29.92327400] transaction successfully update expenditure complete
+[2019-11-23 18:07:33.52668800] transaction successfully update expenditure complete
+[2019-11-23 18:08:03.76739600] transaction successfully registration expenditure complete
+[2019-11-23 18:21:09.36798100] transaction successfully
+[2019-11-23 18:21:24.47598600] transaction successfully
+[2019-11-23 18:21:45.17866000] transaction successfully

@@ -786,9 +786,16 @@
                                                             }
                                                            
 
-                                                            if(parts[index_part].ord=='quoted'||parts[index_part].ord=='In-Stock'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option><option value="In-Stock">In-Stock</option></select>';
+                                                            if(parts[index_part].ord=='quoted'){
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option></select>';
                                                             }
+
+                                                            if(parts[index_part].ord=='In-Stock'){
+                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="In-Stock">In-Stock</option></select>';
+                                                            }
+
+
+
 
                                                             if(parts[index_part].ord=='1'){
                                                                 text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
@@ -1054,12 +1061,16 @@
                                                      $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
                                                      $('#part-'+$(this).attr('id')).val(now());
                                                      $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                     $('#real_date_part-'+$(this).attr('id')).val('');
                                                 }else{
                                                     if ($(this).val()=='received' || $(this).val()=='quoted') {
                                                         add_class='true'
                                                         $('#real_date_part-'+$(this).attr('id')).prop('disabled',false);
                                                         $('#real_date_part-'+$(this).attr('id')).val(now());
                                                         $('#part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                        if(row.status!='ordered'){
+                                                            $('#part-'+$(this).attr('id')).val('');
+                                                        }
                                                     }
                                                     
 
@@ -2653,13 +2664,13 @@
 
 			// Modal EDIT Button SAVE
 			$("#modal-edit #buttonSave").click(function(event){
-                var valid_date;
+                var valid_date = true;
                 $('#modal-edit .fixdate').each(function(){
                    
                     if($(this).val()!=''){
                         valid_date=moment($(this).val(), 'YYYY-M-D').isValid();
-                        console.log(valid_date);
                     }
+                   
                 });
 
                 if(valid_date){
@@ -4656,12 +4667,12 @@ $('#modal-edit #reqstatus').change(function(){
            $('#global-estimated_date').val(now());
            $('#global-real_date').prop('disabled','disabled');
        }
-       if($(this).val()=='received'){
+       if($(this).val()=='received' || $(this).val()=='quoted'){
            $('#global-real_date').prop('disabled',false);
            $('#global-real_date').val(now());
            $('#global-estimated_date').prop('disabled','disabled');
        }
-       if($(this).val()!='received' && $(this).val()!='ordered' ){
+       if($(this).val()!='received' && $(this).val()!='ordered' && $(this).val()!='quoted' ){
            $('#global-real_date').prop('disabled','disabled');
            
            $('#global-estimated_date').prop('disabled','disabled');
@@ -4676,12 +4687,16 @@ $('#modal-edit #reqstatus').change(function(){
         var array_edit=[];
         flag_chance = false;
         if( $('#global-status-part option:selected').val()=='ordered' && $('#global-estimated_date').val()==''){
-            date_flag = false
+            date_flag = false;
         }
 
         if( ($('#global-status-part option:selected').val()=='received' || $('#global-status-part option:selected').val()=='received') && $('#global-real_date').val()==''){
-            date_flag = false
+            date_flag = false;
 
+        }
+
+        if($('#global-status-part option:selected').val()=='In-Stock'){
+            date_flag = true;
         }
         if(date_flag==false){
             alert('Please insert a date valid.');

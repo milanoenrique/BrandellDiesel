@@ -11,7 +11,7 @@
         <link href="css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css"/>	
         <link href="css/theme.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="css/custom-theme-bdi-parch.css?v=1.00.000">
+        <link rel="stylesheet" href="css/custom-theme-bdi-parch.css?v=1.00.001">
         <meta http-equiv="Expires" content="Sat, 1 Jul 2000 05:00:00 GMT">
         <meta http-equiv="Last-Modified" content="Mon, 06 May 2019 05:00:00 GMT">
         <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
