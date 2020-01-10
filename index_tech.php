@@ -157,13 +157,13 @@ if(count($_POST)>0) {
 						<div class="row logos">
 							<div class="logo-left col-xs-2 col-sm-2 col-md-2 col-lg-2">
 								<a href="https://www.brandelldiesel.com/">
-									<img width="100%" class="wp-post-image" src="/BrandellDiesel/images/logo_bdi_izq.png">
+									<img width="100%" class="wp-post-image" src="/BrandellDiesel_new/images/logo_bdi_izq.png">
 								</a>
 							</div>
 							<div class="cn logo-center col-xs-7 col-sm-7 col-md-7 col-lg-7">
 								<br><br>
 								<a href="https://www.brandelldiesel.com">
-									<img width="100%" class="wp-post-image" src="/BrandellDiesel/images/header-icono3.png">
+									<img width="100%" class="wp-post-image" src="/BrandellDiesel_new/images/header-icono3.png">
 								</a>
 								<!--<p class="phone-number-seccion">Contact us: <a onclick="goog_report_conversion ('tel:403-271-0101')" href="tel:403-271-0101" class="tracking-phone-number"><font color='#fff'>403-271-0101</font></a> - info@bdicalgary.com</p>-->
 							</div>

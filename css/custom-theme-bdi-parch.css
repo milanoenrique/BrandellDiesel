@@ -1,0 +1,221 @@
+.bdi-parch-header{
+	margin-bottom: 0px;
+}
+
+
+.form-control{
+    height: 27px;
+    padding: 4px 12px;
+}
+
+.input-group-addon{
+    padding:4px 12px;
+}
+
+.bdi-inline-group{
+    display: flex;
+    align-items: center;
+}
+
+.bdi-inline-group>div {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.inlinelabel{
+    width: 70%;
+}
+
+.bdi-inline-group label{
+    margin: 0px;
+}
+
+.bdi-inline-group .inputGroupContainer{
+    display: flex;
+    align-items: center;
+}
+
+.bdi-radio-btns{
+    padding: 0px 20px;
+}
+
+/* Customize the label (the container) */
+.bdi-radio-btns>label {
+    display: block;
+    float: left;
+    position: relative;
+    padding-left: 17px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-top: 12px;
+}
+
+/* Hide the browser's default radio button */
+.bdi-radio-btns>label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  height: 12px;
+  width: 12px;
+  background-color: #d2d2d2;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.bdi-radio-btns>label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.bdi-radio-btns>label input:checked ~ .checkmark {
+  background-color: #0FB300;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.bdi-radio-btns>label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.modal-content .form-control{
+    width: 100%!important;
+}
+
+.inputGroupContainer{
+    overflow: hidden;
+}
+
+.collapse-margin>div{
+    margin-bottom: 10px;
+}
+
+.bdi-esp-col{
+    padding:0px 30px;
+}
+
+.bdi-separation-esp{
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.bdi-dark-side{
+    background-color: #222;
+    width: 100%;
+    padding: 15px 0px;
+}
+
+.bdi-dark-side label{
+    color: #fff;
+}
+
+.bdi-dark-side .all-check{
+    padding-left: 15px;
+    position: relative;
+}
+
+.bdi-dark-side .all-check>input{
+    position: absolute;
+    left: 0;
+}
+
+.header-bdi{
+    font-size:18px;
+}
+
+.title-1{
+    font-size:16px;
+}
+
+.bdi-full-aling-text{
+    text-align: right;
+}
+
+.bdi-flex-aligner{
+    display: flex;
+    align-items: center;
+}
+
+.panel-heading>font{
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-heading{
+    padding: 10px 15px;
+}
+
+.bdi-flex-btns-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.bdi-flex-btns-container>.btn{
+    padding: 6px 30px;
+    display: block;
+    width: auto;
+    margin-right: 10px;
+}
+
+.bdi-flex-btns-container>.btn:last-child{
+    margin-right: 0px;
+}
+
+.btn-action{
+    margin:35px 0px;
+}
+
+.bdi-marginin-inside>div{
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 992px){
+    .bdi-inline-group .inputGroupContainer{
+        display: block;
+    }
+
+    .bdi-inline-group{
+        display: block;
+    }
+
+    .bdi-inline-group>div {
+        margin-right: 0px;
+        display: block;
+    }
+
+    .inlinelabel{
+        width: 100%;
+    }
+
+    .bdi-inline-group label{
+        margin-bottom: 10px;
+    }
+
+    .bdi-inline-group .inputGroupContainer{
+        display: block;
+        align-items: center;
+    }
+
+    .bdi-flex-aligner{
+        display: block;
+    }
+
+    #myModalAuthorizationExpenditure .modal-dialog{
+        margin:auto;
+    }
+}

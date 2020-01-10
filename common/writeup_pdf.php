@@ -123,6 +123,7 @@
 	$pd->Cell(95,0,$cadena,0,0,'L');		
 	$pd->Ln(5);	
 	$pd->SetX(105);	
+	$warnings = ($warnings==4)?'Termination':$warnings;
 	$cadena= "Warnings: ".$warnings;
 	$pd->Cell(95,0,$cadena,0,0,'L');	
 	$pd->Ln(5);		

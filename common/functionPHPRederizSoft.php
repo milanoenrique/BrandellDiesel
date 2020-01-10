@@ -13,8 +13,6 @@
 		
 		$vtechName = str_replace('&#39;', "'", $vtechName);
 		
-
-
 		$cadena="Tech name: ".$vtechName;
 		$cadena = iconv('UTF-8', 'windows-1252', $cadena);
 		$pd->Cell(15,0,$cadena,0,0,'L');
@@ -53,12 +51,14 @@
 
 		$pd->SetFont('Arial','U',10);
 		$cadena="SEG";
-		$pd->Cell(20,0,$cadena,0,0,'C');					
+		$pd->Cell(15,0,$cadena,0,0,'C');					
 		$cadena="DESCRIPTION";
-
-		$pd->Cell(75,0,$cadena,0,0,'C');	
+		$pd->Cell(45,0,$cadena,0,0,'L');	
 		$cadena="QTY";
-		$pd->Cell(30,0,$cadena,0,0,'C');	
+		$pd->Cell(20,0,$cadena,0,0,'C');	
+		$cadena="COMMENTS";
+		$pd->Cell(40,0,$cadena,0,0,'L');	
+
 		$pd->Ln(7);	
 		
 		$vpartsJSONtemp = explode("||", $vpartsJSON);
@@ -74,7 +74,8 @@
 		$i=0;
 		foreach($partsDecode as $parts)
 		{   
-			$w = 2;
+			$multi = 0;
+			$w = 3.5;
 			$y_temp= 0;
 
 			$seg            = $parts -> seg;
@@ -82,28 +83,48 @@
 			$description    = $parts -> description;
 			(property_exists($parts,"quantity")) ? $quantity=$parts->quantity : $quantity=$parts->qty;
 			$ord            = $parts -> ord;
+			$pcomment		= $parts -> comment_parts;
+
 			$pd->SetFont('Arial','',8);
 			//$pd->SetY(10); /* Inicio */
 			$cadena=$seg;
 			$x=$pd->GetX(); $y=$pd->GetY();          
-			$pd->MultiCell(20,2,$cadena,0,'C');	
-			 $pd->SetXY($x+25,$y); 
+			$pd->MultiCell(15,$w,$cadena,0,'C');	
+		    $pd->SetXY($x+15,$y); 
 			$cadena=$description;
 			$cadena = iconv('UTF-8', 'windows-1252', $cadena);
 			
-			if(strlen($cadena)>75){
+			if(strlen($cadena)>40){
 				$w=3;
-				$y_temp = 10;
-			}
-			
+				$y_temp = 3;
+				$multi = 1;
+			}			
 
 			$cadena = str_replace('&#39;', "'", $cadena);
 			$x=$pd->GetX(); $y=$pd->GetY(); 
-			$pd->MultiCell(70,$w,$cadena,0,'C');
-			$pd->SetXY($x+80,$y); 
+			$pd->MultiCell(45,$w,$cadena,0,'L');
+			$pd->SetXY($x+45,$y); 			
 			$cadena=$quantity;
-			$pd->MultiCell(10,2,$cadena,0,'C');	
+			$x=$pd->GetX();
+			$pd->MultiCell(20,2,$cadena,0,'C');	
+			$pd->SetXY($x+20,$y); 
+			$cadena=$pcomment;  
+			$cadena = iconv('UTF-8', 'windows-1252', $cadena);
+			
+			if(strlen($cadena)>40 || $multi=1){
+				$w=3;
+				$y_temp = 3;
+			}			
+			else
+			{
+				$w=2;
+				$y_temp = 0;		
+			}
 
+			$cadena = str_replace('&#39;', "'", $cadena);
+			$x=$pd->GetX(); $y=$pd->GetY(); 
+			$pd->MultiCell(40,$w,$cadena,0,'L');
+			
 			$pd->SetY($pd->GetY()+$y_temp);
 			$pd->Ln(7);
 			if ($pd->GetY()>179){
@@ -113,11 +134,6 @@
 					$pd->SetFont('Arial','',10);
 					$i=0;
 			}
-
-
-
-
-
 
 		}
 		

@@ -1,23 +1,34 @@
 <?php
 
     header('Content-Type: text/html; charset=utf-8');
-    
+ 
+   
     include_once './connection.php';
-    
+  
+  
     $v          = $_GET['v'];
-    $idrequest  = $v;
-    $request    = array();
-    $parts      = array();
-    
+ 
+   $idrequest  = $v;
+ 
+   $request    = array();
+  
+  $parts      = array();
+   
+ 
     $sth = $dbh->prepare("SELECT * FROM request_parts_lookup(:idrequest);"); 
+
     $sth->bindParam(':idrequest',       $idrequest,     PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT);
-    $sth->execute();
-    
+  
+  $sth->execute();
+ 
+   
     $retorno = $sth->fetchAll();
-    
+ 
+   
     foreach($retorno as $row) 
     {
-        $sql = "select distinct comment, creation_date::timestamp::date from parts_log where idpart ='".$row['part']."' and comment !=''";
+       
+ $sql = "select distinct comment, creation_date::timestamp::date from parts_log where idpart ='".$row['part']."' and comment !=''";
          $comment_log[] = array('part'    => $row['part'],
                                    'comment' =>'-',
                                     'date'   => '-');
@@ -75,7 +86,8 @@
             'engine'        => $row['engine'], 
             'reqcomment'    => $row['reqcomment'],
             'idrequesttype' => $row['idrequesttype'],
-            'idpriority'    => $row['idpriority']
+            'idpriority'    => $row['idpriority'],
+            'reqstatus'     => $row['reqstatus']
         );
     }
     

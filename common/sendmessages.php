@@ -3,7 +3,7 @@
 	require_once "../vendor/autoload.php";
     use Twilio\Rest\Client;
 	
-	$v 				= $_GET['v'];
+    $v 				= $_GET['v'];
     $valor 			= explode("|", $v);
 
     $phoneNumber	= $valor[0];
@@ -12,7 +12,7 @@
 	$techName		= $valor[3];
     
     $AccountSid = "AC858556eeb30f04e1bc89bfb4f58c843f";
-    $AuthToken = "fdf0a7fbd7ad4faed96d28efc89ceba7";
+    $AuthToken = "";
 
     $client = new Client($AccountSid, $AuthToken);
 
