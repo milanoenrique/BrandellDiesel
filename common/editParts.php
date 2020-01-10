@@ -19,8 +19,9 @@
     $trans          = $valor[7];
     $engine         = $valor[8];
     $comments       = $valor[9];
-    $json_parts     = $valor[10];
-    $new_parts      = $valor[11];
+    $reqstatus      = $valor[10];
+    $json_parts     = $valor[11];
+    $new_parts      = $valor[12];
 
     if ($new_parts=='[]'){
         $new_parts = null;
@@ -31,9 +32,9 @@
 
     }
   
-  
 
-      $sth = $dbh->prepare("SELECT * FROM json_update_req_parts(:idrequest,:json_parts::json,:jobnumber,:appuser,:idrequesttype,:idpriority,:ro,:vin,:trans,:engine,:comments, :new_parts::json);");
+
+      $sth = $dbh->prepare("SELECT * FROM json_update_req_parts(:idrequest,:json_parts::json,:jobnumber,:appuser,:idrequesttype,:idpriority,:ro,:vin,:trans,:engine,:comments, :reqstatus, :new_parts::json);");
  
     $sth->bindParam(':idrequest',       $idrequest,     PDO::PARAM_INT|PDO::PARAM_INPUT_OUTPUT);  
     $sth->bindParam(':json_parts',      $json_parts,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
@@ -46,6 +47,7 @@
     $sth->bindParam(':trans',           $trans,         PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
     $sth->bindParam(':engine',          $engine,        PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
     $sth->bindParam(':comments',        $comments,      PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
+    $sth->bindParam(':reqstatus',       $reqstatus,     PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
     $sth->bindParam(':new_parts',      $new_parts,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 
     $sth->execute();

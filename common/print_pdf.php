@@ -3,7 +3,7 @@
 include_once './connection.php';
 $ro=$_POST['ro'];
 $id = $_POST['id'];
-$flag = false;
+$flag = true;
 		$sth = $dbh->prepare("SELECT * FROM printer"); 
 		 $sth->execute();
 		 $retorno = $sth->fetchAll();
@@ -11,7 +11,7 @@ $flag = false;
 
 
 		 while($flag==false){
-		 	 if (file_exists('C:\xampp\htdocs\BrandellDiesel\PDF\request_'.$ro.'_'.$id.'.pdf')){
+		 	 if (file_exists('C:\xampp\htdocs\BrandellDiesel_new\PDF\request_'.$ro.'_'.$id.'.pdf')){
 		 		$flag = true;
 		 	
 		 	}
@@ -19,7 +19,7 @@ $flag = false;
 		 		 $client = new SoapClient('http://localhost:8090/printpdf.asmx?wsdl');
 				 foreach ($retorno as $key) {
 		 			$printer = $key['printer'];
-		 			$client->printpdf(array('path'=>'C:\xampp\htdocs\BrandellDiesel\PDF\request_'.$ro.'_'.$id.'.pdf', 'printer'=> $printer ));
+		 			$client->printpdf(array('path'=>'C:\xampp\htdocs\BrandellDiesel_new\PDF\request_'.$ro.'_'.$id.'.pdf', 'printer'=> $printer ));
 		 		}
 
 			}

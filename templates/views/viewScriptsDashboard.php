@@ -511,7 +511,7 @@
                                                 align: 'center',
                                                 valign: 'middle',
                                                 width: 1,
-						formatter: function(value){
+						                        formatter: function(value){
                                                     if(value=='1'){
                                                         text = 'N/A';
                                                     }
@@ -531,10 +531,10 @@
                                                     var text;
                                                     var value_temp='';
                                                     var value2='';
-							if(value!=null){
-								value_temp=value;
-								value2=value.substr(0,15);
-							}
+							                    if(value!=null){
+								                    value_temp=value;
+								                    value2=value.substr(0,15);
+							                    }
                                                     text = '<div  class="red-tooltip" data-toggle="tooltip" title="'+value_temp+'">'+value2+'...</div>';
 
                                                     return text;
@@ -595,8 +595,15 @@
                             DATA    = null;
                             parts   = [];
     						var vOType = "";
-
+                            
                             $('#modal-edit').modal('show');
+                            if(assignedto==null){
+                               
+                                $('#modal-edit #global-status').hide();
+                            }
+                            else{
+                                $('#modal-edit #global-status').show();
+                            }
     						rederizsoftHideLoad( '#partsRequesition', '#cargar_data_edit' );
                             ROW = row;
                             $("#modal-edit #idRequest").val(row.idrequest);
@@ -608,11 +615,33 @@
                                 DATA    = data;
                                 parts   = DATA.PARTS;
     							vOType = DATA.REQUESTS[0].idrequesttype;
+                                if(vOType=='Q'){
+                                    $('#global-status-part option[value=received]').hide()
+                                    $('#global-status-part option[value=quoted]').show()
 
+                                }else{
+                                    $('#global-status-part option[value=received]').show()
+                                    $('#global-status-part option[value=quoted]').hide()
+
+                                }
+                                $(".modal-body #date_request").text(moment(DATA.REQUESTS[0].requestdate).format("MMM DD YYYY, hh:mm:ss a"));
                                 if(DATA.REQUESTS[0].idpriority === "H"){
     								vOType='9';
     							}
-
+                                let verify_status=true;
+                                let status_temp=null;
+                                parts.forEach(function(element){
+                                    console.log(element);
+                                    if((element.status=='ordered')||(element.status=='1')){
+                                        verify_status = false;
+                                    }
+                                   
+                                });
+                                if(verify_status){
+                                   //$("#modal-edit #reqstatus").prop("disabled", false);
+                                }else{
+                                  //  $("#modal-edit #reqstatus").prop("disabled", true);
+                                }
     							var $radios = $('#modal-edit input:radio[name=requestType]');
     							$radios.filter('[value='+vOType+']').prop('checked', true);
 
@@ -623,13 +652,15 @@
                                     $("#modal-edit #requestType").prop('checked', true);}
                                 else {
                                     $("#modal-edit #requestType").prop('checked', false);}*/
-
+                                    
+                                
     							$("#modal-edit #edit-techName").val(DATA.REQUESTS[0].techname);
                                 $("#modal-edit #edit-ro").val(DATA.REQUESTS[0].ro);
                                 $("#modal-edit #edit-vin").val(DATA.REQUESTS[0].vin);
                                 $("#modal-edit #edit-trans").val(DATA.REQUESTS[0].trans);
                                 $("#modal-edit #edit-engine").val(DATA.REQUESTS[0].engine);
                                 $("#modal-edit #edit-comments").val(DATA.REQUESTS[0].reqcomment);
+                                $("#modal-edit #reqstatus").html('<option value='+DATA.REQUESTS[0].reqstatus+'>Select an option</option><option value="C">Close</option>');
 
                                  compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
 
@@ -642,6 +673,26 @@
                                     columns:
                                     [
                                         [
+                                            {
+                                                field: 'edit',
+                                                title: '',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                formatter: function(value){
+							                    let val;
+							                    val = value.split('|');
+                                                if(assignedto!=null){
+                                                    var text = '<input type="checkbox" name="" id="ch-'+val[1]+'" class="check-part" value="'+val[1]+'">';
+                                                    return text;
+                                                }else{
+                                                    return '-';
+                                                }
+                                                   
+
+                                                }
+                                            },
+                                
                                             {
                                                 field: 'seg',
                                                 title: '<font color="#009207">*</font> SEG:',
@@ -683,7 +734,7 @@
                                                 valign: 'middle',
                                                 width: 1,
                                                 clickToSelect: false,
-                                                formatter: function(value){
+                                                formatter: function(value,row){
                                                     index_part++;
                                                     var comment_temp='';
 
@@ -691,20 +742,29 @@
                                                         index_part = index_part+1;    
                                                     }
                                                     
-                                                     if(typeof parts[index_part].allcoments!=='undefined'){
+                                                     /*if(typeof parts[index_part].allcoments!=='undefined'){
                                                         parts[index_part].allcoments.forEach(function(element){
                                                             var date='';
                                                             date = element.date.split(".")
                                                            comment_temp += '<i>'+date[0] +'</i> : ' + element.comment+'&#10;';
 
-                                                    });
-                                                    }
+                                                        });*/
+                                                        if(row.allcoments!=undefined){
+                                                            row.allcoments.forEach(function(element){
+                                                            var date='';
+                                                            date = element.date.split(".")
+                                                           comment_temp += '<i>'+date[0] +'</i> : ' + element.comment+'&#10;';
+
+                                                        });
+                                                        }
+                                                       
+                                                    //}
                                                       if (value == null){
                                                         value = '';
 
                                                     }
                                                     var text;
-                                                    text = '<div class="father"><div><div><div  title="'+comment_temp+'" class="red-tooltip" data-toggle="tooltip" data-html="true"><i class="fa fa-comments"></i></div></div></div></div><div class="textarea-bug"><textarea id=c-'+parts[index_part].part+ '   rows=3 maxlength=100 class="comments_parts secure">'+value+'</textarea></div><input type="hidden" id=h-'+parts[index_part].part+' value="'+value+'">';
+                                                    text = '<div class="father"><div><div><div  title="'+comment_temp+'" class="red-tooltip" data-toggle="tooltip" data-html="true"><i class="fa fa-comments"></i></div></div></div></div><div class="textarea-bug"><textarea id=c-'+row.part+ '   rows=3 maxlength=100 class="comments_parts secure">'+value+'</textarea></div><input type="hidden" id=h-'+row.part+' value="'+value+'">';
                                                     comment_temp='';
                                                     return text;
                                                 }
@@ -716,49 +776,56 @@
                                                 valign: 'middle',
                                                 width: 1,
                                                 clickToSelect: false,
-                                                formatter: function(value){
+                                                formatter: function(value,row){
                                                     //console.log("select: "+JSON.stringify(parts));
 
 
                                                         if(assignedto!=null){
-                                                            if(typeof parts[index_part].ord != 'undefined'){
+                                                            if(typeof row.ord != 'undefined'){
 
 
                                                             var text;
+                                                           
                                                             if($('#quote').is(':checked')){
-                                                                 if(parts[index_part].ord=='quoted'||parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="quoted">Quoted</option></select>';
+                                                                    if(row.ord=='quoted'||row.ord=='received'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
+                                                                    $('#global-status-part option[value=received]').hide()
+                                                                    $('#global-status-part option[value=quoted]').show()
+
+                                                                }
+                                                           
+
+                                                            if(row.ord=='quoted'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="quoted" selected="true">Quoted</option><option value="ordered">Ordered</option><option value="In-Stock">In-Stock</option></select>';
                                                             }
-                                                            if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option></select>'
+
+                                                            if(row.ord=='In-Stock'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="quoted" >Quoted</option><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option></select>';
                                                             }
-                                                            if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option></select>'
+
+                                                            if(row.ord=='1'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
+                                                            }
+                                                            if(row.ord=='ordered'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
                                                             }
 
                                                             }else{
-                                                                 if(parts[index_part].ord=='ordered'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option>';
+                                                                if(row.ord=='ordered'){
+                                                                    text = '<select  id='+row.part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>';
+                                                                }
 
+                                                                if(row.ord=='received'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="ordered">Ordered</option><option value="received" selected="true">Received</option><option value="In-Stock">In-Stock</option>';
+                                                                }
 
-                                                            }
-                                                            if(parts[index_part].ord=='received'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received" selected="true">Received</option>';
-                                                            }
-                                                            if(parts[index_part].ord=='canceled'){
+                                                                if(row.ord=='In-Stock'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="received" >Received</option><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option></select>';
+                                                                }
 
-
-
-                                                                    text = '<select id='+parts[index_part].part+'class="status_part secure " disabled><option value="ordered">Ordered</option><option value="received">Received</option><option value="canceled" selected="true">Canceled</option>'
-                                                            }
-
-                                                              if(parts[index_part].ord=='quote'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure " disabled><option value="ordered">Ordered</option><option value="quote" selected="true">Quote</option>';
-                                                            }
-
-                                                            if(parts[index_part].ord=='1'){
-                                                                text = '<select id='+parts[index_part].part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option>'
-                                                            }
+                                                                if(row.ord=='1'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>'
+                                                                }
 
                                                             }
 
@@ -768,7 +835,7 @@
 
 
                                                         }else{
-                                                            return '<select id='+parts[index_part].part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option></select>';
+                                                            return '<select id='+row.part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option></select>';
 
                                                         }
 
@@ -788,15 +855,25 @@
                                                 align: 'center',
                                                 valign: 'middle',
                                                 width: 1,
-                                                formatter: function(value){
+                                                formatter: function(value, row){
                                                     
                                                     var text;
                                                     if(assignedto!=null){
                                                         if(value!=null){
-                                                          
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";        
+                                                          if(row.status=='ordered'){
+                                                            text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure lock' placeholder='Estimated date' value="+value+"></div>";
+
+                                                          }else{
+                                                            text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"></div>";
+                                                          }
+                                                                   
                                                         }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Estimated date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></span></div>";
+                                                            if(row.status=='ordered'){
+                                                                text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure lock' placeholder='Estimated date'></div>";
+                                                            }else{
+                                                                text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Estimated date'></div>";
+                                                            }
+                                                            
 
                                                         }
                                                     
@@ -826,9 +903,9 @@
                                                     if(assignedto!=null){
                                                         if(value!=null){
                                                           
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";        
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"></div>";        
                                                         }else{
-                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+parts[index_part].part+" disabled class='form-control fixdate secure' placeholder='Real date'> <span class='input-group-addon'><span class='glyphicon glyphicon-calendar'></span></div>";
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Real date'></div>";
 
                                                         }
                                                     
@@ -848,11 +925,11 @@
                                                 valign: 'middle',
                                                 width: 1,
                                                 clickToSelect: false,
-                                                formatter : function(value)
+                                                formatter : function(value,row)
                                                 {
                                                     //console.log(parts[index_part].ord);
-                                                    if(parts[index_part].ord!='received' && parts[index_part].ord!='quoted'){
-                                                        return '<a class=""><span class="fa fa-trash" aria-hidden="true"></span></a>';
+                                                    if(row.ord!='received' && row.ord!='quoted'){
+                                                        return '<div id=delete-'+row.part+'><a class=""><span class="fa fa-trash" aria-hidden="true"></span></a></div>';
 
                                                     }
                                                     else{
@@ -987,32 +1064,57 @@
                                                     add_class='true'
                                                     $('#part-'+$(this).attr('id')).prop('disabled',false);
                                                      $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
+                                                     $('#part-'+$(this).attr('id')).val(now());
+                                                     $('#real_date_part-'+$(this).attr('id')).val('');
                                                      $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                     
                                                 }else{
                                                     if ($(this).val()=='received' || $(this).val()=='quoted') {
                                                         add_class='true'
                                                         $('#real_date_part-'+$(this).attr('id')).prop('disabled',false);
-                                                        $('#real_date_part-'+$(this).attr('id')).val('');
+                                                        $('#real_date_part-'+$(this).attr('id')).val(now());
                                                         $('#part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                        
+                                                        if(!$('#part-'+$(this).attr('id')).hasClass('lock')){
+                                                            $('#part-'+$(this).attr('id')).val('');
+                                                        }
                                                     }
                                                     
 
 
                                                 }
-
-
+                                                if($(this).val()=='In-Stock'){
+                                                        $('#part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                        $('#part-'+$(this).attr('id')).val('');
+                                                    $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                     $('#real_date_part-'+$(this).attr('id')).val('');
+                                                     
+                                                }
 
                                                 if (add_class){
                                                     y= require_date.indexOf($(this).attr('id'));
                                                     if (y==-1){
                                                         require_date.push($(this).attr('id'));
-                                                    }
+                                                    } 
+                                                }
+                                                    let status=null;
+                                                    let flag=false;
+                                                $('.status_part').each(function(){
+                                                   status = (status==null)?$(this).val():status;
+                                                   flag=(status == $(this).val())?true:false;
+                                    console.log('I-2');
+                                                   console.log(flag);
+                                                });
+                                                if(flag==true){
                                                     
+                                                    //$("#modal-edit #reqstatus").prop("disabled", false);
+                                                }else{
+                                                    //$("#modal-edit #reqstatus").prop("disabled", true);  
                                                 }
 
                                           
                                              
-                                              });
+                                            });
                                         }
                                         if(field==='date_of_delivery'){
                                             $("#modal-edit #table-parts").on('click','.fixdate', function (e){
@@ -1027,6 +1129,35 @@
                                                        
                                                 });
                                             });
+                                        }
+
+                                        if(field==='edit'){
+                                            let check = value.split('|');
+                                            if( $('#ch-'+check[1]).prop('checked') ) {
+                                                $('#c-'+check[1]).prop('disabled','disabled');
+                                                $('#'+check[1]).prop('disabled','disabled');
+                                                $('#global-status-part').prop('disabled',false);
+                                             
+                                            }else{
+                                                if($('#all-check').prop('checked',false)){
+                                                    $('#c-'+check[1]).prop('disabled',false);
+                                                    $('#'+check[1]).prop('disabled',false);
+                                                }                                              
+                                            }
+                                            if($(".check-part").toArray().length== $(".check-part:checked").length){
+                                                $('#all-check').prop('checked','checked');
+
+                                            }
+                                            if($(".check-part:checked").length>0){
+                                                $('#global-status-part').prop('disabled',false);
+
+                                            }else{
+                                                $('#global-status-part').prop('selectedIndex',0);
+                                                $('#global-status-part').prop('disabled','disabled');
+
+
+                                            }
+                                            
                                         }
                                         
                                     }
@@ -1725,11 +1856,11 @@
                     format: 'YYYY-MM-DD'
                 });
                 $('#datetimepickerEndDate').datetimepicker({
-                    useCurrent: false,
+                    //useCurrent: false,
                     format: 'YYYY-MM-DD'
                 });
                 $('#datetimepickerdeliveryDate').datetimepicker({
-                    useCurrent: false,
+                    //useCurrent: false,
                     format: 'YYYY-MM-DD'
                 });
                 $(document).on("dp.show", '.fixdate', function () {
@@ -1754,22 +1885,22 @@
                 });
 
                 $("#modal-edit #table-parts").on('click','.fixdate', function (e){
-                if (!$(this).hasClass('haspicker')) {
-                    $(".modal-footer #buttonSave").removeAttr('disabled');
-                $(this).datetimepicker({
-                    useCurrent: false,
-                    format: 'YYYY-MM-DD',
-                    minDate: new Date()
-                });
-                $(this).datetimepicker('show');
-                        $(this).addClass('haspicker');
-                }else{
-                $(this).datetimepicker('show');
-                }
-                $(this).on("dp.change",function(e){
-                        //date_of_delivery = $(this).val();
-                });
-                    
+                    if (!$(this).hasClass('haspicker')) {
+                        $(".modal-footer #buttonSave").removeAttr('disabled');
+                        /*$(this).datetimepicker({
+                            useCurrent: false,
+                            format: 'YYYY-MM-DD',
+                            minDate: new Date()
+                        });
+                        $(this).datetimepicker('show');*/
+                            $(this).addClass('haspicker');
+                    }else{
+                        //$(this).datetimepicker('show');
+                    }
+                        /*$(this).on("dp.change",function(e){
+                            //date_of_delivery = $(this).val();
+                        });*/
+                        
                 });
 
                 
@@ -1786,10 +1917,10 @@
                     
                 });
                 $("#datetimepickerStartDate").on("dp.change", function (e){
-                    $('#datetimepickerEndDate').data("DateTimePicker").minDate(e.date);
+                   // $('#datetimepickerEndDate').data("DateTimePicker").minDate(e.date);
                 });
                 $("#datetimepickerEndDate").on("dp.change", function (e){
-                    $('#datetimepickerStartDate').data("DateTimePicker").maxDate(e.date);
+                   // $('#datetimepickerStartDate').data("DateTimePicker").maxDate(e.date);
                 });
 
                 $("#modal-edit #table-parts #datetimepickerdeliveryDate").on("dp.change", function (e){
@@ -2054,12 +2185,14 @@
     		//*********** Fin Send Message//************************
 
 			//*********** priority requestType
-            $( "#linkToMyModalPartsRequesition" ).click(function(){
+            $( ".linkToMyModalPartsRequesition" ).click(function(){
 				if ( $(".modal-body #techid").val("")  === null || $(".modal-body #techid").val("") === "") {
+                   
     				//console.log('Your session expire');
     				window.location.replace("http://reqparts.bdicalgary.com/BrandellDiesel/index.php");
 				}
-
+                $("#rorder").prop("checked", true);
+                    
 				$(".modal-body #requestType").removeAttr('checked');
 				$(".modal-body #ro").val("");
 				$(".modal-body #vin").val("");
@@ -2234,7 +2367,7 @@
 				partsJSON   	= JSON.stringify(parts);
 
 				// Required fields validations
-				if (ro=='' || parts.length == 0  ){
+				if (ro=='' || parts.length == 0  || vin =='' || engine == ''){
 						alert('Please complete the mandatory fields to continue...!\nAll fields marked with * are required.');
 				}else{
 
@@ -2256,6 +2389,7 @@
 
                                                 if(data[0].REQUEST==true)
                                                 {
+console.log('I-1');
                                                     console.log(data);
                                                     METODO      = "request_parts_insert";
                                                     partsJSON   = JSON.stringify(parts);
@@ -2322,7 +2456,7 @@
                                                                         {
                                                                             console.log(data);
 
-                                                                            alert(data.responseJSON.msn);
+                                                                            //alert(data.responseJSON.msn);
                                                                             print_service(idrequest,ro);
 
                                                                         }
@@ -2466,7 +2600,7 @@
                    
                    
                     $('#modal-edit #table-parts').bootstrapTable('load', parts);
-                    
+                    console.log(parts);
                    
                    $("#modal-edit #edit-seg").val("");
                     $("#modal-edit #edit-parts").val("");
@@ -2548,13 +2682,24 @@
 
 			// Modal EDIT Button SAVE
 			$("#modal-edit #buttonSave").click(function(event){
-                var stop =false;
+                var valid_date = true;
+                $('#modal-edit .fixdate').each(function(){
+                   
+                    if($(this).val()!=''){
+                        valid_date=moment($(this).val(), 'YYYY-M-D').isValid();
+                    }
+                   
+                });
+
+
+                if(valid_date && ($("#modal-edit #edit-ro").val()!='')&& ($("#modal-edit #edit-vin").val()!='')&&($("#modal-edit #edit-engine").val()!='')){
+
+                    var stop =false;
+
                 if(parts.length==0){
                     alert("This request need at least a part!");
                     $(this).prop('disabled',true);
-                }else{
-
-                    array_edit=[];
+                }else{      
 
                     $('#table-parts .status_part').each(function(){
                         var part_edit = $(this).prop('id');
@@ -2578,8 +2723,12 @@
                                     "real_date":real_date_part_edit, 
                                     "part":part_edit
                                 };
+                        let not_repeat = array_edit.filter(part => part.part == part_edit);
+
+                        if (not_repeat.length ==0){
+                            array_edit.push(json_edit);
+                        }
                         
-                        array_edit.push(json_edit);
                     });
 
                       array_deleted.forEach(function(element){
@@ -2592,6 +2741,7 @@
                                         id_aux = $(this).prop('id');
                                         id_aux = id_aux.split('c-');
                                         id_aux = id_aux[1];
+console.log('I0');
                                         console.log(id_aux);
                                         array_edit.push({
                                                             "part" : id_aux, 
@@ -2600,6 +2750,7 @@
                                                             "real_date":null,
                                                             "comment_parts" : $(this).val()
                                                         });
+					console.log('I1');
                                         console.log(comment_canceled);
                                     });
 
@@ -2607,197 +2758,197 @@
 
                  
                 
-                require_date.forEach(function(element) {
-                    console.log($('#'+element).val());
-                if ($('#part-'+element).val()=='' && $('#'+element).val()==='ordered'){
-                   z++;
+                        require_date.forEach(function(element) {
+console.log('I2');
+                            console.log($('#'+element).val());
+                            if ($('#part-'+element).val()=='' && $('#'+element).val()==='ordered'){
+                                z++;
 
-                }else{
-                     if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='received'){
-                   z++;
+                            }else{
+                                if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='received'){
+                                    z++;
 
-                }else{
-                     if ($('#real_date_part-'+element).val()!='' && ($('#'+element).val()==='received')|| $('#'+element).val()==='quoted'){
-                        real_date.push({'part':element, 'real_date': $('#real_date_part-'+element).val() });
+                                }else{
+                                    if ($('#real_date_part-'+element).val()!='' && ($('#'+element).val()==='received')|| $('#'+element).val()==='quoted'){
+                                        real_date.push({'part':element, 'real_date': $('#real_date_part-'+element).val() });
 
-                }
+                                    }
 
-                }
-                }
+                                }
+                            }
                
-                if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='quoted'){
-                   z++;
+                            if ($('#real_date_part-'+element).val()=='' && $('#'+element).val()==='quoted'){
+                                z++;
+                            }
+                        });
 
-                }
-                });
+                        if (z>0){
+                            alert("The Date of Delivery it's required for parts with status ordered, received or quoted");                            
 
-              
-                    if (z>0){
-
-                        alert("The Date of Delivery it's required for parts with status ordered, received or quoted");   
-                                                
-
-                    }                
+                        }                
                    
                 
-                if(z==0){
-                techName        = $("#modal-edit #edit-techName").val();
-                idrequest       = $("#modal-edit #idRequest").val();
-                jobnumber       = $("#modal-edit #edit-ro").val();
-                appuser         = $("#modal-edit #edit-techId").val();
+                        if(z==0){
+                            techName        = $("#modal-edit #edit-techName").val();
+                            idrequest       = $("#modal-edit #idRequest").val();
+                            jobnumber       = $("#modal-edit #edit-ro").val();
+                            appuser         = $("#modal-edit #edit-techId").val();
 
-                var $radiotype = $('#modal-edit input:radio[name="requestType"]:checked');
-                idrequesttype = $radiotype.val();
-                if (aux_colorflag==="O"){
+                            var $radiotype = $('#modal-edit input:radio[name="requestType"]:checked');
+                            idrequesttype = $radiotype.val();
+                            if (aux_colorflag==="O"){
 
-                    //idpriority   = "O";
-                    aux_colorflag =null;
-                }   else{
-                    idpriority = "N";
-                    vPriority   = "Normal";
-                }
+                            //idpriority   = "O";
+                            aux_colorflag =null;
+                            }else
+                            {
+                                idpriority = "N";
+                                vPriority   = "Normal";
+                            }
 
-                if(aux_colorflag=="RI"){
-                    //idpriority = "D";
-                    vPriority   = "Normal";
-                }
+                            if(aux_colorflag=="RI"){
+                                //idpriority = "D";
+                                vPriority   = "Normal";
+                            }
 
                 
-                if(idrequesttype == "Q"){
-                    vType   = "Quote";
-                } else {
-                    if(idrequesttype == "O"){
-                        idrequesttype = "O";
-                        vType   = "Order";
-                        vPriority   = "Normal";
-                    }
-                    else
-                    {
-                        idrequesttype = "O";
-                        vType   = "Order";
-                        idpriority   = "H";
-                        vPriority   = "911";
-                    }
-                }
+                            if(idrequesttype == "Q"){
+                                vType   = "Quote";
+                            } else {
+                                if(idrequesttype == "O"){
+                                    idrequesttype = "O";
+                                    vType   = "Order";
+                                    vPriority   = "Normal";
+                                }
+                                else
+                                {
+                                    idrequesttype = "O";
+                                    vType   = "Order";
+                                    idpriority   = "H";
+                                    vPriority   = "911";
+                                }
+                            }
 
 
-                ro              = $("#modal-edit #edit-ro").val();
-                vin             = $("#modal-edit #edit-vin").val();
-                trans           = $("#modal-edit #edit-trans").val();
-                engine          = $("#modal-edit #edit-engine").val();
-                comments        = $("#modal-edit #edit-comments").val();
-                DATA            = null;
-                URL             = "common/editParts.php";
+                            ro              = $("#modal-edit #edit-ro").val();
+                            vin             = $("#modal-edit #edit-vin").val();
+                            trans           = $("#modal-edit #edit-trans").val();
+                            engine          = $("#modal-edit #edit-engine").val();
+                            comments        = $("#modal-edit #edit-comments").val();
+                            DATA            = null;
+                            URL             = "common/editParts.php";
                
-               partsJSON   = JSON.stringify(parts)+"||"+ordParts+"*|||"+JSON.stringify(newPart_edit)+"||||"+JSON.stringify(date_of_delivery)+ "|||||"+JSON.stringify(comment_canceled)+"||||||"+JSON.stringify(deletedParts);
-                date_of_delivery={};
-                comment_canceled = [];
-                deletedParts=[];
-              //  console.log(partsJSON);
-               // newPart_edit =[];
+                            partsJSON   = JSON.stringify(parts)+"||"+ordParts+"*|||"+JSON.stringify(newPart_edit)+"||||"+JSON.stringify(date_of_delivery)+ "|||||"+JSON.stringify(comment_canceled)+"||||||"+JSON.stringify(deletedParts);
+                                date_of_delivery={};
+                                comment_canceled = [];
+                                deletedParts=[];
+              
+                            var newPart_edit_temp =newPart_edit;
+                            newPart_edit=[];
 
-                         // var compare_order = {ro:DATA.REQUESTS[0].ro, vin:DATA.REQUESTS[0].vin, trans:DATA.REQUESTS[0].trans, engine:DATA.REQUESTS[0].engine, comments:DATA.REQUESTS[0].reqcomment, parts:parts.length};
-                             
-                
-                //METODO          = partsJSON;
-                var newPart_edit_temp =newPart_edit;
-                newPart_edit=[];
-
-                if(newPart_edit_temp.length>0){
+                            if(newPart_edit_temp.length>0){
                     
-                    newPart_edit_temp.forEach(function(element){
-                        var newPart_temp = {
-                            "idrequest":element.idrequest,
-                            "seg" : element.seg,
-                            "description":element.description,
-                            "quantity":element.quantity,
-                            "ord":element.ord,
-                            "date_of_delivery":element.date_of_delivery,
-                            "comment_parts":element.comment_parts,
-                            "appuser":appuser,
-                            "part":element.part
-                        };
-                        newPart_edit.push(newPart_temp);
-                        console.log(newPart_edit);
-                       
-                    });
-                }
-                VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|"  + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
-                real_date=[];
-                newPart_edit=[];
+                                newPart_edit_temp.forEach(function(element){
+                                    var newPart_temp = {
+                                        "idrequest":element.idrequest,
+                                        "seg" : element.seg,
+                                        "description":element.description,
+                                        "quantity":element.quantity,
+                                        "ord":element.ord,
+                                        "date_of_delivery":element.date_of_delivery,
+                                        "comment_parts":element.comment_parts,
+                                        "appuser":appuser,
+                                        "part":element.part
+                                    };
+                                    newPart_edit.push(newPart_temp);
+console.log('I3');
+                                    console.log(newPart_edit);
+                                
+                                });
+                            }
+                            VALOR           = idrequest + "|" + jobnumber + "|" + appuser + "|" + idrequesttype + "|" + idpriority + "|" + ro + "|" + vin + "|" + trans + "|" + engine + "|" + comments + "|" + $('#modal-edit #reqstatus').val() + "|" + JSON.stringify(array_edit) + "|" + JSON.stringify(newPart_edit);
+                            real_date=[];
+                            newPart_edit=[];
+                            $('input:checkbox').removeAttr('checked');
+                            $('#global-estimated_date').val('');
+                            $('#global-estimated_date').prop('disabled','disabled');
+                            $('#global-real_date').val('');
+                            $('#global-real_date').prop('disabled','disabled');
+                            $('#global-status-part').prop('disabled','disabled');
+                
 
-                send_post(URL,VALOR, function(data){
-                    DATA = data;
-                    //console.log(parts);
-                    $('#modal-edit').modal('hide');
-                    //**************FILTER DASHBOARD*******************
-                    if (filter === 0) {
-                        appuser     = $(".modal-body #new-techId").val();
-                        VALOR       = '';
-                        <?php if ($profile == 'TECH'): ?>
-                            VALOR   = appuser;
-                        <?php endif;?>
 
-                        reloadDashboard(VALOR, 'common/ws.php');
-                    } else {
-                        iduser      = $("#modal-filter #techId").val();
-                        startdate   = $("#modal-filter #startdate").val();
-                        enddate     = $("#modal-filter #enddate").val();
-                        jobnumber   = $("#modal-filter #jobnumber").val();
-                        keyword     = $("#modal-filter #keyword").val();
-                        URL     = "common/dashboard_search.php";
-                        DATA        = null;
-                        VALOR       = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
-                        reloadDashboard(VALOR, 'common/dashboard_search.php');
-                    }
-                   if (data[0].RESULTADO!='00000'){
-                        alert("Error at save data");
-                        stop = true;
-                        compare_order = {};
-                        delete_flag = false
-                   }
+                            send_post(URL,VALOR, function(data){
+                                DATA = data;
+                                //console.log(parts);
+                                $('#modal-edit').modal('hide');
+                                //**************FILTER DASHBOARD*******************
+                                if (filter === 0) {
+                                    appuser     = $(".modal-body #new-techId").val();
+                                    VALOR       = '';
+                                    <?php if ($profile == 'TECH'): ?>
+                                        VALOR   = appuser;
+                                    <?php endif;?>
 
-                        if(ro!=compare_order.ro || vin!=compare_order.vin || comments!=compare_order.comments || engine != compare_order.engine || parts.length !=compare_order.parts || delete_flag == true && stop==false ){
+                                    reloadDashboard(VALOR, 'common/ws.php');
+                                } else {
+                                    iduser      = $("#modal-filter #techId").val();
+                                    startdate   = $("#modal-filter #startdate").val();
+                                    enddate     = $("#modal-filter #enddate").val();
+                                    jobnumber   = $("#modal-filter #jobnumber").val();
+                                    keyword     = $("#modal-filter #keyword").val();
+                                    URL     = "common/dashboard_search.php";
+                                    DATA        = null;
+                                    VALOR       = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
+                                    reloadDashboard(VALOR, 'common/dashboard_search.php');
+                                }
+                            if (data[0].RESULTADO!='00000'){
+                                    alert("Error at save data");
+                                    stop = true;
+                                    compare_order = {};
+                                    delete_flag = false
+                            }
+
+                            if(ro!=compare_order.ro || vin!=compare_order.vin || comments!=compare_order.comments || engine != compare_order.engine || parts.length !=compare_order.parts || delete_flag == true && stop==false && $('#moda-edit #reqstatus').val()!='C'){
                    // rederizsoftReady('A','#partsRequesition', 'common/sendMail.php?vRo='+encodeURIComponent(ro)+'&vtechName='+encodeURIComponent(techName)+'&vPriority='+encodeURIComponent(vPriority)+'&vType='+encodeURIComponent(vType)+'&vVin='+encodeURIComponent(vin)+'&vComments='+encodeURIComponent(comments)+'&vpartsJSON='+encodeURIComponent(partsJSON)+'&vDate='+encodeURIComponent(moment(DATE).format("MMM DD YYYY, hh:mm:ss a"))+'&vEngine='+encodeURIComponent(engine)+'&vID='+encodeURIComponent(idrequest)+'&vStatus=', '#cargar_data_edit', 'consultar');
 
-                    var url_mail = 'common/sendMail.php';
-                    var data_mail = {
-                                        "vRo":ro,
-                                        "vtechName":techName,
-                                        "vPriority": vPriority,
-                                        "vType": vType,
-                                        "vVin":vin,
-                                         "vComments": comments,
-                                         "vpartsJSON": partsJSON,
-                                         "vDate": moment(DATE).format("MMM DD YYYY, hh:mm:ss a"),
-                                         "vEngine":engine,
-                                         "vID": idrequest,
-                                         "vStatus" : 'A'
-                                     };
-                    console.log(data_mail);
-                    $.ajax({
-        url: url_mail,
-        type: 'POST',
-        dataType: 'JSON',
-        data: {"data":data_mail},
-        cache: false,
-        success: function(data)
-        {
+                            var url_mail = 'common/sendMail.php';
+                            var data_mail = {
+                                                "vRo":ro,
+                                                "vtechName":techName,
+                                                "vPriority": vPriority,
+                                                "vType": vType,
+                                                "vVin":vin,
+                                                "vComments": comments,
+                                                "vpartsJSON": partsJSON,
+                                                "vDate": moment(DATE).format("MMM DD YYYY, hh:mm:ss a"),
+                                                "vEngine":engine,
+                                                "vID": idrequest,
+                                                "vStatus" : 'A'
+                                            };
+                            $.ajax({
+                                        url: url_mail,
+                                        type: 'POST',
+                                        dataType: 'JSON',
+                                        data: {"data":data_mail},
+                                        cache: false,
+                                        success: function(data)
+                                        {
 
-            alert(data.msn);
+                                            alert(data.msn);
             
-        }
-    });
-                    compare_order = {};
-                    delete_flag = false
+                                        }
+                                    });
+                                compare_order = {};
+                                delete_flag = false
 
-                }  
+            }  
 
-                });
+                            });
                 /*call_Ajax_Jsonp(URL, METODO, VALOR, LOADER, ERROR, function(data){
                     DATA = data;
                     //console.log(parts);
-                    $('#modal-edit').modal('hide');
+                    $('#modal-edit').modal('hide'); // ISD 05122019
                     //**************FILTER DASHBOARD*******************
                     if (filter === 0) {
                         appuser     = $(".modal-body #new-techId").val();
@@ -2838,8 +2989,14 @@
                  z=0;
                  array_edit = [];
                  array_deleted = [];
-
-                
+                 $('#global-status-part').prop('selectedIndex',0);
+                }else{
+                    if(!valid_date){
+                        alert('Please insert a valid date');
+                    }
+                    alert ("Please complete the mandatory fields to continue...!\nAll fields marked with * are required.");
+                    
+                }
             });
 
             $("#buttonClosePartsRequesition").click(function(){
@@ -2960,10 +3117,9 @@
 
             // Advanced search
             $("#modal-filter #buttonApplyFilter").click(function(){
-
+              
             	var tabletarget=$(this).attr('data-tabletarget');
             	var filename=$(this).attr('data-filename');
-
                 iduser          = $("#modal-filter #techId").val();
                 startdate       = $("#modal-filter #startdate").val();
                 enddate         = $("#modal-filter #enddate").val();
@@ -4415,6 +4571,10 @@
 
   });
 
+
+
+
+
  $('#modal-edit .modal-footer #close').click(function(){
     
         $("#modal-edit #buttonSave").prop('disabled',true);
@@ -4504,6 +4664,778 @@ $('.form-control').keypress(function(){
 
 });
 
+$('#modal-edit #reqstatus').change(function(){
+    $('#modal-edit #buttonSave').removeAttr('disabled');;
+});
+
+    $('#modal-edit #all-check').click(function(){
+        if( $(this).prop('checked') ) {
+            $('.check-part').prop('checked',true);
+            $('.comments_parts').prop('disabled','disabled');
+            $('.status_part').prop('disabled','disabled');
+            $('#global-status-part').prop('disabled',false);
+            $('.fixdate').each(function(){
+                    $(this).prop('disabled','disabled');
+            });
+        }else{
+            $('#global-status-part').prop('disabled','disabled');
+            $('.check-part').prop('checked',false);
+            $('.comments_parts').prop('disabled',false);
+            $('.status_part').each(function(){
+                if( $(this).val() != 'received' && $(this).val()!='quoted' && $(this).val()!='In-Stock'){
+                    $(this).prop('disabled',false);
+                }
+            });
+        }
+    });
+
+    $('#global-status-part').change(function(){
+       if($(this).val()=='ordered'){
+           $('#global-estimated_date').prop('disabled',false);
+           $('#global-estimated_date').val(now());
+           $('#global-real_date').val('');
+           $('#global-real_date').prop('disabled','disabled');
+       }
+       if($(this).val()=='received' || $(this).val()=='quoted'){
+           $('#global-real_date').prop('disabled',false);
+           $('#global-real_date').val(now());
+           $('#global-estimated_date').val('');
+           $('#global-estimated_date').prop('disabled','disabled');
+       }
+       if($(this).val()!='received' && $(this).val()!='ordered' && $(this).val()!='quoted' ){
+           $('#global-real_date').prop('disabled','disabled');
+           
+           $('#global-estimated_date').prop('disabled','disabled');
+           $('#global-estimated_date').val('');
+           $('#global-real_date').val('');
+       }
+       $('#modal-edit #buttonSave').removeAttr('disabled');
+    });
+
+    $('#modal-edit #aplly-massive-button').click(function(e){
+        e.preventDefault();
+        
+       
+        var date_flag;
+        var array_edit=[];
+        flag_chance = false;
+        if( $('#global-status-part option:selected').val()=='ordered' && $('#global-estimated_date').val()==''){
+            date_flag = false;
+        }
+
+        if( ($('#global-status-part option:selected').val()=='received' || $('#global-status-part option:selected').val()=='received') && $('#global-real_date').val()==''){
+            date_flag = false;
+
+        }
+
+        if($('#global-status-part option:selected').val()=='In-Stock'){
+            date_flag = true;
+        }
+        if(date_flag==false){
+            alert('Please insert a date valid.');
+        }else{
+           if($('#global-estimated_date').val()!=''&& ($('#global-estimated_date').prop('disabled',false))){
+               date_flag = moment($('#global-estimated_date').val(), 'YYYY-MM-DD').isValid();
+           }
+           if($('#global-real_date').val()!='' &&($('#global-real_date').prop('disabled',false))){
+               date_flag = moment($('#global-real_date').val(), 'YYYY-MM-DD').isValid();
+           }
+           if(!date_flag){
+            alert('Please insert a date valid.');
+           }else{
+
+               $('#modal-edit .check-part').each(function(){
+
+                    if( $(this).prop('checked') ) {
+                        var part_edit = $(this).val();
+                        var comment_part_edit = $('#'+'c-'+part_edit).val();
+                        var status_part_edit = $('#global-status-part option:selected').val();
+                        var estimate_date_part_edit = $('#global-estimated_date').val();
+                        var real_date_part_edit = $('#global-real_date').val();
+
+                        if (estimate_date_part_edit==undefined || estimate_date_part_edit ==""){
+                            estimate_date_part_edit = null;
+                        }
+
+                        if (real_date_part_edit==undefined || real_date_part_edit ==""){
+                            real_date_part_edit = null;
+                        }
+
+                        
+                            json_edit = {
+                                            "comment_parts":comment_part_edit, 
+                                            "status_order":status_part_edit, 
+                                            "date_of_delivery":estimate_date_part_edit, 
+                                            "real_date":real_date_part_edit, 
+                                            "part":part_edit
+                                        };
+                                
+                        
+                                array_edit.push(json_edit);
+
+                                //console.log(json_edit);
+                                $('#'+part_edit+' option[value='+status_part_edit+']').attr('selected',true);
+                                //if(part_edit!='received'||part_edit!='In-Stock'||part_edit!='quoted'){
+                                    $('#'+part_edit).prop('disabled',false);
+                                //}
+                                
+                                if($('#part-'+part_edit).val()=='' && status_part_edit=='ordered'){
+                                    $('#part-'+part_edit).val(estimate_date_part_edit);
+                                    $('#part-'+part_edit).addClass('lock');
+                                    
+                                }
+                             
+                                if(!$('#part-'+part_edit).hasClass('lock')){
+                                    if($('#'+part_edit).val()!='received' || $('#'+part_edit).val()!='quoted'){
+                                        $('#part-'+part_edit).val($('#modal_edit #global-estimated_date').val());     
+                                    }
+                                    
+
+                                }
+
+                                if($('#real_date_part-'+part_edit).val()==''){
+                                    $('#real_date_part-'+part_edit).val($('#global-real_date').val());
+                                }
+                                if(status_part_edit=='received' || status_part_edit=='In-Stock' || status_part_edit=='quoted' ){
+                                    $('#delete-'+part_edit).text('-');
+                        //            $('#'+part_edit).prop('disabled','disabled');
+                                    $('#part-'+part_edit).prop('disabled','disabled');
+                                    $('#real_date_part-'+part_edit).prop('disabled','disabled');
+
+                                }
+
+                                if(status_part_edit=='In-Stock'){
+                                    //$('#delete-'+part_edit).text('-');
+                        //            $('#'+part_edit).prop('disabled','disabled');
+                                    $('#part-'+part_edit).val('');
+                                    $('#part-'+part_edit).prop('disabled','disabled');
+                                    $('#real_date_part-'+part_edit).val('');
+                                    $('#real_date_part-'+part_edit).prop('disabled','disabled');
+
+                                }
+                                $('#c-'+part_edit).prop('disabled',false);
+                                
+
+                        //}
+
+                        $(this).prop('checked',false);
+                    }else{
+                        var part_edit = $(this).val();
+                        console.log('rr'+part_edit);
+                        var comment_part_edit = $('#'+'c-'+part_edit).val();
+                        var status_part_edit = $('#'+part_edit).val();
+                        var estimate_date_part_edit = $('#part-'+part_edit).val();
+                        var real_date_part_edit = $('#real_date_part-'+part_edit).val();
+                        estimate_date_part_edit = (estimate_date_part_edit=='')?null:estimate_date_part_edit;
+                        real_date_part_edit = (real_date_part_edit=='')?null:real_date_part_edit;
+                        json_edit = {
+                                            "comment_parts":comment_part_edit, 
+                                            "status_order":status_part_edit, 
+                                            "date_of_delivery":estimate_date_part_edit, 
+                                            "real_date":real_date_part_edit, 
+                                            "part":part_edit
+                                        };
+                                
+                        
+                                array_edit.push(json_edit);
+                    }
+                });
+             if (array_edit.length > 0){
+                    array_edit = JSON.stringify(array_edit);
+                    $('#all-check').prop('checked',false);
+                    $('#global-estimated_date').val('');
+                    $('#global-real_date').val('');
+                    $('#global-status-part').prop('selectedIndex',0);
+                    if(newPart_edit.length>0){
+
+                        var newPart_edit_temp =newPart_edit;
+                            newPart_edit=[];
+
+                            if(newPart_edit_temp.length>0){
+                    
+                                newPart_edit_temp.forEach(function(element){
+                                    var newPart_temp = {
+                                        "idrequest":element.idrequest,
+                                        "seg" : element.seg,
+                                        "description":element.description,
+                                        "quantity":element.quantity,
+                                        "ord":element.ord,
+                                        "date_of_delivery":element.date_of_delivery,
+                                        "comment_parts":element.comment_parts,
+                                        "part":element.part
+                                    };
+                                    
+                                    newPart_edit.push(newPart_temp);
+
+                                    //console.log(newPart_edit);
+                                
+                                });
+                               
+                                newPart_edit=JSON.stringify(newPart_edit);
+                                var newPart_edit_massive=newPart_edit;
+                                newPart_edit=[];
+                            }
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "common/massive_status.php",
+                        data: {'data':array_edit,
+                               'id_request':idrequest,
+                               'new_part':newPart_edit_massive
+                              },
+                        dataType: "JSON",
+                        success: function (response) {
+                              var parts_em = response;
+                              console.log(parts_em);
+                             
+                              $('#modal-edit #table-parts').bootstrapTable('destroy');
+                              parts = parts_em;
+                              $('#modal-edit #table-parts').bootstrapTable({
+                                    data: parts_em,
+                                    striped: true,
+                                    columns:
+                                    [
+                                        [
+                                            {
+                                                field: 'edit',
+                                                title: '',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                formatter: function(value){
+                                                    console.log(value);
+							                    let val;
+							                    val = value.split('|');
+                                                    var text = '<input type="checkbox" name="" id="ch-'+val[1]+'" class="check-part" value="'+val[1]+'">';
+                                                    return text;
+                                               
+                                                   
+
+                                                }
+                                            },
+                                
+                                            {
+                                                field: 'seg',
+                                                title: '<font color="#009207">*</font> SEG:',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1
+                                            },
+                                            {
+                                                field: 'part',
+                                                title: '<font color="#009207">*</font> PART:',
+                                                align: 'center',
+                                                valign: 'middle',
+    											visible: false,
+                                                width: 1
+                                            },
+                                            {
+                                                field: 'description',
+                                                title: '<font color="#009207">*</font> DESCRIPTION:',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                formatter: function(value){
+                                                    var text = '<div style="word-break: break-word;">'+value+'</div>';
+                                                    return text;
+
+                                                }
+                                            },
+                                            {
+                                                field: 'quantity',
+                                                title: '<font color="#009207">*</font> QTY:',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1
+                                            },
+                                            {
+                                                field:'comment_parts',
+                                                title: 'COMMENT OF PARTS',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                clickToSelect: false,
+                                                formatter: function(value,row){
+                                                    index_part++;
+                                                    var comment_temp='';
+
+                                                    if(index_part<0){
+                                                        index_part = index_part+1;    
+                                                    }
+                                                    
+                                                     /*if(typeof parts[index_part].allcoments!=='undefined'){
+                                                        parts[index_part].allcoments.forEach(function(element){
+                                                            var date='';
+                                                            date = element.date.split(".")
+                                                           comment_temp += '<i>'+date[0] +'</i> : ' + element.comment+'&#10;';
+
+                                                        });*/
+                                                        if(row.allcoments!=undefined){
+                                                            row.allcoments.forEach(function(element){
+                                                            var date='';
+                                                            date = element.date.split(".")
+                                                           comment_temp += '<i>'+date[0] +'</i> : ' + element.comment+'&#10;';
+
+                                                        });
+                                                        }
+                                                       
+                                                    //}
+                                                      if (value == null){
+                                                        value = '';
+
+                                                    }
+                                                    var text;
+                                                    text = '<div class="father"><div><div><div  title="'+comment_temp+'" class="red-tooltip" data-toggle="tooltip" data-html="true"><i class="fa fa-comments"></i></div></div></div></div><div class="textarea-bug"><textarea id=c-'+row.part+ '   rows=3 maxlength=100 class="comments_parts secure">'+value+'</textarea></div><input type="hidden" id=h-'+row.part+' value="'+value+'">';
+                                                    comment_temp='';
+                                                    return text;
+                                                }
+                                            },
+                                            {
+                                                field: 'ord',
+                                                title: 'STATUS:',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                clickToSelect: false,
+                                                formatter: function(value,row){
+                                                    //console.log("select: "+JSON.stringify(parts));
+
+
+                                                    
+                                                        if(typeof row.ord != 'undefined'){
+
+
+                                                            var text;
+                                                           
+                                                            if($('#quote').is(':checked')){
+                                                                    if(row.ord=='quoted'||row.ord=='received'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>';
+                                                                    $('#global-status-part option[value=received]').hide()
+                                                                    $('#global-status-part option[value=quoted]').show()
+
+                                                                }
+                                                           
+
+                                                            if(row.ord=='quoted'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="quoted" selected="true">Quoted</option><option value="ordered">Ordered</option><option value="In-Stock">In-Stock</option></select>';
+                                                            }
+
+                                                            if(row.ord=='In-Stock'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="quoted" >Quoted</option><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option></select>';
+                                                            }
+
+                                                            if(row.ord=='1'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
+                                                            }
+                                                            if(row.ord=='ordered'){
+                                                                text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered" selected="true">Ordered</option><option value="quoted">Quoted</option><option value="In-Stock">In-Stock</option></select>'
+                                                            }
+
+                                                            }else{
+                                                                if(row.ord=='ordered'){
+                                                                    text = '<select  id='+row.part+' class="status_part secure "><option selected="true" value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>';
+                                                                }
+
+                                                                if(row.ord=='received'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="ordered">Ordered</option><option value="received" selected="true">Received</option><option value="In-Stock">In-Stock</option>';
+                                                                }
+
+                                                                if(row.ord=='In-Stock'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="received" >Received</option><option value="ordered">Ordered</option><option value="In-Stock" selected="true">In-Stock</option></select>';
+                                                                }
+
+                                                                if(row.ord=='1'){
+                                                                    text = '<select id='+row.part+' class="status_part secure "><option value="1">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option>'
+                                                                }
+
+                                                            }
+
+                                                           
+                                                            return text;
+
+
+
+                                                            }else{
+                                                                return '<select id='+row.part+' class="status_part"><option value="">Select an option</option><option value="ordered">Ordered</option><option value="received">Received</option><option value="In-Stock">In-Stock</option></select>';
+
+                                                        }
+
+                                                        }
+
+
+
+
+
+                                                    
+
+
+                                            },
+                                            {
+                                                field:'date_of_delivery',
+                                                title: '&nbsp;&nbsp;ESTIMATED DATE&nbsp;&nbsp;',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                formatter: function(value, row){
+                                                    
+                                                    var text;
+                                                        if(value!=null){
+                                                          if(row.status=='ordered'){
+                                                            text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure lock' placeholder='Estimated date' value="+value+"></div>";
+
+                                                          }else{
+                                                            text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Estimated date' value="+value+"></div>";
+                                                          }
+                                                                   
+                                                        }else{
+                                                            if(row.status=='ordered'){
+                                                                text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure lock' placeholder='Estimated date'></div>";
+                                                            }else{
+                                                                text = "<div class='col-lg-12  input-group date'><input type='text' id=part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Estimated date'></div>";
+                                                            }
+                                                            
+
+                                                        }
+                                                    
+
+                                                        return text;
+
+                                                    
+
+                                                }
+                                            },
+
+                                            {
+                                                field:'real_date',
+                                                title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REAL DATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                formatter: function(value,row){
+                                                    //console.log(row);
+                                                    if(row.ord==="received" || row.ord=='quoted' ){
+                                                       value = row.real_date;
+                                                      // console.log(value);
+                                                    }
+                                                    
+                                                    var text;
+                                                        if(value!=null){
+                                                          
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Real date' value="+value+"></div>";        
+                                                        }else{
+                                                            text = "<div class='col-lg-12 input-group date'><input type='text' id=real_date_part-"+row.part+" disabled class='form-control fixdate secure' placeholder='Real date'></div>";
+
+                                                        }
+                                                    
+
+                                                        return text;
+
+                                                    
+
+                                                }
+                                            },
+
+                                            {
+                                                field: 'delete',
+                                                title: '',
+                                                align: 'center',
+                                                valign: 'middle',
+                                                width: 1,
+                                                clickToSelect: false,
+                                                formatter : function(value,row)
+                                                {
+                                                    //console.log(parts[index_part].ord);
+                                                    if(row.ord!='received' && row.ord!='quoted'){
+                                                        return '<div id=delete-'+row.part+'><a class=""><span class="fa fa-trash" aria-hidden="true"></span></a></div>';
+
+                                                    }
+                                                    else{
+                                                        return '-';
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        ]
+                                    ],
+                                    onClickCell: function (field, value, row, element){
+                                             if(field === "delete")
+                                        {
+
+                                            newParts = parts.filter(function(el)
+                                            {
+
+                                                if(row.ord=='received'||row.ord=='quoted'){
+
+                                                    return '-'
+                                                }else{
+                                                       deletedParts.push(value);
+                                                       delete_flag = true;
+                                                    return el.delete !== value;
+                                                    
+
+                                                }
+                                               
+                                               
+                                                        
+                                            });
+                                            index_part= -1;
+
+
+                                            
+                                                //$('.modal-body #table-parts').bootstrapTable('load', newParts);
+                                                $(element).closest('tr').remove();
+                                                var temp_date_of_delivery;
+                                                var temp_real_date;
+
+                                                if (row.dateofdelivery==undefined || row.dateofdelivery ==""){
+                                                    temp_date_of_delivery = null;
+                                                }else{
+                                                    temp_date_of_delivery = row.dateofdelivery;
+                                                }
+
+                                                if (row.real_date==undefined || row.real_date ==""){
+                                                    temp_real_date = null;
+                                                }else{
+                                                    temp_real_date = row.dateofdelivery;
+                                                }
+
+                                                var parts_delete = {
+                                                                        "comment_parts":row.comment_parts,
+                                                                        "date_of_delivery":temp_date_of_delivery,
+                                                                        "status": 'deleted',
+                                                                        "real_date": temp_real_date,
+                                                                        "part":row.part
+                                                                    }
+                                                array_deleted.push(parts_delete);
+
+                                                     value = value.split("|");  
+                                                 $('#'+value[1]+'option selected').val('deleted');
+                                                var eliminar_reqdate =require_date.indexOf(value[1]);
+                                                var eliminar_ord_parts = ordParts.indexOf(value[1]);
+
+                                                     if (eliminar_ord_parts !=-1){
+                                                        
+                                                        ordParts.splice(eliminar_ord_parts,2);
+
+                                                    }  
+                                               
+                                                    if (eliminar_reqdate !=-1){
+                                                        
+                                                        require_date.splice(eliminar_reqdate,1);
+
+                                                    }                                    
+                                                    newPart_edit.forEach(function(element){
+                                                if(value[1] == element.part){
+                                                    element.part = null;
+                                                    delete_flag = false;
+
+
+
+                                                }
+                                            });
+                                                
+                                                if(newParts.length==0){
+                                                    alert("A request must have at least one part; the changes will not be saved, if the request is empty...");
+                                                    $(".modal-footer #buttonSave").attr('disabled','disabled');
+                                                    delete_flag = true;
+                                                    
+                                                }else{
+                                                    $(".modal-footer #buttonSave").removeAttr('disabled');
+                                                }
+
+
+
+                                            parts = newParts;
+
+
+                                        }
+                                          
+                                        if(field==="ord"){
+                                            var x;
+                                            $('#modal-edit').on('click','select.status_part',function(e){
+                                                id = $(this).attr('id');
+                                                //part_status_value = $(this).attr('val');
+                                                x= ordParts.indexOf(id);
+                                                if(x==-1){
+                                                    ordParts.push(id,$('#'+id+' option:selected').val());
+                                                    //console.log("nuevo elemento");
+                                                    //console.log(ordParts);
+                                                }
+                                                else{
+
+                                                    //console.log("ya existe");
+                                                    ordParts[x+1]=$('#'+id+' option:selected').val();
+                                                    //console.log(ordParts);
+
+                                                    }
+
+
+
+
+                                            });
+                                            $('#modal-edit').on('change','select.status_part', function(e){
+                                                var add_class=false;
+                                                var y;
+                                                $('#c-'+$(this).attr('id')).prop('disabled',false);
+                                                if($(this).val()=='ordered'){
+                                                    add_class='true'
+                                                    $('#part-'+$(this).attr('id')).prop('disabled',false);
+                                                     $('#part-'+$(this).attr('id')).attr('placeholder', 'Estimate Date');
+                                                     $('#part-'+$(this).attr('id')).val(now());
+                                                     $('#real_date_part-'+$(this).attr('id')).val('');
+                                                     $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                     
+                                                }else{
+                                                    if ($(this).val()=='received' || $(this).val()=='quoted') {
+                                                        add_class='true'
+                                                        $('#real_date_part-'+$(this).attr('id')).prop('disabled',false);
+                                                        $('#real_date_part-'+$(this).attr('id')).val(now());
+                                                        $('#part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                        
+                                                        if(!$('#part-'+$(this).attr('id')).hasClass('lock')){
+                                                            $('#part-'+$(this).attr('id')).val('');
+                                                        }
+                                                    }
+                                                    
+
+
+                                                }
+                                                if($(this).val()=='In-Stock'){
+                                                        $('#part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                        $('#part-'+$(this).attr('id')).val('');
+                                                    $('#real_date_part-'+$(this).attr('id')).prop('disabled','disabled');
+                                                     $('#real_date_part-'+$(this).attr('id')).val('');
+                                                     
+                                                }
+
+                                                if (add_class){
+                                                    y= require_date.indexOf($(this).attr('id'));
+                                                    if (y==-1){
+                                                        require_date.push($(this).attr('id'));
+                                                    } 
+                                                }
+                                                    let status=null;
+                                                    let flag=false;
+                                                $('.status_part').each(function(){
+                                                   status = (status==null)?$(this).val():status;
+                                                   flag=(status == $(this).val())?true:false;
+                                    console.log('I-2');
+                                                   console.log(flag);
+                                                });
+                                                if(flag==true){
+                                                    
+                                                    //$("#modal-edit #reqstatus").prop("disabled", false);
+                                                }else{
+                                                    //$("#modal-edit #reqstatus").prop("disabled", true);  
+                                                }
+
+                                          
+                                             
+                                            });
+                                        }
+                                        if(field==='date_of_delivery'){
+                                            $("#modal-edit #table-parts").on('click','.fixdate', function (e){
+                                                $(this).on("dp.change",function(e){
+                                                        index_date++;
+                                                            
+                                                          
+                                                            date_of_delivery[$(this).attr('id')] = $(this).val();
+                                                            
+                                                        
+                                                        
+                                                       
+                                                });
+                                            });
+                                        }
+
+                                        if(field==='edit'){
+                                            let check = value.split('|');
+                                            if( $('#ch-'+check[1]).prop('checked') ) {
+                                                $('#c-'+check[1]).prop('disabled','disabled');
+                                                $('#'+check[1]).prop('disabled','disabled');
+                                                $('#global-status-part').prop('disabled',false);
+                                             
+                                            }else{
+                                                if($('#all-check').prop('checked',false)){
+                                                    $('#c-'+check[1]).prop('disabled',false);
+                                                    $('#'+check[1]).prop('disabled',false);
+                                                }                                              
+                                            }
+                                            if($(".check-part").toArray().length== $(".check-part:checked").length){
+                                                $('#all-check').prop('checked','checked');
+
+                                            }
+                                            if($(".check-part:checked").length>0){
+                                                $('#global-status-part').prop('disabled',false);
+
+                                            }else{
+                                                $('#global-status-part').prop('selectedIndex',0);
+                                                $('#global-status-part').prop('disabled','disabled');
+
+
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                });
+                           
+                        }
+                    });
+
+                  $('#modal-edit #table-parts').bootstrapTable('refresh', parts);
+                }
+                }
+                part_edit ='';
+                comment_part_edit = '';
+                status_part_edit = '';
+                estimate_date_part_edit = '';
+                real_date_part_edit = '';
+                array_edit=[];
+                json_edit={};
+        
+
+        }   
+
+        
+    });
+
+  
+function now(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+
+}
+
+$('.haspicker').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
+$('.fixdate').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
+$('#global-estimated_date').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
+$('#global-real_date').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
+
+$('#911').click(function () { 
+    $('#global-status-part option[value=received]').show();
+    $('#global-status-part option[value=quoted]').hide();
+
+    
+});
+$('#order').click(function () { 
+    $('#global-status-part option[value=received]').show();
+    $('#global-status-part option[value=quoted]').hide();
+
+});
 
 
 

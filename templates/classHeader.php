@@ -37,8 +37,7 @@
 		}
 
 
-		function __construct($data=null)
-		{
+		function __construct($data=null){
 			
 			$defaultValues=array(
 				'pageTitle'		=> 'BDI - Parts request',
@@ -55,28 +54,18 @@
 
 		}
 
-		public function buildMenu($data,$key){
+		static function buildMenu($data,$key){
 
-			$retorno='';
 			$_id=	(isset($data['id'])) ?'id="'.$data['id'].'"' : '' ;
 			$_icon=	(isset($data['icon'])) ? $data['icon']:'' ;
 			$_url=	(isset($data['url'])) ? $data['url']: '#' ;
 
-			if (isset($data['group'])) {
-				$retorno.='<li class="dropdown">';
-				$retorno.='<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="'.$_icon.'" aria-hidden="true"></span> '.$key.'<span class="caret"></span></a><ul class="dropdown-menu">';
+			ob_start();
+				include('components/main_menu.php');
+				$return = ob_get_contents();
+			ob_end_clean();
 
-					foreach ($data['group'] as $groupkey => $groupvalue) {
-						$retorno.= $this->buildMenu($groupvalue,$groupkey);
-					}
-
-				$retorno.='</ul></li>';
-
-			}else{
-				$retorno.='<li><a '.$_id.' href="'.$_url.'"><span class="'.$_icon.'" aria-hidden="true"></span> '.$key.'</a></li>';
-			}
-
-			return $retorno;
+			return $return;
 
 		}
 
@@ -89,29 +78,16 @@
 		        )
 		    );
 
-			if ($profile!='TV') {
-
-				if ($profile!='ASSIST') {
-					
-					$auxarray=array(   
-			            'New Parts Request'=>array(
-				            'icon'  =>'fa fa-cogs',
-				            'id'    =>'linkToMyModalPartsRequesition'
-				        )
-			        );
-
-			        $argsHeader=$auxarray+$argsHeader;
-				}
-
+		    if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
 		        $auxarray=array(   
-		            'Send Message'  =>array(
-			            'icon'  =>'fa fa-phone',
-			            'id'    =>'linkToMyModalSendMessage'
-			        )
+		            'New Support Ticket'  =>array(
+		                'icon'  =>'fa fa-ticket',
+		                'id'    =>'linkToTicketSupport'
+		            ) 
 		        );
 
 		        $argsHeader=$auxarray+$argsHeader;
-		    }
+			}
 
 		    if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
 		        $auxarray=array(   
@@ -122,6 +98,30 @@
 		        );
 
 		        $argsHeader=$auxarray+$argsHeader;
+			}
+			
+			
+			if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST') {
+		        $auxarray=array(   
+		            'New Expenditure'  =>array(
+		                'icon'  =>'fa fa-dollar',
+		                'id'    =>'linkToAuthorizationExpenditure'
+		            ) 
+		        );
+
+		        $argsHeader=$auxarray+$argsHeader;
+		    }
+
+		    if ($profile != 'TV'){
+
+		    	$auxarray=array(   
+		            'New Parts Request'  =>array(
+		                'icon'  =>'fa fa-shopping-cart',
+		                'class'    =>'linkToMyModalPartsRequesition'
+		            ) 
+		        );
+
+		    	$argsHeader=$auxarray+$argsHeader;
 		    }
 
 		    if ($profile=='ADMIN') {
@@ -146,11 +146,7 @@
 
 		}
 
-		public function getHeader(){
-
-			require('views/viewHeader.php');
-
-		}
+		public function getHeader($techName,$profile){ require('views/viewHeader.php'); }
 
 	}
 
