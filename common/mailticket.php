@@ -2,6 +2,7 @@
 session_start();
 require_once "../PHPMailer/vendor/autoload.php";
 include_once './configMail.php';
+
 $mail=new PHPMailer;
 $eMail = $mail;
 $mail->SMTPDebug = 0;                               
@@ -26,7 +27,7 @@ $mail->setFrom($from, $user = $_SESSION['getValidateUser']['idUser']);
 
 $mail->isHTML(true);                                  // Set email format to HTML
 $mail->Subject = $_POST['subject'];
-$mail->Body    = $_POST['comments'];;
+$mail->Body    = $_POST['comments'];
 
 
 $mail->send();

@@ -52,6 +52,7 @@
                                 <?php  if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST'): ?>
                                     <li role="presentation"><a href="#tabwriteups" aria-controls="tabwriteups" role="tab" data-toggle="tab">Write Ups</a></li>
                                     <li role="presentation" id= "tab-parts"><a href="#tabstatusparts" aria-controls="tabstatusparts" role="tab" data-toggle="tab">Status Parts</a></li>
+                                    <li role="presentation" id="tab-ticketsupport"><a href="#tabticketsupport" aria-controls="tabticketsupport" role="tab" data-toggle="tab">Ticket Supports</a></li>
                                     <li role="presentation" id="tab-expenditure"><a href="#tabexpenditure" aria-controls="tabexpenditure" role="tab" data-toggle="tab">Expenditure</a></li>
                                 <?php endif; ?>
                             </ul>
@@ -116,6 +117,26 @@
                                         <?php endif; ?>
 
                                         <table id="table-statuspart" data-sort-name="statudordparts" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarwriteups" data-toolbar-align="right"></table>
+
+
+                                    </div>
+
+                                    <div role="tab" class="tab-pane" id="tabticketsupport">
+
+                                        <?php if($profile!='TV'): ?>
+
+                                            <div id="custom-toolbarticketsupport">
+                                                <button class="btn btn-default filter" data-tabletarget="#table-ticketsupport" data-title="Search Write ups" data-descriptios="(Ticket Support)" data-filename="wps-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                                <button id="buttonApplyFilterticketsupport" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
+                                                <button id="exportcsvticketsupport" class="btn btn-default" style="margin-left:4px;" onclick=""><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                                <?php if($profile=='PARTSP'): ?>
+                                                <button id="audio1" class="btn btn-default" style="margin-left:4px;"><span class="fa fa-volume-up" aria-hidden="true"></span></button>
+                                                <?php endif; ?>
+                                            </div>
+                                            
+                                        <?php endif; ?>
+
+                                        <table id="table-ticketsupport" data-sort-name="ticketsupport" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarticketsupport" data-toolbar-align="right"></table>
 
 
                                     </div>
