@@ -113,7 +113,8 @@ $('#tab-ticketsupport').click(function(){
         url: "common/list_ticketsupport.php",
         dataType: "json",
         success: function (response) {
-            console.log(response);
+            
+			$('#table-ticketsupport').bootstrapTable('destroy');
             $('#table-ticketsupport').bootstrapTable({
                 data:response,
                 striped:true,
