@@ -49,11 +49,14 @@
 
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#tabdashboard" aria-controls="home" role="tab" data-toggle="tab">Dashboard</a></li>
+                                <li role="presentation" id= "tab-parts"><a href="#tabstatusparts" aria-controls="tabstatusparts" role="tab" data-toggle="tab">Status Parts</a></li>
+                               
                                 <?php  if ($profile=='ADMIN' || $profile=='MANAGERAD' || $profile=='ASSIST'): ?>
-                                    <li role="presentation"><a href="#tabwriteups" aria-controls="tabwriteups" role="tab" data-toggle="tab">Write Ups</a></li>
-                                    <li role="presentation" id= "tab-parts"><a href="#tabstatusparts" aria-controls="tabstatusparts" role="tab" data-toggle="tab">Status Parts</a></li>
-                                    <li role="presentation" id="tab-ticketsupport"><a href="#tabticketsupport" aria-controls="tabticketsupport" role="tab" data-toggle="tab">Ticket Supports</a></li>
+                                    <li role="presentation" id="tab-ticketsupport"><a href="#tabticketsupport" aria-controls="tabticketsupport" role="tab" data-toggle="tab">Support Tickets</a></li>
                                     <li role="presentation" id="tab-expenditure"><a href="#tabexpenditure" aria-controls="tabexpenditure" role="tab" data-toggle="tab">Expenditure</a></li>
+
+                                    <li role="presentation"><a href="#tabwriteups" aria-controls="tabwriteups" role="tab" data-toggle="tab">Write Ups</a></li>
+                                    
                                 <?php endif; ?>
                             </ul>
 
@@ -2154,7 +2157,7 @@
 
         <!-- Inicio Modal SEND TICKET-->
         <div class="modal" id="myModalCreateTicket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style='width:50%'>
                 <div class="modal-content">
                     <div class="modal-header" style="background:#009207;">
 						<font color='#fff'>
@@ -2186,7 +2189,7 @@
 						    </div>
                                                     
                                                     <div class="form-group">
-                                                        <label class="col-md-2 control-label" for="comments"><font color='#009207'>*</font> Comments:</label>
+                                                        <label class="col-md-2 control-label" for="comments"><font color='#009207'>*</font>Comments:</label>
                                                         <div class="col-md-10">
                                                             <textarea id="ticket-comments" class="form-control" rows="3" placeholder=""></textarea>
 															
@@ -2209,6 +2212,8 @@
             </div>
         </div>
         <!-- Fin Modal -->
+        <!-- MODAL VIEW TICKET -->
+      
 
 
 
