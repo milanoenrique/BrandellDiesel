@@ -28,7 +28,7 @@ $('#buttonSendTicket').click(function(){
             		console.log(response);
 					$('#myModalCreateTicket').modal('hide');
 					$('.nav.nav-tabs a[href=#tabticketsupport]').tab('show');
-					
+					$('#table-ticketsupport').bootstrapTable('destroy');
     	        	$('#table-ticketsupport').bootstrapTable({
         	      		data:response,
             	   		striped:true,
@@ -36,42 +36,49 @@ $('#buttonSendTicket').click(function(){
                 		[
 							[
 								{
-									field: 'subject',
-									title: 'Subject',
-									align: 'center',
-									valign: 'middle',
-									width: 1,
-								}, 
-								{
-									field: 'description',
-									title: 'Description',
-									align: 'center',
-									valign: 'middle',
-									width: 1
-								},
-							
-								{
-									field: 'created_at',
-									title: 'Date',
-									align: 'center',
-									valign: 'middle',
-                                   	width: 1,
-                                   	formatter:function(value){
-                                       	var localDate = moment(value).local();
-    									var Date = moment(value).format("MMM DD YYYY, hh:mm:ss a");
-    									return Date;
-                                   	}
-								}, 
-								{
 									field: 'created_by',
 									title: 'User',
 									align: 'center',
 									valign: 'middle',
 									width: 1,
-								}
+									
+								},
+								
+								{
+									field: 'created_at',
+									title: 'Date',
+									align: 'center',
+									valign: 'middle',
+                                    width: 1,
+                                    formatter:function(value){
+                                        var localDate = moment(value).local();
+    									var Date = moment(value).format("MMM DD YYYY, hh:mm:ss a");
+    									return Date;
+                                    }
+								}, 
+
+								{
+									field: 'subject',
+									title: 'Subject',
+									align: 'center',
+									valign: 'middle',
+									width: 1,
+									formatter:function(value){
+										let text ='<a href="#">'+value+'</a>';
+										return text;
+									}
+								}, 
+							
 								
 							]
-						]
+						],
+						onClickCell: function (field, value, row){
+							if(field=='subject'){
+								$('#myModalViewTicket').modal('show');
+								$('#myModalViewTicket #subject-view-ticket').text(row.subject);
+								$('#myModalViewTicket #view-ticket-comments').text(row.description);
+							}
+						}
             		});
 					$.ajax({
 						type: "post",
@@ -114,18 +121,12 @@ $('#tab-ticketsupport').click(function(){
                 [
 							[
 								{
-									field: 'subject',
-									title: 'Subject',
+									field: 'created_by',
+									title: 'User',
 									align: 'center',
 									valign: 'middle',
 									width: 1,
-								}, 
-								{
-									field: 'description',
-									title: 'Description',
-									align: 'center',
-									valign: 'middle',
-									width: 1
+									
 								},
 								
 								{
@@ -140,21 +141,34 @@ $('#tab-ticketsupport').click(function(){
     									return Date;
                                     }
 								}, 
+
 								{
-									field: 'created_by',
-									title: 'User',
+									field: 'subject',
+									title: 'Subject',
 									align: 'center',
 									valign: 'middle',
 									width: 1,
-									   
-                                
+									formatter:function(value){
+										let text ='<a href="#">'+value+'</a>'
+										return text;
+									},
 									
-								}
-								
+								}, 
+							
+							
 							]
 
 							
-				]
+				],
+				onClickCell: function (field, value, row){
+					if(field=='subject'){
+						if(field=='subject'){
+							$('#myModalViewTicket').modal('show');
+							$('#myModalViewTicket #subject-view-ticket').text(row.subject);
+							$('#myModalViewTicket #view-ticket-comments').text(row.description);
+						}
+					}
+				}
             }            
             );
         }
