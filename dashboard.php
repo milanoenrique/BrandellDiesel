@@ -2213,7 +2213,62 @@
         </div>
         <!-- Fin Modal -->
         <!-- MODAL VIEW TICKET -->
-      
+        <div class="modal" id="myModalViewTicket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog" style='width:50%'>
+                <div class="modal-content">
+                    <div class="modal-header" style="background:#009207;">
+						<font color='#fff'>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-ticket"></i>Support Ticket</h4>
+						</font>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-16">
+                            <div class="widget-box">
+                                <div class="widget-body">
+                                    <div class="modal-body datagrid table-responsive" >
+                                        <center>
+                                            <div class="panel-body" id="">
+                                                <form class="form-horizontal" style="text-align: left;" data-toggle="validator">
+													<div class="form-group">
+														<div class="col-md-12">
+                                                        <h4></h4>
+														
+													</div>
+
+                                                    <div class="form-group" id ="selectGroup">
+                                                        <label class="col-md-2 control-label" for="techName" style="padding-top:0px !important"><font color='#009207'>*</font>Subject:</label>
+                                                        <div class="col-md-10">
+                                                        <div id="subject-view-ticket" class='form-control'></div>
+								
+
+                                                        </div>
+						    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label" for="comments"><font color='#009207'>*</font>Comments:</label>
+                                                        <div class="col-md-10">
+                                                            <div id="view-ticket-comments" class="form-control" style="word-break: break-word;"></div>
+															
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </center>                                                                                                           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<font size="2">All fields marked with <font color='#009207' size="3">*</font> are required.</font>
+                    </div>  
+                    <div class="modal-footer" style="text-align:center !important;">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <!-- Fin Modal -->
+
 
 
 
