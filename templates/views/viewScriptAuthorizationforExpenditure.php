@@ -10,6 +10,7 @@
 			success: function (response) {
 				console.log(response);
 				result = response;
+				$('#table-expenditure').bootstrapTable('destroy');
 				$('#table-expenditure').bootstrapTable({
 				data: response,
 				striped: true,
@@ -221,7 +222,7 @@
 		
 		});
 	
-
+		
     $('#linkToAuthorizationExpenditure').click(function(){
 		$('#amount_request').val(0);
 		$.ajax({

@@ -1,4 +1,5 @@
 <?php
+	session_start();
     header('Content-Type: text/html; charset=utf-8');    
 	require('../fpdf/fpdf.php');
     include_once './connection.php';
@@ -12,22 +13,16 @@
 	$keyword      	= $valor[4];
 	$loguser		= $valor[5];
 	$action			= $valor[6];
-	
+	$iduser = $_SESSION['getValidateUser']['idUser'];
 		
-	if ($startdate == '' && $enddate == '' && $jobnumber == '' && $keyword == '')
-	{
-		$sth = $dbh->prepare("SELECT * FROM dashboard_lookup_print(:iduser);"); 
-		$sth->bindParam(':iduser',      $iduser,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
-	}		
-	else
-	{
+
 		$sth = $dbh->prepare("SELECT * FROM dashboard_lookup_print(:iduser,:startdate,:enddate,:jobnumber,:keyword);"); 
 		$sth->bindParam(':iduser',      $iduser,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':startdate',   $startdate, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':enddate',     $enddate,   PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':jobnumber',   $jobnumber, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':keyword',   	$keyword, 	PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
-    };
+  
 		
     $sth->execute();
     $retorno = $sth->fetchAll();
@@ -52,7 +47,7 @@ function Header()
 	$this->Cell(30,0,'Request date',0,0,'C');	
 	$this->Cell(30,0,'Deadline',0,0,'C');		
 	$this->Cell(15,0,'Status',0,0,'C');			
-	$this->Cell(30,0,'Close date',0,0,'C');
+	
 	$this->Ln(10);
 }
 
@@ -78,20 +73,19 @@ $this->Cell(0,100,'Page '.$this->PageNo().'/{nb}',0,0,'R');
 			$pd->SetFont('Arial','',8);
 			$cadena=$row['jobnumber'];
 			$pd->Cell(15,0,$cadena,0,0,'C');
-			$cadena=$row['requesttype'];
+			$cadena=$row['idrequesttype'];
 			$pd->Cell(15,0,$cadena,0,0,'C');			
 			$cadena=$row['techname'];
 			$pd->Cell(30,0,$cadena,0,0,'C');					
 			$cadena=$row['assignedto'];
 			$pd->Cell(30,0,$cadena,0,0,'C');				
-			$cadena=$row['requestdate'];
+			$cadena=substr($row['requestdate'],0,10);
 			$pd->Cell(30,0,$cadena,0,0,'C');	
-			$cadena=$row['deadline'];
+			$cadena=substr($row['deadline'],0,10);
 			$pd->Cell(30,0,$cadena,0,0,'C');		
 			$cadena=$row['status'];
 			$pd->Cell(15,0,$cadena,0,0,'C');				
-			$cadena=$row['closedate'];
-			$pd->Cell(30,0,$cadena,0,0,'C');	
+			
 			$pd->Ln(7);		
 		
     }    

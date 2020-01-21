@@ -1,4 +1,5 @@
 <?php
+session_start();
     header('Content-Type: text/html; charset=utf-8');    
     include_once './connection.php';
     
@@ -9,7 +10,7 @@
     $enddate        = $valor[2];
     $jobnumber      = $valor[3];
 	$keyword      	= $valor[4];
-
+    $iduser = $_SESSION['getValidateUser']['idUser'];
     $sth = $dbh->prepare("SELECT * FROM dashboard_lookup_search(:iduser,:startdate,:enddate,:jobnumber,:keyword);"); 
     $sth->bindParam(':iduser',      $iduser,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
     $sth->bindParam(':startdate',   $startdate, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);

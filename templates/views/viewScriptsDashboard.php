@@ -4268,6 +4268,7 @@ console.log('I3');
         }
 
 		function dashboardCSV(){
+            
 
             iduser          = $("#modal-filter #techId").val();
             startdate       = $("#modal-filter #startdate").val();
@@ -4301,7 +4302,7 @@ console.log('I3');
 					URL		= "common/dashboard_search.php";
 					DATA		= null;
 					VALOR		= iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
-					reloadDashboard(VALOR, 'common/dashboard_search.php');
+					//reloadDashboard(VALOR, 'common/dashboard_search.php');
 				}
 
 

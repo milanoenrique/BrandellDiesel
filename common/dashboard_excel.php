@@ -1,4 +1,5 @@
 <?php
+session_start();
     header('Content-Type: text/html; charset=utf-8');    
     include_once './connection.php';
     
@@ -8,22 +9,18 @@
     $startdate      = $valor[1];
     $enddate        = $valor[2];
     $jobnumber      = $valor[3];
-	$keyword      	= $valor[4];
+    $keyword      	= $valor[4];
+    
+    $iduser = $_SESSION['getValidateUser']['idUser'];
 		
-	if ($startdate == '' && $enddate == '' && $jobnumber == '' && $keyword == '')
-	{
-		$sth = $dbh->prepare("SELECT * FROM dashboard_lookup_print(:iduser);"); 
-		$sth->bindParam(':iduser',      $iduser,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
-	}		
-	else
-	{
+	
 		$sth = $dbh->prepare("SELECT * FROM dashboard_lookup_print(:iduser,:startdate,:enddate,:jobnumber,:keyword);"); 
 		$sth->bindParam(':iduser',      $iduser,    PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':startdate',   $startdate, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':enddate',     $enddate,   PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':jobnumber',   $jobnumber, PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
 		$sth->bindParam(':keyword',   	$keyword, 	PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT);
-    };
+    
 		
     $sth->execute();
     $retorno = $sth->fetchAll();
@@ -33,19 +30,21 @@
     {
         $dashboard[] = array
         (
-            'jobnumber'     => $row['jobnumber'],			
-			'techname'    	=> $row['techname'],
+            'idrequest'     => $row['idrequest'],
             'assignedto'    => $row['assignedto'],
-            'requestdate'   => $row['requestdate'], 
-			'closedate'   	=> $row['closedate'],
-			'atention_time_min' => $row['atention_time_min'],
-			'requesttype' 	=> $row['requesttype'], 
+            'colorflag'     => $row['colorflag'],
+            'deadline'      => $row['deadline'], 
+            'jobnumber'     => $row['jobnumber'],
+			'idrequesttype' => $row['idrequesttype'], 
+            'idpriority'    => $row['idpriority'], 
             'status'        => $row['status'], 
-            'engine'      	=> $row['engine'],
-            'vin'  			=> $row['vin'],
-            'trans'         => $row['trans'],
-			'reqcomment'	=> $row['reqcomment'],
-			'idrequest'     => $row['idrequest']
+            'techname'      => $row['techname'],
+            'visualeffect'  => $row['visualeffect'],
+            'assign'        => $row['jobnumber'],
+            'view'          => $row['jobnumber']."|".$row['reqcomment'],
+            'edit'          => $row['jobnumber'],
+            'delete'        => $row['jobnumber'],
+            'update'        => $row['jobnumber']
         );
     }
     

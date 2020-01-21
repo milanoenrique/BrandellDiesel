@@ -840,20 +840,20 @@
             //});
         }
 		
-		function dashboardCSV(){
-
-            iduser          = $("#writeupmodal-filter #techId").val();
-            writeupstartdate       = $("#writeupmodal-filter #writeupstartdate").val();
-            writeupenddate         = $("#writeupmodal-filter #writeupenddate").val();
-            jobnumber       = $("#writeupmodal-filter #jobnumber").val();
-			keyword       	= $("#writeupmodal-filter #keyword").val();
-            URL             = "common/dashboard_excel.php";
+		function writeUpsCSV(){
+			
+            iduser          = $("#modal-filter #techId").val();
+            writeupstartdate       = $("#modal-filter #startdate").val();
+            writeupenddate         = $('#modal-filter #enddate').val();
+            jobnumber       =null;
+			keyword       	= $("#modal-filter #keyword").val();
+            URL             = "common/wps-search.php";
             DATA            = null;
             VALOR           = iduser + "|" + writeupstartdate + "|" + writeupenddate + "|" + jobnumber + "|" + keyword;
             call_Ajax_Jsonp(URL, METODO, VALOR, LOADER, ERROR, function(data){
                 filter = 1;
                 writeupdashboard_data = data;				
-				downloadCSV({ data: writeupdashboard_data, filename: "dashboard.csv" });	
+				downloadCSV({ data: writeupdashboard_data, filename: "writeups.csv" });	
 
 				//**************FILTER DASHBOARD******************* ISKAR
 				if (filter === 0) {
@@ -883,7 +883,7 @@
             }); 				
         }
 
-		function dashboardPDF (action){
+		function dashboardPDF_wup(action){
 
             iduser          = $("#writeupmodal-filter #techId").val();
             writeupstartdate       = $("#writeupmodal-filter #writeupstartdate").val();

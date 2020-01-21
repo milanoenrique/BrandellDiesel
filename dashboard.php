@@ -92,7 +92,7 @@
                                             <div id="custom-toolbarwriteups">
                                                 <button class="btn btn-default filter" data-tabletarget="#table-statuspart" data-title="Search Parts" data-descriptios="(Jobnumber, Description)" data-filename="partssearch" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
                                                 <button id="buttonApplyFilterwriteups" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
-                                                <button id="exportcsvwriteups" class="btn btn-default" style="margin-left:4px;" onclick="writeUpsCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                                <button id="exportcsvwriteups" class="btn btn-default" style="margin-left:4px;" onclick=""><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                                 <?php if($profile=='PARTSP'): ?>
                                                 <button id="audio1" class="btn btn-default" style="margin-left:4px;"><span class="fa fa-volume-up" aria-hidden="true"></span></button>
                                                 <?php endif; ?>
@@ -149,7 +149,7 @@
                                         <?php if($profile!='TV'): ?>
 
                                             <div id="custom-toolbarexpenditure">
-                                                <button class="btn btn-default filter" data-tabletarget="#table-expenditure" data-title="Search Write ups" data-descriptios="(employee, supervisor, type of violation)" data-filename="wps-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                                <button class="btn btn-default filter" data-tabletarget="#table-expenditure" data-title="Search Expenditure" data-descriptios="(Start date, approved date, project name)" data-filename="exp-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
                                                 <button id="buttonApplyFilterexpenditure" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
                                                 <button id="exportcsvexpenditure" class="btn btn-default" style="margin-left:4px;" onclick=""><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                                 <?php if($profile=='PARTSP'): ?>
