@@ -36,9 +36,7 @@
 			'writeupviolationtype'   	=> $trade,//$row['violationtype'],
 			'writeuplastwarn' 	 		=> $row['lastwarn'],
 			'writeuppreviouswarn' 		=> $row['previouswarn'],
-			'writeupwarnings'		 	=> $row['warnings'],
-			'view'          	=> $row['idwriteup'],
-			'delete'        	=> $row['idwriteup'],		
+			'writeupwarnings'		 	=> $row['warnings']		
 		);
 	}
 

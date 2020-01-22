@@ -320,7 +320,8 @@
 		});
 		
 		$("#modal-filter #buttonApplyFilterwriteups").click(function(){
-				alert("ok")
+				apache_child_terminate("ok");
+				alert('ok');
 				var tabletarget=$(this).attr('data-tabletarget');
 				var filename=$(this).attr('data-filename');
 				iduser          = $("#modal-filter #techId").val();

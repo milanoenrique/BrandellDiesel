@@ -36,3 +36,4 @@ PL/pgSQL function insert_ticket_support(json) line 6 at SQL statement
 [2020-01-16 17:02:42.64438700] transaction successfully
 [2020-01-16 17:04:50.00101300] transaction successfully
 [2020-01-16 17:05:07.99598400] transaction successfully
+[2020-01-21 18:57:04.05388100] transaction successfully registration expenditure complete

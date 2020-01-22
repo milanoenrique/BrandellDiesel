@@ -175,4 +175,20 @@ $('#tab-ticketsupport').click(function(){
         }
     });
 });
+
+function ticketscsv(){
+	iduser          = $("#modal-filter #techId").val();
+    let startdate       = $("#modal-filter #startdate").val();
+    let enddate         = $('#modal-filter #enddate').val();
+    jobnumber       =null;
+	let keyword       	= $("#modal-filter #keyword").val();
+    URL             = "common/tck-search.php";
+    DATA            = null;
+    VALOR           = iduser + "|" + startdate + "|" +enddate + "|" + jobnumber + "|" + keyword;
+	call_Ajax_Jsonp(URL, METODO, VALOR, LOADER, ERROR, function(data){
+                filter = 1;
+                writeupdashboard_data = data;				
+				downloadCSV({ data: writeupdashboard_data, filename: "tickets_support.csv" });
+	});
+}
 </script>

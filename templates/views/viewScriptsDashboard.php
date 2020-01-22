@@ -3126,7 +3126,22 @@ console.log('I3');
                 jobnumber       = $("#modal-filter #jobnumber").val();
 				keyword       	= $("#modal-filter #keyword").val();
 
-				if (startdate!='' && enddate== '' )
+                if(tabletarget=='#table-expenditure'){
+                    VALOR           = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
+                    $.ajax({
+                        type: "get",
+                        url: "common/exp-search.php",
+                        data:{'v':VALOR},
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            result =  response;
+                            $('#table-expenditure').bootstrapTable('load',result);
+                              $('#modal-filter').modal('toggle');
+                        }
+                    });
+                }else{
+                    if (startdate!='' && enddate== '' )
 				{
 					alert('Please, complete the end date.');
 				}else{
@@ -3157,6 +3172,10 @@ console.log('I3');
 					}
 
 				}
+
+                }
+
+				
             });
 
 			$("#custom-toolbar #buttonApplyFilter").click(function(){

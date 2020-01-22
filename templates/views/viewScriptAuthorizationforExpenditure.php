@@ -2,15 +2,13 @@
 	//Mostrar Modal
 	var result=[];
 	var expenditure;
-	$('#tab-expenditure').click(function(){
+	$(document).ready(function () {
 		$.ajax({
 			type: "get",
 			url: "common/list_expenditure.php",
 			dataType: "json",
 			success: function (response) {
-				console.log(response);
 				result = response;
-				$('#table-expenditure').bootstrapTable('destroy');
 				$('#table-expenditure').bootstrapTable({
 				data: response,
 				striped: true,
@@ -133,37 +131,7 @@
 
 						if(field === "id"){ 
 							printpdf_expenditure(value);
-							/*$('#myModalAuthorizationExpenditure-view').modal('show');
-							$.ajax({
-								type: "POST",
-								url: "common/show_expenditure.php",
-								data: {'data':value},
-								dataType: "json",
-								success: function (response) {
-									response[0].support_documentation = (response[0].support_documentation==null)?'':response[0].support_documentation;	
-									$('#myModalAuthorizationExpenditure-view  #id_expenditure').val(response[0].id);
-									$('#myModalAuthorizationExpenditure-view  #project_name_view').text(response[0].project_name);
-									$('#myModalAuthorizationExpenditure-view  #afe_number_view').text(response[0].afe_number);
-									$('#myModalAuthorizationExpenditure-view  #project_description_view').text(response[0].description);
-									$('#myModalAuthorizationExpenditure-view  #start_date_view').text(response[0].starting_date);
-									$('#myModalAuthorizationExpenditure-view  #anticipated_date_view').text(response[0].anticipated_date);
-									$('#myModalAuthorizationExpenditure-view  #amount_request_view').text(response[0].amount);
-									$('#myModalAuthorizationExpenditure-view  #requested_by_view').text(response[0].request_by);
-									$('#myModalAuthorizationExpenditure-view  #request_signature_view').text(response[0].request_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_signature_view').text(response[0].date_request);
-									$('#myModalAuthorizationExpenditure-view  #president_print_name_view').text(response[0].president_name);
-									$('#myModalAuthorizationExpenditure-view  #president_signature_view').text(response[0].president_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_approved_president_view').text(response[0].president_date_approved);
-									$('#myModalAuthorizationExpenditure-view  #cfo_name_view').text(response[0].cfo_name);
-									$('#myModalAuthorizationExpenditure-view  #cfo_signature_view').text(response[0].cfo_signature);
-									$('#myModalAuthorizationExpenditure-view  #date_approved_cfo_view').text(response[0].cfo_date_approved);
-									if(response[0].support_documentation!=''){
-										$('#myModalAuthorizationExpenditure-view #exp_view_'+response[0].support_documentation+'').prop('checked', true);
-									}	
-								}
-								
-							
-							});*/
+						
 						}else if(field === "edit" && row.status != "C"){ 
 
 							DATA    = null;
@@ -217,6 +185,21 @@
 							}
 						}          
 				});
+			}
+			});
+		
+	});
+	
+	$('#tab-expenditure').click(function(){
+		$.ajax({
+			type: "get",
+			url: "common/list_expenditure.php",
+			dataType: "json",
+			success: function (response) {
+				console.log(response);
+				result = response;
+				$('#table-expenditure').bootstrapTable('load',result);
+				
 			}
 			});
 		
@@ -739,4 +722,23 @@
 			printJS('PDF/expenditure_'+ id +'.pdf');
 		}	
 
+function expenditureCSV(){
+	iduser          = $("#modal-filter #techId").val();
+    startdate       = $("#modal-filter #startdate").val();
+    enddate         = $("#modal-filter #enddate").val();
+    jobnumber       = $("#modal-filter #jobnumber").val();
+	keyword       	= $("#modal-filter #keyword").val();
+	VALOR           = iduser + "|" + startdate + "|" + enddate + "|" + jobnumber + "|" + keyword;
+	$.ajax({
+                        type: "get",
+                        url: "common/exp-search.php",
+                        data:{'v':VALOR},
+                        dataType: "json",
+                        success: function (response) {
+							downloadCSV({ data: response, filename: "Expenditure.csv" });
+                            
+
+                        }
+                    });
+}
 </script>

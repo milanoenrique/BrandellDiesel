@@ -129,9 +129,9 @@
                                         <?php if($profile!='TV'): ?>
 
                                             <div id="custom-toolbarticketsupport">
-                                                <button class="btn btn-default filter" data-tabletarget="#table-ticketsupport" data-title="Search Write ups" data-descriptios="(Ticket Support)" data-filename="wps-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
+                                                <button class="btn btn-default filter" data-tabletarget="#table-ticketsupport" data-title="Search Ticket Support" data-descriptios="(Ticket Support)" data-filename="tck-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
                                                 <button id="buttonApplyFilterticketsupport" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
-                                                <button id="exportcsvticketsupport" class="btn btn-default" style="margin-left:4px;" onclick=""><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                                <button id="exportcsvticketsupport" class="btn btn-default" style="margin-left:4px;" onclick="ticketscsv()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                                 <?php if($profile=='PARTSP'): ?>
                                                 <button id="audio1" class="btn btn-default" style="margin-left:4px;"><span class="fa fa-volume-up" aria-hidden="true"></span></button>
                                                 <?php endif; ?>
@@ -150,8 +150,8 @@
 
                                             <div id="custom-toolbarexpenditure">
                                                 <button class="btn btn-default filter" data-tabletarget="#table-expenditure" data-title="Search Expenditure" data-descriptios="(Start date, approved date, project name)" data-filename="exp-search" style="margin-left:4px;"><span class="fa fa-search" aria-hidden="true"></span></button>
-                                                <button id="buttonApplyFilterexpenditure" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
-                                                <button id="exportcsvexpenditure" class="btn btn-default" style="margin-left:4px;" onclick=""><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
+                                                <button id="buttonApplyFilterExpenditure" class="btn btn-default" style="margin-left:4px;" onClick='clearObj("input.form-control","filter");'><span class="fa fa-times" aria-hidden="true"></span></button>
+                                                <button id="exportcsvexpenditure" class="btn btn-default" style="margin-left:4px;" onclick="expenditureCSV()"><span class="fa fa-file-excel-o" aria-hidden="true"></span></button>
                                                 <?php if($profile=='PARTSP'): ?>
                                                 <button id="audio1" class="btn btn-default" style="margin-left:4px;"><span class="fa fa-volume-up" aria-hidden="true"></span></button>
                                                 <?php endif; ?>
@@ -159,7 +159,7 @@
                                             
                                         <?php endif; ?>
 
-                                        <table id="table-expenditure" data-sort-name="statudordparts" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarexpenditure" data-toolbar-align="right"></table>
+                                        <table id="table-expenditure" data-sort-name="expenditure" data-sort-order="desc" data-show-refresh="false" data-show-toggle="false" data-show-columns="false" data-search="<?php if($profile!='TV'){echo 'true';}else{echo 'false';}?>" data-pagination="true" data-page-list="[5, 10, 20, 50, 100, 200]" data-toolbar="#custom-toolbarexpenditure" data-toolbar-align="right"></table>
 
 
                                     </div>
@@ -2298,6 +2298,8 @@
                 require_once('templates/views/viewScriptAuthorizationforExpenditure.php');
                 
             }
+            require_once('templates/views/viewScriptCreateTicket.php');
+            require_once('templates/views/viewScriptsDashboard.php');
 
         ?>
 
